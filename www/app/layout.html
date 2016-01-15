@@ -14,11 +14,11 @@
 
   <ion-side-menu side="left">
     <ion-header-bar class="bar-stable">
-      <h1 class="title">Left</h1>
+      <h1 class="title">Healthcafe</h1>
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item ng-if="!app.isAuthenticated" menu-close ng-click="app.login()">
+        <ion-item ng-if="!app.isAuthenticated" ng-click="app.login()">
           Login
         </ion-item>
         <ion-item ng-if="app.isAuthenticated" menu-close ng-click="app.logoff()" href="#/app/intro">
