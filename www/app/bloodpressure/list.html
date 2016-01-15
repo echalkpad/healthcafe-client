@@ -11,9 +11,13 @@
           <i class="ion {{event.badgeIconClass}}"></i>
         </timeline-badge>
         <timeline-panel class="{{event.badgeClass}}">
-          <timeline-heading>
+          <timeline-heading ng-if="event.type == 'measurement'">
             <h4>Blood pressure: {{event.datapoint.body.systolic_blood_pressure.value}} / {{event.datapoint.body.diastolic_blood_pressure.value}}</h4>
-            <p><small class="text-muted"><i class="ion ion-clock"></i>{{event.datapoint.header.creation_date_time | date}}</small></p>
+            <p><small class="text-muted"><i class="ion ion-clock"></i>{{event.date | date}}</small></p>
+          </timeline-heading>
+          <timeline-heading ng-if="event.type == 'intervention'">
+            <h4>{{event.message}}</h4>
+            <p><small class="text-muted"><i class="ion ion-clock"></i>{{event.date | date}}</small></p>
           </timeline-heading>
         </timeline-panel>
       </timeline-event>

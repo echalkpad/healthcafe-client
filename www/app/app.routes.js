@@ -28,9 +28,9 @@
 		  // Cholesterol
 		  .state('app.bloodpressure', {
 		    url: '/bloodpressure',
+        cache: false,
         views: {
           'mainContent': {
-            cache: false,
             templateUrl: 'app/bloodpressure/list.html',
             controller: 'BloodPressureController as bloodpressure'
           }
