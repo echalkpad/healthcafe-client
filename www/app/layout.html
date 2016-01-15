@@ -24,14 +24,14 @@
         <ion-item ng-if="app.isAuthenticated" menu-close ng-click="app.logoff()" href="#/app/intro">
           Logoff
         </ion-item>
-        <ion-item menu-close href="#/app/search">
-          Search
+        <ion-item ng-if="app.isAuthenticated" menu-close href="#/app/bloodpressure">
+          Blood pressure
         </ion-item>
-        <ion-item menu-close href="#/app/browse">
-          Browse
+        <ion-item ng-if="app.isAuthenticated" menu-close href="#/app/bloodglucose">
+          Blood glucose
         </ion-item>
-        <ion-item menu-close href="#/app/playlists">
-          Playlists
+        <ion-item ng-if="app.isAuthenticated" menu-close href="#/app/cholesterol">
+          Cholesterol
         </ion-item>
       </ion-list>
     </ion-content>
