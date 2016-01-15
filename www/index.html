@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="lib/timeline/angular-timeline.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- angular directives -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-messages.js"></script>
+    <script src="lib/angular.uuid2.js"></script>
+    <script src="lib/timeline/angular-timeline.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="app/app.module.js"></script>
+    <script src="app/app.config.js"></script>
+    <script src="app/app.routes.js"></script>
+
+    <!-- Startup and login logic -->
+    <script src="app/intro/index.controller.js"></script>
+    <script src="app/intro/intro.controller.js"></script>
+    <script src="app/login/login.controller.js"></script>
+    <script src="app/login/oauth2.service.js"></script>
+    <script src="app/login/oauth2_interceptor.service.js"></script>
+
+    <!-- Generic datapoint logic -->
+    <script src="app/generic/list.controller.js"></script>
+    <script src="app/generic/create.controller.js"></script>
+    <script src="app/generic/datapoints.service.js"></script>
+
+    <!-- Blood pressure logic -->
+    <script src="app/bloodpressure/bloodpressure.controller.js"></script>
+    <script src="app/bloodpressure/bloodpressure_create.controller.js"></script>
+    <script src="app/bloodpressure/bloodpressure.service.js"></script>
+  </head>
+  <body ng-app="healthcafe">
+    <!--
+      The nav bar that will be updated as we navigate between views.
+    -->
+    <ion-nav-bar class="bar-stable">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+    </ion-nav-bar>
+    <!--
+      The views will be rendered in the <ion-nav-view> directive below
+      Templates are in the /templates folder (but you could also
+      have templates inline in this html file if you'd like).
+    -->
+    <ion-nav-view></ion-nav-view>
+  </body>
+</html>
