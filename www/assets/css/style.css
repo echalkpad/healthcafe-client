@@ -1,1 +1,5 @@
-/* Empty. Add your own CSS if you like */
+/* Additional styling for timeline */
+ul.timeline li { margin-bottom: 12px; }
+ul.timeline li timeline-panel { padding: 4px 12px }
+.text-muted { color: #999; }
+.text-muted i { margin-right: 5px; }

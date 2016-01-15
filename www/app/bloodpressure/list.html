@@ -4,16 +4,19 @@
       <i class="ion ion-plus"></i>
     </a>
   </ion-nav-buttons>
-  <ion-content>
-    <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="datapoint in bloodpressure.datapoints" type="item-text-wrap">
-        {{datapoint.header.creation_date_time | date}}
-        <h2>{{datapoint.body.systolic_blood_pressure.value}} / {{datapoint.body.diastolic_blood_pressure.value}}</h2>
-
-        <ion-option-button class="button-assertive" ng-click="bloodpressure.remove(datapoint.header.id)">
-          Delete
-        </ion-option-button>
-      </ion-item>
-    </ion-list>
+  <ion-content class="padding">
+    <timeline>
+      <timeline-event ng-repeat="event in bloodpressure.events" side="right" ng-swipe-right="console.log( 'swipe right', this);">
+        <timeline-badge class="{{event.badgeClass}}">
+          <i class="ion {{event.badgeIconClass}}"></i>
+        </timeline-badge>
+        <timeline-panel class="{{event.badgeClass}}">
+          <timeline-heading>
+            <h4>Blood pressure: {{event.datapoint.body.systolic_blood_pressure.value}} / {{event.datapoint.body.diastolic_blood_pressure.value}}</h4>
+            <p><small class="text-muted"><i class="ion ion-clock"></i>{{event.datapoint.header.creation_date_time | date}}</small></p>
+          </timeline-heading>
+        </timeline-panel>
+      </timeline-event>
+    </timeline>
   </ion-content>
 </ion-view>

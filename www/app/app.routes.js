@@ -6,43 +6,50 @@
 	  // Set up the various states which the app can be in.
 	  // Each state's controller can be found in controllers.js
 	  $stateProvider
-		  //  Index page to distinguish between new users or users already logged in
-		  .state('index', {
-		    url: '/index',
-		    controller: 'IndexController as index'
-		  })
+      // Main App layout with left menu
+      .state('app', {
+        url: '/app',
+        abstract: true,
+        templateUrl: 'app/layout.html',
+        controller: 'AppController as app'
+      })
 
 		  // Initial introduction page
-		  .state('intro', {
+		  .state('app.intro', {
 		    url: '/intro',
-		    templateUrl: 'app/intro/intro.html',
-		    controller: 'IntroController as intro'
-		  })
-
-		  // Login screen for the user (in practice redirects to the NRC login screen)
-		  .state('login', {
-		    url: '/login',
-		    templateUrl: 'app/login/login.html',
-		    controller: 'LoginController as login'
+        views: {
+          'mainContent': {
+            templateUrl: 'app/intro/intro.html',
+            controller: 'IntroController as intro'
+          }
+        }
 		  })
 
 		  // Cholesterol
-		  .state('bloodpressure', {
+		  .state('app.bloodpressure', {
 		    url: '/bloodpressure',
-        cache: false,
-		    templateUrl: 'app/bloodpressure/list.html',
-		    controller: 'BloodPressureController as bloodpressure'
+        views: {
+          'mainContent': {
+            cache: false,
+            templateUrl: 'app/bloodpressure/list.html',
+            controller: 'BloodPressureController as bloodpressure'
+          }
+        }
 		  })
 
 		  // Add cholesterol measurement
-		  .state('bloodpressure_add', {
+		  .state('app.bloodpressure_add', {
 		    url: '/bloodpressure/add',
-		    templateUrl: 'app/bloodpressure/create.html',
-		    controller: 'BloodPressureCreateController as bloodpressure'
+        views: {
+          'mainContent': {
+            templateUrl: 'app/bloodpressure/create.html',
+    		    controller: 'BloodPressureCreateController as bloodpressure'
+          }
+        }
 		  })
 
 	  // if none of the above states are matched, use this as the fallback
-	  $urlRouterProvider.otherwise('/index');
+	  $urlRouterProvider.otherwise('/app/intro');
 
 	});
 })();
