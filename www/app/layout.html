@@ -24,6 +24,9 @@
         <ion-item ng-if="app.isAuthenticated" menu-close ng-click="app.logoff()" href="#/app/intro">
           Logoff
         </ion-item>
+        <ion-item ng-if="app.isAuthenticated" menu-close href="#/app/timeline">
+          All measurements
+        </ion-item>
         <ion-item ng-if="app.isAuthenticated" menu-close href="#/app/bloodpressure">
           Blood pressure
         </ion-item>

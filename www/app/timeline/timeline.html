@@ -1,0 +1,24 @@
+<ion-view view-title="All measurements">
+  <ion-nav-buttons side="secondary">
+    <a ng-click="timeline.popover.show($event)" class="button">
+      <i class="ion ion-plus"></i>
+    </a>
+  </ion-nav-buttons>
+  <ion-content class="padding">
+    <timeline>
+      <timeline-event ng-repeat="event in timeline.events" side="right">
+        <timeline-badge class="{{event.badgeClass}}">
+          <i class="ion {{event.badgeIconClass}}"></i>
+        </timeline-badge>
+        <timeline-panel class="{{event.badgeClass}}">
+          <timeline-heading>
+            <h4 ng-if="event.type == 'intervention'">{{event.message}}</h4>
+            <h4 ng-if="event.measurementType == 'blood-pressure'">Blood pressure: {{event.datapoint.body.systolic_blood_pressure.value}} / {{event.datapoint.body.diastolic_blood_pressure.value}}</h4>
+            <h4 ng-if="event.measurementType == 'body-weight'">Body weight: {{event.datapoint.body.body_weight.value}} {{event.datapoint.body.body_weight.unit}}</h4>
+            <p><small class="text-muted"><i class="ion ion-clock"></i>{{event.date | date}}</small></p>
+          </timeline-heading>
+        </timeline-panel>
+      </timeline-event>
+    </timeline>
+  </ion-content>
+</ion-view>

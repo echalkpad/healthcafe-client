@@ -4,7 +4,7 @@
 function GenericCreateController($ionicHistory, Model) {
   var vm = this;
 
-  vm.data = {};
+  vm.data = typeof Model.defaults != 'undefined' ? Model.defaults() : {};
 
   vm.save = function() {
     Model.create(vm.data).then(function(data) {

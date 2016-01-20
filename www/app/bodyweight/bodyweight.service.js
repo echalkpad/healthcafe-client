@@ -1,5 +1,5 @@
 (function() {
-	angular.module('healthcafe.body_weight')
+	angular.module('healthcafe.bodyweight')
 		.factory('BodyWeight', BodyWeight );
 
   BodyWeight.$inject = [ 'Datapoints' ];

@@ -1,0 +1,19 @@
+<ion-view view-title="New body weight measurement">
+  <ion-content>
+    <form ng-submit="bodyweight.save()">
+      <ion-list>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Body weight
+          </div>
+          <input type="number" ng-model="bodyweight.data.weight" placeholder="body weight in kg" />
+        </ion-item>
+      </ion-list>
+      <p class="padding">
+        <button type="submit" class="button button-block button-ssh">
+          Save
+        </button>
+      </p>
+    </form>
+  </ion-content>
+</ion-view>

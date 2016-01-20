@@ -58,6 +58,11 @@
       return $http.post( url, datapoint);
     }
 
+    // Default values for the datapoint when creating one
+    Datapoints.prototype.defaults = function() {
+      return {};
+    }
+
     Datapoints.prototype.createDatapoint = function( body ) {
       return {
         header: {

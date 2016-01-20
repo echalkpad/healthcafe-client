@@ -6,6 +6,9 @@
 	    'healthcafe.intro',
 	    'healthcafe.login',
 	    'healthcafe.bloodpressure',
+	    'healthcafe.bodyweight',
+	    'healthcafe.timeline',
+	    'healthcafe.remarks'
     ];
 
 	angular.module('healthcafe', ['ionic', 'ngMessages', 'angularUUID2', 'angular-timeline' ].concat(appModules) )

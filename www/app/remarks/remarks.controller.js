@@ -1,23 +1,23 @@
 (function() {
-	angular.module('healthcafe.bloodpressure')
-		.controller('BloodPressureController', BloodPressureController );
+	angular.module('healthcafe.remarks')
+		.controller('RemarksController', RemarksController );
 
-		BloodPressureController.$inject = [ 'BloodPressure' ];
+		RemarksController.$inject = [ 'Remarks' ];
 
-		function BloodPressureController(Model) {
+		function RemarksController(Model) {
       var vm = this;
 
       function load() {
-        vm.events = []
+        vm.remarks = []
         Model.list().then(function(data) {
-          vm.events = data;
+          vm.remarks = data;
         });
       }
 
       function refresh() {
-        vm.events = []
+        vm.remarks = []
         Model.load().then(function(data) {
-          vm.events = data;
+          vm.remarks = data;
         });
       }
 

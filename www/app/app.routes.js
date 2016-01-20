@@ -25,7 +25,19 @@
         }
 		  })
 
-		  // Cholesterol
+		  // Timeline
+		  .state('app.timeline', {
+		    url: '/timeline',
+        cache: false,
+        views: {
+          'mainContent': {
+            templateUrl: 'app/timeline/timeline.html',
+            controller: 'TimelineController as timeline'
+          }
+        }
+		  })
+
+		  // Blood Pressure
 		  .state('app.bloodpressure', {
 		    url: '/bloodpressure',
         cache: false,
@@ -37,7 +49,7 @@
         }
 		  })
 
-		  // Add cholesterol measurement
+		  // Add blood pressure measurement
 		  .state('app.bloodpressure_add', {
 		    url: '/bloodpressure/add',
         views: {
@@ -47,6 +59,29 @@
           }
         }
 		  })
+
+		  // Add body weight measurement
+		  .state('app.bodyweight_add', {
+		    url: '/bodyweight/add',
+        views: {
+          'mainContent': {
+            templateUrl: 'app/bodyweight/create.html',
+    		    controller: 'BodyWeightCreateController as bodyweight'
+          }
+        }
+		  })
+
+		  // Add remarks measurement
+		  .state('app.remarks_add', {
+		    url: '/remarks/add',
+        views: {
+          'mainContent': {
+            templateUrl: 'app/remarks/create.html',
+    		    controller: 'RemarksCreateController as remarks'
+          }
+        }
+		  })
+
 
 	  // if none of the above states are matched, use this as the fallback
 	  $urlRouterProvider.otherwise('/app/intro');
