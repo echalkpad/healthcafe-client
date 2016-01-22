@@ -3,5 +3,13 @@
   "private": "true",
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.2.4"
+  },
+  "resolutions": {
+    "angular": "1.4.3"
+  },
+  "dependencies": {
+    "angular-timeline": "~1.6.2",
+    "omh-web-visualizations": "~1.2.1",
+    "Angular.uuid2": "angular-uuid2#*"
   }
 }
