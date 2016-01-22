@@ -5,10 +5,31 @@
   DatapointsFactory.$inject = [ '$http', '$q', 'uuid2', 'OAuth2' ];
 
 	function DatapointsFactory($http, $q, uuid2, OAuth2) {
+
+
     // Converter is needed to convert input data into a proper body for
     // the openmhealth API
-    var Datapoints = function(schema, converter) {
+
+    /**
+     * Constructor for a generic datapoint service. Available methods (returning a promise to perform the work async):
+     *    load      Loads datapoints with the given schema from the NRC instance
+     *    list      Returns datapoints with the given schema (from cache, if possible, otherwise using load())
+     *    get       Returns a datapoint with the given ID
+     *    remove    Removes a datapoint with the given ID
+     *    create    Creates a new datapoint. Data specified is being converted using the converter (specified in the constructor)
+     *
+     *  The following methods return some metadata immediately
+     *
+     *    defaults  Returns a map with default values to show when a user creates a new datapoint
+     *    chartableProperties Returns a comma-separated string with properties that can be charted for this datatype
+     *
+     * @param schema map with namespace, name and version, identifying the schema for this datatype
+     * @param chartablePropertyNames Comma-separated string with properties that can be charted for this datatype
+     * @param converter method to convert the data from a newly created dataobject (see GenericCreateController) into a OMH datapoint body
+     */
+    var Datapoints = function(schema, chartablePropertyNames, converter) {
       this.schema = schema;
+      this.propertyNames = chartablePropertyNames;
       this.converter = converter;
       this.cache = null;
     }
@@ -61,6 +82,13 @@
     // Default values for the datapoint when creating one
     Datapoints.prototype.defaults = function() {
       return {};
+    }
+
+    /**
+     * Returns a comma-separated-string with properties that can be charted for this datatype. See OMH Web Visualizations
+     */
+    Datapoints.prototype.chartableProperties = function() {
+      return this.propertyNames;
     }
 
     Datapoints.prototype.createDatapoint = function( body ) {
