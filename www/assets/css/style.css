@@ -4,6 +4,9 @@ ul.timeline li timeline-panel { padding: 4px 12px }
 .text-muted { color: #999; }
 .text-muted i { margin-right: 5px; }
 
-/* Charts styling */
+/* Charts styling: fullscreen charts */
 .chart-container { height: 100%; }
 .chart-container > .scroll { height: 100%; }
+
+/* Charts styling: tooltips on top */
+.d3-tip { z-index: 10; }
