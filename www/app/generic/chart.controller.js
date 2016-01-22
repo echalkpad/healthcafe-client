@@ -29,14 +29,21 @@
             vm.chart.destroy();
 
           var targetElement = d3.select($scope.selector);
-          vm.chart = new OMHWebVisualizations.Chart( omhDataPoints, targetElement, $scope.model.chartableProperties() );
+          vm.chart = new OMHWebVisualizations.Chart(
+            omhDataPoints, targetElement, $scope.model.chartableProperties(),
+            {
+              'measures': {
+                'body_weight': {
+                  'thresholds': { 'max': null },  // Disable default threshold
+                }
+              }
+            }
+          );
         }
 
         function showChart() {
           var targetElement = d3.select($scope.selector);
           var chart = getChart();
-
-          console.log( "Show chart", chart, vm.events );
 
           if( chart ) {
             chart.renderTo(targetElement.select('svg').node());
@@ -75,10 +82,6 @@
 
           // Redraw the chart on resize
           angular.element($window).bind('resize', showChart);
-
-          // Show chart on enter (otherwise the chart will not be drawn when a user reenters)
-          if( vm.events && vm.events.length > 0 )
-            showChart();
         });
         $scope.$on('$ionicView.leave', function(){
           $ionicSideMenuDelegate.canDragContent(true);
