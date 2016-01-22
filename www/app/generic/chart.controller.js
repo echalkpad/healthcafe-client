@@ -35,7 +35,13 @@
               'measures': {
                 'body_weight': {
                   'thresholds': { 'max': null },  // Disable default threshold
-                }
+                },
+                'body-mass-index' : {
+                  'valueKeyPath': 'body.body_mass_index.value',
+                  'range': { 'min': 10, 'max': 40 },
+                  'units': 'kg/m2',
+                  'thresholds': { 'min': 18, 'max': 25  },
+                },
               }
             }
           );

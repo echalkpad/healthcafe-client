@@ -13,6 +13,7 @@
     vm.data = typeof $scope.model.defaults != 'undefined' ? $scope.model.defaults() : {};
 
     vm.save = function() {
+      console.log( "SAVING!" );
       $scope.model.create(vm.data).then(function(data) {
         $scope.model.load().then(function() {
           $ionicHistory.goBack();

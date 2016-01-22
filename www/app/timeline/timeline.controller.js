@@ -2,14 +2,15 @@
 	angular.module('healthcafe.timeline')
 		.controller('TimelineController', TimelineController );
 
-		TimelineController.$inject = [ 'BloodPressure', 'BodyWeight', 'Remarks', '$q', '$ionicPopover'];
+		TimelineController.$inject = [ 'BloodPressure', 'BodyWeight', 'BMI', 'Remarks', '$q', '$ionicPopover'];
 
-		function TimelineController(BloodPressure, BodyWeight, Remarks, $q, $ionicPopover) {
+		function TimelineController(BloodPressure, BodyWeight, BMI, Remarks, $q, $ionicPopover) {
       var vm = this;
 
       var definitions = {
         'blood-pressure': { icon: 'ion-compass', color: 'info' },
         'body-weight': { icon: 'ion-speedometer', color: 'warning' },
+        'body-mass-index': { icon: 'ion-ios-flame', color: 'positive'}
       };
 
       /**

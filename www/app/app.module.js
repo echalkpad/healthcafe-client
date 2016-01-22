@@ -7,6 +7,9 @@
 	    'healthcafe.login',
 	    'healthcafe.bloodpressure',
 	    'healthcafe.bodyweight',
+	    'healthcafe.bmi',
+	    'healthcafe.bloodglucose',
+	    'healthcafe.cholesterol',
 	    'healthcafe.timeline',
 	    'healthcafe.remarks'
     ];

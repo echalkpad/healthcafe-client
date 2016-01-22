@@ -1,6 +1,14 @@
 // Healthcafe routes
 (function() {
 	angular.module('healthcafe').config(function($stateProvider, $urlRouterProvider) {
+    var datatypes = [
+      { name: 'bloodpressure', controllerPrefix: 'BloodPressure' },
+      { name: 'bodyweight', controllerPrefix: 'BodyWeight' },
+      { name: 'bmi', controllerPrefix: 'BMI' },
+      { name: 'bloodglucose', controllerPrefix: 'BloodGlucose' },
+      { name: 'cholesterol', controllerPrefix: 'Cholesterol' },
+    ];
+
 	  // Ionic uses AngularUI Router which uses the concept of states
 	  // Learn more here: https://github.com/angular-ui/ui-router
 	  // Set up the various states which the app can be in.
@@ -37,51 +45,6 @@
         }
 		  })
 
-		  // Blood Pressure
-		  .state('app.bloodpressure', {
-		    url: '/bloodpressure',
-        cache: false,
-        views: {
-          'mainContent': {
-            templateUrl: 'app/bloodpressure/chart.html',
-            controller: 'BloodPressureController as bloodpressure'
-          }
-        }
-		  })
-
-		  // Add blood pressure measurement
-		  .state('app.bloodpressure_add', {
-		    url: '/bloodpressure/add',
-        views: {
-          'mainContent': {
-            templateUrl: 'app/bloodpressure/create.html',
-    		    controller: 'BloodPressureCreateController as bloodpressure'
-          }
-        }
-		  })
-
-		  // Blood Pressure
-		  .state('app.bodyweight', {
-		    url: '/bodyweight',
-        cache: false,
-        views: {
-          'mainContent': {
-            templateUrl: 'app/bodyweight/chart.html',
-            controller: 'BodyWeightController as bodyweight'
-          }
-        }
-		  })
-
-		  // Add body weight measurement
-		  .state('app.bodyweight_add', {
-		    url: '/bodyweight/add',
-        views: {
-          'mainContent': {
-            templateUrl: 'app/bodyweight/create.html',
-    		    controller: 'BodyWeightCreateController as bodyweight'
-          }
-        }
-		  })
 
 		  // Add remarks measurement
 		  .state('app.remarks_add', {
@@ -92,8 +55,35 @@
     		    controller: 'RemarksCreateController as remarks'
           }
         }
-		  })
+		  });
 
+      for( i in datatypes ) {
+        var datatype = datatypes[i];
+        $stateProvider
+          // Overview
+          .state('app.' + datatype.name, {
+            url: '/' + datatype.name,
+            cache: false,
+            views: {
+              'mainContent': {
+                templateUrl: 'app/' + datatype.name + '/chart.html',
+                controller: datatype.controllerPrefix + 'Controller as ' + datatype.name
+              }
+            }
+          })
+
+          // Add blood pressure measurement
+          .state('app.' + datatype.name + '_add', {
+            url: '/' + datatype.name + '/add',
+            views: {
+              'mainContent': {
+                templateUrl: 'app/' + datatype.name + '/create.html',
+                controller: datatype.controllerPrefix + 'CreateController as ' + datatype.name
+              }
+            }
+          })
+
+      }
 
 	  // if none of the above states are matched, use this as the fallback
 	  $urlRouterProvider.otherwise('/app/intro');
