@@ -10,8 +10,8 @@
       var definitions = {
         'blood-pressure': { icon: 'ion-compass', color: 'info' },
         'body-weight': { icon: 'ion-speedometer', color: 'warning' },
-        'body-mass-index': { icon: 'ion-ios-flame', color: 'positive'},
-        'blood-glucose': { icon: 'ion-fork', color: 'assertive'}
+        'body-mass-index': { icon: 'ion-ios-flame', color: 'primary'},
+        'blood-glucose': { icon: 'ion-fork', color: 'success'}
       };
 
       /**
