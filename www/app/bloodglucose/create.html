@@ -1,0 +1,29 @@
+<ion-view view-title="New blood glucose measurement">
+  <ion-content>
+    <form ng-submit="bloodglucose.save()">
+      <ion-list>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Blood Glucose level
+          </div>
+          <input type="number" step="any" ng-model="bloodglucose.data.level" placeholder="Blood glucose level in mg/dL" />
+        </ion-item>
+
+        <label class="item-input item-select">
+          <div class="input-label">
+            Relationship to meal
+          </div>
+          <select ng-model="bloodglucose.data.relationship_to_meal" ng-options="relationship.name for relationship in bloodglucose.relationships_to_meal">
+
+          </select>
+        </label>
+
+      </ion-list>
+      <p class="padding">
+        <button type="submit" class="button button-block button-ssh">
+          Save
+        </button>
+      </p>
+    </form>
+  </ion-content>
+</ion-view>

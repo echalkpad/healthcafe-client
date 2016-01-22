@@ -42,6 +42,11 @@
                   'units': 'kg/m2',
                   'thresholds': { 'min': 18, 'max': 25  },
                 },
+                'blood-glucose' : {
+                  'valueKeyPath': 'body.blood_glucose.value',
+                  'range': { 'min': 0, 'max': 15 },
+                  'units': 'mg/dL',
+                },
               }
             }
           );
