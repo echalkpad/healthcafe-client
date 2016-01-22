@@ -28,6 +28,7 @@
      * @param converter method to convert the data from a newly created dataobject (see GenericCreateController) into a OMH datapoint body
      */
     var Datapoints = function(schema, chartablePropertyNames, converter) {
+      console.log(schema, converter);
       this.schema = schema;
       this.propertyNames = chartablePropertyNames;
       this.converter = converter;
@@ -108,8 +109,8 @@
     }
 
     return {
-      getInstance: function( schema, converter ) {
-        return new Datapoints(schema, converter)
+      getInstance: function( schema, chartableProperties, converter ) {
+        return new Datapoints(schema, chartableProperties, converter)
       }
     };
   }

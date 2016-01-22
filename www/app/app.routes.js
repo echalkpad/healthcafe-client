@@ -43,7 +43,7 @@
         cache: false,
         views: {
           'mainContent': {
-            templateUrl: 'app/bloodpressure/list.html',
+            templateUrl: 'app/bloodpressure/chart.html',
             controller: 'BloodPressureController as bloodpressure'
           }
         }
@@ -56,6 +56,18 @@
           'mainContent': {
             templateUrl: 'app/bloodpressure/create.html',
     		    controller: 'BloodPressureCreateController as bloodpressure'
+          }
+        }
+		  })
+
+		  // Blood Pressure
+		  .state('app.bodyweight', {
+		    url: '/bodyweight',
+        cache: false,
+        views: {
+          'mainContent': {
+            templateUrl: 'app/bodyweight/chart.html',
+            controller: 'BodyWeightController as bodyweight'
           }
         }
 		  })
