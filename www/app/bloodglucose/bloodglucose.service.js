@@ -7,7 +7,6 @@
   function BloodGlucose(Datapoints) {
     return Datapoints.getInstance(
       { namespace: 'omh', name: 'blood-glucose', version: '1.0' },
-      'blood-glucose',
       function(data) {
         return {
           'blood_glucose': { value: data.level, unit: 'mmHg' },

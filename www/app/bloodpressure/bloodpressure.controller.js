@@ -9,6 +9,7 @@
 
       $scope.model = Model;
       $scope.selector = ".bloodpressure-container"
+      $scope.chartableProperties = 'systolic_blood_pressure, diastolic_blood_pressure';
 
       // Initialize the super class and extend it.
       angular.extend(vm, $controller('GenericChartController', {$scope: $scope}));

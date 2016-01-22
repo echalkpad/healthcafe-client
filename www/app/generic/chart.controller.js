@@ -29,27 +29,7 @@
             vm.chart.destroy();
 
           var targetElement = d3.select($scope.selector);
-          vm.chart = new OMHWebVisualizations.Chart(
-            omhDataPoints, targetElement, $scope.model.chartableProperties(),
-            {
-              'measures': {
-                'body_weight': {
-                  'thresholds': { 'max': null },  // Disable default threshold
-                },
-                'body-mass-index' : {
-                  'valueKeyPath': 'body.body_mass_index.value',
-                  'range': { 'min': 10, 'max': 40 },
-                  'units': 'kg/m2',
-                  'thresholds': { 'min': 18, 'max': 25  },
-                },
-                'blood-glucose' : {
-                  'valueKeyPath': 'body.blood_glucose.value',
-                  'range': { 'min': 0, 'max': 15 },
-                  'units': 'mg/dL',
-                },
-              }
-            }
-          );
+          vm.chart = new OMHWebVisualizations.Chart( omhDataPoints, targetElement, $scope.chartableProperties, $scope.chartOptions );
         }
 
         function showChart() {
@@ -88,7 +68,6 @@
 
         // Disable dragging of side menu when a chart is shown
         $scope.$on('$ionicView.enter', function(){
-          console.log( "enter view " );
           $ionicSideMenuDelegate.canDragContent(false);
 
           // Redraw the chart on resize

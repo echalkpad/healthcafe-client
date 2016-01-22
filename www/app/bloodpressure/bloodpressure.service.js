@@ -7,7 +7,6 @@
   function BloodPressure(Datapoints) {
     return Datapoints.getInstance(
       { namespace: 'omh', name: 'blood-pressure', version: '1.0' },
-      'systolic_blood_pressure, diastolic_blood_pressure',
       function(data) {
         return {
           'systolic_blood_pressure': { value: data.systolic, unit: 'mmHg' },
