@@ -17,6 +17,13 @@
             <h4 ng-if="event.measurementType == 'body-weight'">Body weight: {{event.datapoint.body.body_weight.value}} {{event.datapoint.body.body_weight.unit}}</h4>
             <h4 ng-if="event.measurementType == 'body-mass-index'">BMI: {{event.datapoint.body.body_mass_index.value}} {{event.datapoint.body.body_mass_index.unit}}</h4>
             <h4 ng-if="event.measurementType == 'blood-glucose'">Glucose level ({{event.datapoint.body.temporal_relationship_to_meal}}): {{event.datapoint.body.blood_glucose.value}} {{event.datapoint.body.blood_glucose.unit}}</h4>
+            <h4 ng-if="event.measurementType == 'cholesterol'">Cholesterol: {{event.datapoint.body.blood_total_cholesterol.value}} {{event.datapoint.body.blood_total_cholesterol.unit}}
+              <span class="cholesterol-details">
+                <span ng-if="event.datapoint.body.blood_ldl_cholesterol.value" class="cholesterol-detail">LDL: {{event.datapoint.body.blood_ldl_cholesterol.value}} {{event.datapoint.body.blood_ldl_cholesterol.unit}}</span>
+                <span ng-if="event.datapoint.body.blood_hdl_cholesterol.value" class="cholesterol-detail">LDL: {{event.datapoint.body.blood_hdl_cholesterol.value}} {{event.datapoint.body.blood_hdl_cholesterol.unit}}</span>
+                <span ng-if="event.datapoint.body.blood_triglycerides.value" class="cholesterol-detail">LDL: {{event.datapoint.body.blood_triglycerides.value}} {{event.datapoint.body.blood_triglycerides.unit}}</span>
+              </span>
+            </h4>
             <p><small class="text-muted"><i class="ion ion-clock"></i>{{event.date | date}}</small></p>
           </timeline-heading>
         </timeline-panel>

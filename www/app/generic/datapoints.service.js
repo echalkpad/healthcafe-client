@@ -27,9 +27,8 @@
      * @param chartablePropertyNames Comma-separated string with properties that can be charted for this datatype
      * @param converter method to convert the data from a newly created dataobject (see GenericCreateController) into a OMH datapoint body
      */
-    var Datapoints = function(schema, chartablePropertyNames, converter) {
+    var Datapoints = function(schema, converter) {
       this.schema = schema;
-      this.propertyNames = chartablePropertyNames;
       this.converter = converter;
       this.cache = null;
     }
@@ -108,8 +107,8 @@
     }
 
     return {
-      getInstance: function( schema, chartableProperties, converter ) {
-        return new Datapoints(schema, chartableProperties, converter)
+      getInstance: function( schema, converter ) {
+        return new Datapoints(schema, converter)
       }
     };
   }

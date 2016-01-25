@@ -4,6 +4,20 @@ ul.timeline li timeline-panel { padding: 4px 12px }
 .text-muted { color: #999; }
 .text-muted i { margin-right: 5px; }
 
+/* Colors for icons in the timeline */
+.timeline li timeline-badge.blood-glucose {   background-color: #2e6da4 !important; }
+.timeline li timeline-badge.blood-pressure {  background-color: #4EF0D2 !important; }
+.timeline li timeline-badge.cholesterol {    background-color: #3f903f !important; }
+.timeline li timeline-badge.remark {         background-color: #d9534f !important; }
+
+.timeline li timeline-badge.body-weight {     background-color: #f0ad4e !important; }
+.timeline li timeline-badge.body-mass-index { background-color: #5bc0de !important; }
+
+/* Specific styling for cholesterol measurements in timeline */
+.cholesterol-details { color: #999; font-size: smaller; }
+.cholesterol-detail:after { content: ' / ' }
+.cholesterol-detail:last-child:after { content: '' }
+
 /* Charts styling: fullscreen charts */
 .chart-container { height: 100%; }
 .chart-container > .scroll { height: 100%; }

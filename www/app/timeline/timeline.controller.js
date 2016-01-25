@@ -2,16 +2,17 @@
 	angular.module('healthcafe.timeline')
 		.controller('TimelineController', TimelineController );
 
-		TimelineController.$inject = [ 'BloodPressure', 'BodyWeight', 'BMI', 'BloodGlucose', 'Remarks', '$q', '$ionicPopover'];
+		TimelineController.$inject = [ 'BloodPressure', 'BodyWeight', 'BMI', 'BloodGlucose', 'Cholesterol', 'Remarks', '$q', '$ionicPopover'];
 
-		function TimelineController(BloodPressure, BodyWeight, BMI, BloodGlucose, Remarks, $q, $ionicPopover) {
+		function TimelineController(BloodPressure, BodyWeight, BMI, BloodGlucose, Cholesterol, Remarks, $q, $ionicPopover) {
       var vm = this;
 
       var definitions = {
-        'blood-pressure': { icon: 'ion-compass', color: 'info' },
-        'body-weight': { icon: 'ion-speedometer', color: 'warning' },
-        'body-mass-index': { icon: 'ion-ios-flame', color: 'primary'},
-        'blood-glucose': { icon: 'ion-fork', color: 'success'}
+        'blood-pressure': { icon: 'ion-compass' },
+        'body-weight': { icon: 'ion-speedometer'},
+        'body-mass-index': { icon: 'ion-ios-flame'},
+        'blood-glucose': { icon: 'ion-fork'},
+        'cholesterol': { icon: 'ion-medkit'},
       };
 
       /**
@@ -22,7 +23,7 @@
           datapoint: dataPoint,
           date: dataPoint.body.effective_time_frame.date_time,
           badgeIconClass: definitions[dataPoint.header.schema_id.name].icon,
-          badgeClass: definitions[dataPoint.header.schema_id.name].color,
+          badgeClass: dataPoint.header.schema_id.name,
           type: 'measurement',
           measurementType: dataPoint.header.schema_id.name
         };
@@ -34,7 +35,7 @@
       function convertIntervention(intervention) {
         return angular.extend({}, intervention, {
           badgeIconClass: 'ion-flash',
-          badgeClass: 'danger',
+          badgeClass: 'remark',
           type: 'intervention'
         });
       }
@@ -76,7 +77,7 @@
       }
 
       // Load the data
-      load([BloodPressure, BodyWeight, BloodGlucose, BMI, Remarks]);
+      load([BloodPressure, BodyWeight, BloodGlucose, BMI, Cholesterol, Remarks]);
 
       // Enable the popover when clicking the add button
       $ionicPopover.fromTemplateUrl('app/timeline/add_menu.html').then(function(popover) {
