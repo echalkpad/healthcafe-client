@@ -12,8 +12,8 @@
       $scope.chartableProperties = 'total-cholesterol';
       $scope.chartOptions = {
               'measures': {
-                'total_cholesterol' : {
-                  'valueKeyPath': 'body.total_cholesterol.value',
+                'total-cholesterol' : {
+                  'valueKeyPath': 'body.blood_total_cholesterol.value',
                   'range': undefined,
                   'units': 'mg/dL',
                 },
