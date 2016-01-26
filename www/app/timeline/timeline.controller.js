@@ -2,17 +2,17 @@
 	angular.module('healthcafe.timeline')
 		.controller('TimelineController', TimelineController );
 
-		TimelineController.$inject = [ 'BloodPressure', 'BodyWeight', 'BMI', 'BloodGlucose', 'Cholesterol', 'Remarks', '$q', '$ionicPopover'];
+		TimelineController.$inject = [ 'BloodPressure', 'BodyWeight', 'BMI', 'BloodGlucose', 'Cholesterol', 'Remarks', '$q', '$ionicPopover', '$timeout'];
 
-		function TimelineController(BloodPressure, BodyWeight, BMI, BloodGlucose, Cholesterol, Remarks, $q, $ionicPopover) {
+		function TimelineController(BloodPressure, BodyWeight, BMI, BloodGlucose, Cholesterol, Remarks, $q, $ionicPopover, $timeout) {
       var vm = this;
 
       var definitions = {
-        'blood-pressure': { icon: 'ion-compass' },
-        'body-weight': { icon: 'ion-speedometer'},
-        'body-mass-index': { icon: 'ion-ios-flame'},
-        'blood-glucose': { icon: 'ion-fork'},
-        'cholesterol': { icon: 'ion-medkit'},
+        'blood-pressure': { icon: 'ion-compass', model: BloodPressure },
+        'body-weight': { icon: 'ion-speedometer', model: BodyWeight},
+        'body-mass-index': { icon: 'ion-ios-flame', model: BMI},
+        'blood-glucose': { icon: 'ion-fork', model: BloodGlucose},
+        'cholesterol': { icon: 'ion-medkit', model: Cholesterol},
       };
 
       /**
@@ -20,12 +20,14 @@
        */
       function convertDatapoint(dataPoint) {
         return {
+          id: dataPoint.header.id,
           datapoint: dataPoint,
           date: dataPoint.body.effective_time_frame.date_time,
           badgeIconClass: definitions[dataPoint.header.schema_id.name].icon,
           badgeClass: dataPoint.header.schema_id.name,
           type: 'measurement',
-          measurementType: dataPoint.header.schema_id.name
+          measurementType: dataPoint.header.schema_id.name,
+          model: definitions[dataPoint.header.schema_id.name].model
         };
       }
 
@@ -36,7 +38,8 @@
         return angular.extend({}, intervention, {
           badgeIconClass: 'ion-flash',
           badgeClass: 'remark',
-          type: 'intervention'
+          type: 'intervention',
+          model: Remarks
         });
       }
 
@@ -76,14 +79,34 @@
         });
       }
 
-      // Load the data
-      load([BloodPressure, BodyWeight, BloodGlucose, BMI, Cholesterol, Remarks]);
+      // Allow the client to reload
+      vm.load = function() {
+        var models = [BloodPressure, BodyWeight, BloodGlucose, BMI, Cholesterol, Remarks];
+        load(models);
+      }
+
+      // Load the data on startup
+      vm.load();
+
+      // Enable deleting events
+      vm.remove = function(event) {
+        if(confirm('Are you sure?')) {
+          // Perform the actual removal
+          event.model.remove(event.id)
+            // First tell the frontend the removing succeeded and wait 200ms for the animation to be finished
+            .then(function() { event.removed = true; return $timeout(function() {}, 200); })
+
+            // After that, do the real reloading of the data in the backend. THis will actually
+            // delete the element from the cache and from the DOM
+            .then(function() { return event.model.load(); })
+            .then(function() { return vm.load(); })
+        }
+      }
 
       // Enable the popover when clicking the add button
       $ionicPopover.fromTemplateUrl('app/timeline/add_menu.html').then(function(popover) {
         vm.popover = popover;
       });
-
 
       return vm;
 		}

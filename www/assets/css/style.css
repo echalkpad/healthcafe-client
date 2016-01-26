@@ -13,6 +13,20 @@ ul.timeline li timeline-panel { padding: 4px 12px }
 .timeline li timeline-badge.body-weight {     background-color: #f0ad4e !important; }
 .timeline li timeline-badge.body-mass-index { background-color: #5bc0de !important; }
 
+/* Timeline removal */
+timeline-event {
+  overflow: hidden;
+  display: block;
+  height: 95px;
+  transition: all ease 0.2s;
+  -moz-transition: all ease 0.2s;
+  -webkit-transition: all ease 0.2s;
+  -o-transition: all ease 0.2s;
+}
+.timeline timeline-event.removed { height: 0px; }
+.timeline .delete-icon { color: #999; cursor: pointer; }
+.timeline .delete-icon:hover { color: #333; }
+
 /* Specific styling for cholesterol measurements in timeline */
 .cholesterol-details { color: #999; font-size: smaller; }
 .cholesterol-detail:after { content: ' / ' }
@@ -24,3 +38,6 @@ ul.timeline li timeline-panel { padding: 4px 12px }
 
 /* Charts styling: tooltips on top */
 .d3-tip { z-index: 10; }
+
+/* Popover with 'add' menu */
+ .popover { height: 320px; }
