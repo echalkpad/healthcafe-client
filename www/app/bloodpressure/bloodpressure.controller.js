@@ -12,10 +12,12 @@
       $scope.chartableProperties = 'systolic_blood_pressure, diastolic_blood_pressure';
       $scope.chartOptions = {
         'userInterface': {
-          'contentFormatter': function(d) {
-            var systolic = d.omhDatum.body.systolic_blood_pressure.value.toFixed( 0 );
-            var diastolic = d.omhDatum.body.diastolic_blood_pressure.value.toFixed( 0 );
-            return systolic + '/' + diastolic;
+          'tooltips': {
+            'contentFormatter': function(d) {
+              var systolic = d.omhDatum.body.systolic_blood_pressure.value.toFixed( 0 );
+              var diastolic = d.omhDatum.body.diastolic_blood_pressure.value.toFixed( 0 );
+              return systolic + '/' + diastolic;
+            }
           }
         }
       }
