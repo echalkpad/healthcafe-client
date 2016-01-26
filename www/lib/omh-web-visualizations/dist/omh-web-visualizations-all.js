@@ -111,7 +111,9 @@
         'navigation': { 'enabled': true },
         'tooltips': {
           'enabled': true,
-          'timeFormat': 'M/D/YY, h:mma'
+          'timeFormat': 'M/D/YY, h:mma',
+          'decimalPlaces': 0,
+          'contentFormatter': undefined
          },
         'panZoom': {
           'enabled': true,
@@ -675,7 +677,7 @@
 
     var colorScale = null;
     var legend = null;
-    if ( clusteredBarPlotCount > 0 ){
+    if ( settings.userInterface.legend ){
       //add legend
       colorScale = new Plottable.Scales.Color();
       legend = new Plottable.Components.Legend( colorScale );
@@ -685,7 +687,19 @@
         var measure = entry.key;
         var measureSettings = getMeasureSettings( measure );
         var name = measureSettings.seriesName;
-        var color = measureSettings.chart.barColor;
+        var type = measureSettings.chart.type
+
+        // The color to plot depends on the type of chart
+        var color
+        switch(type) {
+          case 'clustered_bar':
+            color = measureSettings.chart.barColor;
+            break;
+          default:
+            color = measureSettings.chart.pointFillColor;
+            break;
+        }
+
         if ( name && color ) {
           names.push( name );
           colors.push( color );
@@ -1029,16 +1043,16 @@
         }
 
         //show different tool tip depending on measureList
-        if( d.omhDatum.groupName === '_systolic_blood_pressure_diastolic_blood_pressure' ) {
-          var systolic = d.omhDatum.body.systolic_blood_pressure.value.toFixed( 0 );
-          var diastolic = d.omhDatum.body.diastolic_blood_pressure.value.toFixed( 0 );
-          content = '<div class="' + contentCssClass + '">' + systolic + '/' + diastolic + '</div>';
-        }else if( d.omhDatum.groupName === '_heart_rate' ) {
-          //heart rate does not need decimal places. an integer is best
-          content = '<div class="' + contentCssClass + '">' + d.y.toFixed( 0 ) + '</div>';
-        }else {
-          content = '<div class="' + contentCssClass + '">' + d.y.toFixed( 1 ) + '</div>';
+        var title;
+        if( settings.userInterface.tooltips && typeof(settings.userInterface.tooltips.contentFormatter) != 'undefined' ) {
+          title = settings.userInterface.tooltips.contentFormatter(d);
+        } else {
+          var decimalPlaces = typeof(settings.userInterface.decimalPlaces) != 'undefined' ? settings.userInterface.decimalPlaces : 1;
+          title = d.y.toFixed( decimalPlaces );
         }
+
+        content = '<div class="' + contentCssClass + '">' + title + '</div>';
+
         var timeFormat = interfaceSettings.tooltips.timeFormat;
         content += '<div class="time">' + moment( d.x ).format( timeFormat ) + '</div>';
         content += '<div class="provider">' + d.provider + '</div>';
