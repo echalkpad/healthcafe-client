@@ -72,13 +72,24 @@
             }
           })
 
-          // Add blood pressure measurement
+          // Add new measurement
           .state('app.' + datatype.name + '_add', {
             url: '/' + datatype.name + '/add',
             views: {
               'mainContent': {
                 templateUrl: 'app/' + datatype.name + '/create.html',
                 controller: datatype.controllerPrefix + 'CreateController as ' + datatype.name
+              }
+            }
+          })
+
+          // Add information page about this datatype
+          .state('app.' + datatype.name + '_info', {
+            url: '/' + datatype.name + '/info',
+            views: {
+              'mainContent': {
+                templateUrl: 'app/' + datatype.name + '/info.html',
+                controller: 'GenericInfoController as info'
               }
             }
           })
