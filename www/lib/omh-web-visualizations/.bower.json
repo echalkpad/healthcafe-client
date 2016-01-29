@@ -37,12 +37,12 @@
     "d3-tip": "~0.6.7",
     "moment": "~2.10.3"
   },
-  "_release": "2dfce57",
+  "_release": "1bdb404",
   "_resolution": {
     "type": "commit",
-    "commit": "2dfce57"
+    "commit": "1bdb404"
   },
   "_source": "git://github.com/roberthorlings/web-visualizations.git",
-  "_target": "2dfce57",
+  "_target": "1bdb404",
   "_originalSource": "roberthorlings/web-visualizations"
 }

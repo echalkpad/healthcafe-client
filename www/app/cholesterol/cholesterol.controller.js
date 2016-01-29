@@ -14,28 +14,9 @@
               'userInterface': {
                 'legend': true,
                 'tooltips': {
+                  'grouped': false,
                   'contentFormatter': function(d) {
-                    var body = d.omhDatum.body;
-                    var total = body.blood_total_cholesterol.value.toFixed( 1 );
-
-                    var details = [];
-
-                    if(body.blood_ldl_cholesterol)
-                      details.push( "LDL: " + body.blood_ldl_cholesterol.value.toFixed( 1 ) );
-
-                    if(body.blood_hdl_cholesterol)
-                      details.push( "HDL: " + body.blood_hdl_cholesterol.value.toFixed( 1 ) );
-
-                    if(body.blood_triglycerides)
-                      details.push( "Triglycerides: " + body.blood_triglycerides.value.toFixed( 1 ) );
-
-                    var content = total;
-
-                    if( details.length > 0 ) {
-                      content += " <small>(" + details.join(", " ) + ")</small>"
-                    }
-
-                    return content;
+                    return d.y.toFixed(1);
                   }
                 }
               },
