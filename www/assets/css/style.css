@@ -38,6 +38,9 @@ timeline-event {
 
 /* Charts styling: tooltips on top */
 .d3-tip { z-index: 10; }
+.omh-tooltip .threshold-desirable { color: green; }
+.omh-tooltip .threshold-borderline_high { color: orange; }
+.omh-tooltip .threshold-high { color: red; }
 
 /* Popover with 'add' menu */
  .popover { height: 320px; }

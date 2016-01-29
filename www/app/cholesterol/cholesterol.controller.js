@@ -13,6 +13,7 @@
       $scope.chartOptions = {
               'userInterface': {
                 'legend': true,
+                'thresholds': { 'show': false },
                 'tooltips': {
                   'grouped': false,
                   'contentFormatter': function(d) {
@@ -29,7 +30,12 @@
                   'chart': {
                     'pointFillColor' : '#4a90e2',
                     'pointStrokeColor' : '#0066d6',
-                   }
+                   },
+                   'thresholds': [
+                      { name: 'Desirable', max: 200 },
+                      { name: 'Borderline high', min: 200, max: 240 },
+                      { name: 'High', min: 240 },
+                    ]
                 },
                 'ldl-cholesterol' : {
                   'valueKeyPath': 'body.blood_ldl_cholesterol.value',

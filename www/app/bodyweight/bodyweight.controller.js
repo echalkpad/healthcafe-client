@@ -14,7 +14,7 @@
         'measures': {
           'body_weight': {
             'range': undefined,
-            'thresholds': { 'max': null },  // Disable default threshold
+            'thresholds': undefined,  // Disable default threshold
           },
         }
       };

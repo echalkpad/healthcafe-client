@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "angular-timeline": "~1.6.2",
-    "omh-web-visualizations": "roberthorlings/web-visualizations#1bdb404",
+    "omh-web-visualizations": "roberthorlings/web-visualizations#21b283c",
     "Angular.uuid2": "angular-uuid2#*"
   }
 }
