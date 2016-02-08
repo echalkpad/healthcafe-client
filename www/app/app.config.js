@@ -6,7 +6,7 @@
     // See for example the api subconfiguration
     "env": "dev",
 
-    // URLs to be used to talk to the API.
+    // Development configuration
     "dev": {
       "api": {
         urls: {
@@ -17,8 +17,23 @@
 
         // NRC OAuth application key
         key: "mbm85kztfalztd2fft5fl5w7hmmdar5nnlktkgkk",
-      }
+      },
     },
+
+    // Test configuration, used for testing the app with the healthcafe instance
+    "test": {
+      "api": {
+        urls: {
+          authorization: "https://humanstudies.tno.nl/healthcafe/oauth/authorize",
+          redirect: "http://isdatsoftwareontwikkeling.nl/projecten/healthcafe/app/login/oauth_callback.html",
+          dataPoints: "https://humanstudies.tno.nl/healthcafe/api/openmhealth/v1/dataPoints"
+        },
+
+        // NRC OAuth application key
+        key: "mbm85kztfalztd2fft5fl5w7hmmdar5nnlktkgkk",
+      },
+    },
+
   };
 
 	// Convenience method to use environments in configuration
