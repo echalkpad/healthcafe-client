@@ -10,8 +10,9 @@
     "dev": {
       "api": {
         urls: {
-          autorization: "http://localhost:8080/nrc/oauth/authorize",
-          redirect: "http://localhost:8100/app/login/oauth_callback.html"
+          authorization: "http://localhost:8080/nrc/oauth/authorize",
+          redirect: "http://localhost:8100/app/login/oauth_callback.html",
+          dataPoints: "http://localhost:8080/nrc/api/openmhealth/v1/dataPoints"
         },
 
         // NRC OAuth application key

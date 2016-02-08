@@ -37,7 +37,7 @@
       // Generate login URL
       var apiConfig = config.current().api;
 
-      url = apiConfig.urls.autorization +
+      url = apiConfig.urls.authorization +
               "?client_id=" + apiConfig.key +
               "&redirect_uri=" + encodeURIComponent(apiConfig.urls.redirect) +
               "&response_type=token" +
