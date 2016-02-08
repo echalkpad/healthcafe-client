@@ -2,13 +2,9 @@
 	angular.module('healthcafe.generic')
 		.factory('Datapoints', DatapointsFactory );
 
-  DatapointsFactory.$inject = [ '$http', '$q', 'uuid2', 'OAuth2' ];
+  DatapointsFactory.$inject = [ '$http', '$q', 'uuid2', 'OAuth2', 'config' ];
 
-	function DatapointsFactory($http, $q, uuid2, OAuth2) {
-
-
-    // Converter is needed to convert input data into a proper body for
-    // the openmhealth API
+	function DatapointsFactory($http, $q, uuid2, OAuth2, config) {
 
     /**
      * Constructor for a generic datapoint service. Available methods (returning a promise to perform the work async):
@@ -29,12 +25,17 @@
      */
     var Datapoints = function(schema, converter) {
       this.schema = schema;
+
+      // Converter is needed to convert input data into a proper body for
+      // the openmhealth API
       this.converter = converter;
+
+      // Initialize empty cache
       this.cache = null;
     }
 
     Datapoints.prototype.load = function() {
-      var url = 'http://localhost:8080/nrc/api/openmhealth/v1/dataPoints' +
+      var url = config.current().api.urls.dataPoints +
                   '?schema_namespace=' + encodeURIComponent(this.schema.namespace) +
                   '&schema_name=' + encodeURIComponent(this.schema.name) +
                   '&schema_version=' + encodeURIComponent(this.schema.version);
@@ -56,17 +57,17 @@
     }
 
     Datapoints.prototype.get = function( id ) {
-      var url = 'http://localhost:8080/nrc/api/openmhealth/v1/dataPoints/' + id;
+      var url = config.current().api.urls.dataPoints + '/' + id;
       return $http.get( url )
     }
 
     Datapoints.prototype.remove = function( id ) {
-      var url = 'http://localhost:8080/nrc/api/openmhealth/v1/dataPoints/' + id;
+      var url = config.current().api.urls.dataPoints + '/' + id;
       return $http.delete( url )
     }
 
     Datapoints.prototype.create = function( body ) {
-      var url = 'http://localhost:8080/nrc/api/openmhealth/v1/dataPoints';
+      var url = config.current().api.urls.dataPoints;
 
       // Convert data if appropriate
       if( this.converter ) {
