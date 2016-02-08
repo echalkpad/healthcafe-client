@@ -1,31 +1,31 @@
 <html>
-  <head>
-      <script>
-              var callbackResponse = (document.URL).split("#")[1];
-              var responseParameters = (callbackResponse).split("&");
-              var parameterMap = [];
-              for(var i = 0; i < responseParameters.length; i++) {
-                  parameterMap[responseParameters[i].split("=")[0]] = responseParameters[i].split("=")[1];
-              }
-              if(parameterMap.access_token !== undefined && parameterMap.access_token !== null) {
-                  var expiryDate = new Date();
-                  expiryDate.setSeconds( expiryDate.getSeconds() + parameterMap.expires_in );
+<head>
+  <script>
+    var callbackResponse = (document.URL).split("#")[1];
+    var responseParameters = (callbackResponse).split("&");
+    var parameterMap = [];
+    for(var i = 0; i < responseParameters.length; i++) {
+        parameterMap[responseParameters[i].split("=")[0]] = responseParameters[i].split("=")[1];
+    }
+    if(parameterMap.access_token !== undefined && parameterMap.access_token !== null) {
+      var expiryDate = new Date();
+      expiryDate.setSeconds( expiryDate.getSeconds() + parameterMap.expires_in );
 
-                  var token = {
-                      oauth: {
-                          access_token: parameterMap.access_token,
-                          expires: expiryDate.getTime(),
-                          expiryDate: expiryDate,
-                          account_username: parameterMap.account_username
-                      }
-                  };
-                  window.localStorage.setItem("token", JSON.stringify(token));
+      var token = {
+          oauth: {
+              access_token: parameterMap.access_token,
+              expires: expiryDate.getTime(),
+              expiryDate: expiryDate,
+              account_username: parameterMap.account_username
+          }
+      };
+      window.localStorage.setItem("token", JSON.stringify(token));
 
-                  window.location.href = "../../#/index";
-              } else {
-                  alert("Problem authenticating");
-              }
-          </script>
-  </head>
-  <body>Redirecting...</body>
+      window.location.href = "../../#/index";
+    } else {
+      alert("Problem authenticating");
+    }
+  </script>
+</head>
+<body>Redirecting...</body>
 </html>
