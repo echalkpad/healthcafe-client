@@ -4,7 +4,7 @@
 	var configuration = {
     // The ENV points to the set of settings being used.
     // See for example the api subconfiguration
-    "env": "test",
+    "env": "dev",
 
     // Development configuration
     "dev": {
