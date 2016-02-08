@@ -14,7 +14,7 @@
 	    'healthcafe.remarks'
     ];
 
-	angular.module('healthcafe', ['ionic', 'ngMessages', 'angularUUID2', 'angular-timeline' ].concat(appModules) )
+	angular.module('healthcafe', ['ionic', 'ngMessages', 'angularUUID2', 'angular-timeline', 'indexedDB' ].concat(appModules) )
 		.run(function($ionicPlatform) {
 		  $ionicPlatform.ready(function() {
 		    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

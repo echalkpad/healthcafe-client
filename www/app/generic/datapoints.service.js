@@ -2,9 +2,9 @@
 	angular.module('healthcafe.generic')
 		.factory('Datapoints', DatapointsFactory );
 
-  DatapointsFactory.$inject = [ '$http', '$q', 'uuid2', 'OAuth2', 'config' ];
+  DatapointsFactory.$inject = [ '$http', '$q', 'uuid2', 'OAuth2', 'config', '$indexedDB' ];
 
-	function DatapointsFactory($http, $q, uuid2, OAuth2, config) {
+	function DatapointsFactory($http, $q, uuid2, OAuth2, config, $indexedDB) {
 
     /**
      * Constructor for a generic datapoint service. Available methods (returning a promise to perform the work async):
@@ -35,17 +35,25 @@
     }
 
     Datapoints.prototype.load = function() {
-      var url = config.current().api.urls.dataPoints +
-                  '?schema_namespace=' + encodeURIComponent(this.schema.namespace) +
-                  '&schema_name=' + encodeURIComponent(this.schema.name) +
-                  '&schema_version=' + encodeURIComponent(this.schema.version);
+      var deferred = $q.defer();
+      var schema = this.schema
 
-      var datapoint = this;
+      $indexedDB.openStore( 'datapoints', function(datapointStore) {
+        var query = datapointStore.query()
+          .$index("schema")
+          .$eq([schema.namespace, schema.name, schema.version]);
 
-      return $http.get( url ).then(function(response) {
-        datapoint.cache = response.data;
-        return datapoint .cache;
+//        query = query.$eq([schema.namespace, schema.name, schema.version]);
+//        query = query.$index("schema");
+
+        datapointStore.findWhere(query).then(function(e) {
+          deferred.resolve(e);
+        }).catch(function(e) {
+          deferred.reject(e);
+        });
       });
+
+      return deferred.promise;
     }
 
     Datapoints.prototype.list = function() {
@@ -57,26 +65,55 @@
     }
 
     Datapoints.prototype.get = function( id ) {
-      var url = config.current().api.urls.dataPoints + '/' + id;
-      return $http.get( url )
+      var deferred = $q.defer();
+
+      $indexedDB.openStore( 'datapoints', function(datapointStore) {
+        datapointStore.get(id).then(function(e) {
+          deferred.resolve(e);
+        }).catch(function(e) {
+          deferred.reject(e);
+        });
+      });
+
+      return deferred.promise;
     }
 
     Datapoints.prototype.remove = function( id ) {
-      var url = config.current().api.urls.dataPoints + '/' + id;
-      return $http.delete( url )
+      var deferred = $q.defer();
+
+      $indexedDB.openStore( 'datapoints', function(datapointStore) {
+        datapointStore.delete(id).then(function(e) {
+          deferred.resolve(e);
+        }).catch(function(e) {
+          deferred.reject(e);
+        });
+      });
+
+      return deferred.promise;
     }
 
     Datapoints.prototype.create = function( body ) {
-      var url = config.current().api.urls.dataPoints;
+      var deferred = $q.defer();
 
       // Convert data if appropriate
       if( this.converter ) {
         body = this.converter(body);
       }
 
+      // Create the datapoint itself
       var datapoint = this.createDatapoint(body);
 
-      return $http.post( url, datapoint);
+      // Store the datapoint
+      var schema = this.schema
+      $indexedDB.openStore( 'datapoints', function(datapointStore) {
+        datapointStore.insert(datapoint).then(function(e) {
+          deferred.resolve(e);
+        }).catch(function(e) {
+          deferred.reject(e);
+        });
+      });
+
+      return deferred.promise;
     }
 
     // Default values for the datapoint when creating one
@@ -92,6 +129,9 @@
     }
 
     Datapoints.prototype.createDatapoint = function( body ) {
+      // Store effective date_time
+      body.effective_time_frame = { date_time: new Date() };
+
       return {
         header: {
           id: uuid2.newuuid(),

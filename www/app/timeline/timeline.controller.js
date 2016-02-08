@@ -19,10 +19,16 @@
        * Converts a blood pressure datapoint into an event on the timeline
        */
       function convertDatapoint(dataPoint) {
+        if( dataPoint.body.effective_time_frame && dataPoint.body.effective_time_frame.date_time ) {
+          date = dataPoint.body.effective_time_frame.date_time;
+        } else {
+          date = dataPoint.header.creation_date_time;
+        }
+
         return {
           id: dataPoint.header.id,
           datapoint: dataPoint,
-          date: dataPoint.body.effective_time_frame.date_time,
+          date: date,
           badgeIconClass: definitions[dataPoint.header.schema_id.name].icon,
           badgeClass: dataPoint.header.schema_id.name,
           type: 'measurement',
