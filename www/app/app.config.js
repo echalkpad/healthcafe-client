@@ -30,7 +30,7 @@
         },
 
         // NRC OAuth application key
-        key: "mbm85kztfalztd2fft5fl5w7hmmdar5nnlktkgkk",
+        key: "hm2lkbxyssh9vvsn4tjpknavhqifmkzmucrl500o",
       },
     },
 
