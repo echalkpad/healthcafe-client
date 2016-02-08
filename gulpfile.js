@@ -28,7 +28,7 @@ gulp.task('sass', function(done) {
 });
 
 gulp.task('js-minify', function(){
-	return gulp.src(['www/app/*.js', 'www/app/**/*.js'])
+	return gulp.src(['www/app/app.module.js', 'www/app/app.config.js', 'www/app/app.routes.js', 'www/app/app.controller.js', 'www/app/**/*.js'])
 	    .pipe(concat('app.js'))
 	    .pipe(gulp.dest('dist'))
 	    .pipe(rename('app.min.js'))
