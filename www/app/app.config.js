@@ -54,9 +54,8 @@
         .connection( 'healthcafe' )
         .upgradeDatabase(1, function(event, db, tx) {
           datapointsStore = db.createObjectStore( "datapoints", { keyPath: "header.id" } );
-          datapointsStore.createIndex('schemaname', 'header.schema_id.name', { 'unique': false } );
           datapointsStore.createIndex('schema', [ 'header.schema_id.namespace', 'header.schema_id.name', 'header.schema_id.version'], { 'unique': false } );
-          remarksStore = db.createObjectStore( "remarks" );
+          remarksStore = db.createObjectStore( "remarks", { keyPath: "id", autoIncrement: true } );
         })
     })
 })();
