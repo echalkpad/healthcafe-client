@@ -18,28 +18,22 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item ng-if="!app.isAuthenticated" ng-click="app.login()">
-          Login
-        </ion-item>
-        <ion-item ng-if="app.isAuthenticated" menu-close ng-click="app.logoff()" href="#/app/intro">
-          Logoff
-        </ion-item>
-        <ion-item ng-if="app.isAuthenticated" menu-close href="#/app/timeline">
+        <ion-item menu-close href="#/app/timeline">
           All measurements
         </ion-item>
-        <ion-item ng-if="app.isAuthenticated" menu-close href="#/app/bloodpressure">
+        <ion-item menu-close href="#/app/bloodpressure">
           Blood pressure
         </ion-item>
-        <ion-item ng-if="app.isAuthenticated" menu-close href="#/app/bloodglucose">
+        <ion-item menu-close href="#/app/bloodglucose">
           Blood glucose
         </ion-item>
-        <ion-item ng-if="app.isAuthenticated" menu-close href="#/app/cholesterol">
+        <ion-item menu-close href="#/app/cholesterol">
           Cholesterol
         </ion-item>
-        <ion-item ng-if="app.isAuthenticated" menu-close href="#/app/bodyweight">
+        <ion-item menu-close href="#/app/bodyweight">
           Body weight
         </ion-item>
-        <ion-item ng-if="app.isAuthenticated" menu-close href="#/app/bmi">
+        <ion-item menu-close href="#/app/bmi">
           BMI
         </ion-item>
       </ion-list>
