@@ -15,7 +15,7 @@
             <h4 ng-if="event.type == 'intervention'">{{event.message}}</h4>
             <h4 ng-if="event.measurementType == 'blood-pressure'">Blood pressure: {{event.datapoint.body.systolic_blood_pressure.value}} / {{event.datapoint.body.diastolic_blood_pressure.value}}</h4>
             <h4 ng-if="event.measurementType == 'body-weight'">Body weight: {{event.datapoint.body.body_weight.value}} {{event.datapoint.body.body_weight.unit}}</h4>
-            <h4 ng-if="event.measurementType == 'body-mass-index'">BMI: {{event.datapoint.body.body_mass_index.value}} {{event.datapoint.body.body_mass_index.unit}}</h4>
+            <h4 ng-if="event.measurementType == 'body-mass-index'">BMI: {{event.datapoint.body.body_mass_index.value | number}} {{event.datapoint.body.body_mass_index.unit}}</h4>
             <h4 ng-if="event.measurementType == 'blood-glucose'">Glucose level ({{event.datapoint.body.temporal_relationship_to_meal}}): {{event.datapoint.body.blood_glucose.value}} {{event.datapoint.body.blood_glucose.unit}}</h4>
             <h4 ng-if="event.measurementType == 'cholesterol'">Cholesterol: {{event.datapoint.body.blood_total_cholesterol.value}} {{event.datapoint.body.blood_total_cholesterol.unit}}
               <span class="cholesterol-details">
