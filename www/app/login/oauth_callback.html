@@ -1,12 +1,18 @@
 <html>
 <head>
   <script>
+    // The service name is stored in the search part of the URL
+    var service = location.search.replace( '?', '');
+
+    // The fragment identifier (after the pound sign) contains the actual token
     var callbackResponse = (document.URL).split("#")[1];
     var responseParameters = (callbackResponse).split("&");
     var parameterMap = [];
     for(var i = 0; i < responseParameters.length; i++) {
         parameterMap[responseParameters[i].split("=")[0]] = responseParameters[i].split("=")[1];
     }
+
+    // If a token was given, store it
     if(parameterMap.access_token !== undefined && parameterMap.access_token !== null) {
       var expiryDate = new Date();
       expiryDate.setSeconds( expiryDate.getSeconds() + parameterMap.expires_in );
@@ -19,9 +25,15 @@
               account_username: parameterMap.account_username
           }
       };
-      window.localStorage.setItem("token", JSON.stringify(token));
+      window.localStorage.setItem("token-" + service, JSON.stringify(token));
 
-      window.location.href = "../../#/index";
+      // Redirect the user. If a redirect is provided in local storage, use it
+      var redirect = window.localStorage.getItem( "redirect-" + service );
+      if( !redirect ) {
+        redirect = "/index";
+      }
+
+      window.location.href = "../../#" + redirect;
     } else {
       alert("Problem authenticating");
     }

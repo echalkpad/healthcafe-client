@@ -1,0 +1,31 @@
+<ion-view view-title="Share: {{sharing.service.label}}">
+  <ion-content class="padding">
+    <p>
+      {{sharing.service.description}}
+    </p>
+
+    <h3>Choose types to share</h3>
+    <ul class="list">
+
+      <li class="item item-toggle" ng-repeat="datatype in sharing.datatypes">
+        {{datatype.label}}
+        <label class="toggle toggle-positive">
+          <input type="checkbox" ng-model="datatype.checked">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </li>
+
+    </ul>
+
+    <div class="row buttons">
+      <div class="col">
+        <a class="button icon-left ion-ios-download-outline button-outline button-positive" ng-click="sharing.import()">Import</a>
+      </div>
+      <div class="col">
+        <a class="button icon-left ion-ios-upload-outline button-outline button-assertive" ng-click="sharing.export()">Share</a>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

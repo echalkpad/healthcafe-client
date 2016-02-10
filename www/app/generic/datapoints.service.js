@@ -116,6 +116,23 @@
       return deferred.promise;
     }
 
+    // Imports a datapoint or list of datapoints into the store
+    // Existing data with the same ID will be overwritten
+    Datapoints.prototype.import = function( data) {
+      var deferred = $q.defer();
+
+      // Store the datapoint
+      $indexedDB.openStore( 'datapoints', function(datapointStore) {
+        datapointStore.upsert(data).then(function(e) {
+          deferred.resolve(e);
+        }).catch(function(e) {
+          deferred.reject(e);
+        });
+      });
+
+      return deferred.promise;
+    }
+
     // Default values for the datapoint when creating one
     Datapoints.prototype.defaults = function() {
       return {};

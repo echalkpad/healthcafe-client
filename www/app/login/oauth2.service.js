@@ -5,8 +5,8 @@
 	OAuth2.$inject = [ 'config' ];
 
 	function OAuth2(config) {
-    function getToken() {
-      var token = window.localStorage.getItem("token");
+    function getToken(service) {
+      var token = window.localStorage.getItem("token-" + service);
 
       if( token ) {
         return JSON.parse(token);
@@ -15,12 +15,12 @@
       return null;
     }
 
-    function isAuthenticated() {
-      return !!getToken();
+    function isAuthenticated(service) {
+      return !!getToken(service);
     }
 
-    function getAccessToken() {
-      var token = getToken();
+    function getAccessToken(service) {
+      var token = getToken(service);
 
       if( token ) {
         return token.oauth.access_token
@@ -33,22 +33,27 @@
 
     }
 
-    function login() {
+    function login(service, redirect) {
+      // Make sure the oauth callback page knows where to redirect the user
+      window.localStorage.setItem( "redirect-" + service, redirect );
+
       // Generate login URL
       var apiConfig = config.current().api;
+      var serviceConfig = apiConfig.oauth[service];
+      var serviceUrls = serviceConfig.urls;
 
-      url = apiConfig.urls.authorization +
-              "?client_id=" + apiConfig.key +
-              "&redirect_uri=" + encodeURIComponent(apiConfig.urls.redirect) +
+      url = serviceUrls.authorization +
+              "?client_id=" + serviceConfig.key +
+              "&redirect_uri=" + encodeURIComponent(serviceUrls.redirect) +
               "&response_type=token" +
               "&scope=read_data_points write_data_points delete_data_points"
 
       window.location.href = url;
     }
 
-    function logoff() {
+    function logoff(service) {
       // Remove item from local storage
-      window.localStorage.removeItem("token");
+      window.localStorage.removeItem("token-" + service);
     }
 
     return {

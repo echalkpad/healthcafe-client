@@ -7,7 +7,9 @@
     // Interceptor method to add access token to every request
     // See https://docs.angularjs.org/api/ng/service/$http
     function request(config) {
-      config.headers[ 'Authorization' ] = 'Bearer ' + OAuth2.getAccessToken()
+      if(config.oauth) {
+        config.headers[ 'Authorization' ] = 'Bearer ' + OAuth2.getAccessToken(config.oauth)
+      }
 
       return config;
     }

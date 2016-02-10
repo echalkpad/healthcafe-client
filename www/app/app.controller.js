@@ -2,10 +2,13 @@
 	angular.module('healthcafe')
 		.controller('AppController', AppController);
 
-	AppController.$inject = [ '$state', '$ionicSideMenuDelegate', '$ionicHistory', 'OAuth2' ];
+	AppController.$inject = [ 'config' ];
 
-	function AppController($state, $ionicSideMenuDelegate, $ionicHistory, OAuth2) {
+	function AppController(config) {
 	  var vm = this;
+
+    vm.datatypes = config.datatypes;
+    vm.sharing = config.sharing;
 
     return vm;
 	}

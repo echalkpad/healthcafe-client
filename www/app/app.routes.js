@@ -1,13 +1,6 @@
 // Healthcafe routes
 (function() {
-	angular.module('healthcafe').config(function($stateProvider, $urlRouterProvider) {
-    var datatypes = [
-      { name: 'bloodpressure', controllerPrefix: 'BloodPressure' },
-      { name: 'bodyweight', controllerPrefix: 'BodyWeight' },
-      { name: 'bmi', controllerPrefix: 'BMI' },
-      { name: 'bloodglucose', controllerPrefix: 'BloodGlucose' },
-      { name: 'cholesterol', controllerPrefix: 'Cholesterol' },
-    ];
+	angular.module('healthcafe').config([ '$stateProvider', '$urlRouterProvider', 'config', function($stateProvider, $urlRouterProvider, config) {
 
 	  // Ionic uses AngularUI Router which uses the concept of states
 	  // Learn more here: https://github.com/angular-ui/ui-router
@@ -46,7 +39,7 @@
 		  })
 
 
-		  // Add remarks measurement
+		  // Add remarks measurement. Remarks are only shown in the timeline for now.
 		  .state('app.remarks_add', {
 		    url: '/remarks/add',
         views: {
@@ -57,8 +50,8 @@
         }
 		  });
 
-      for( i in datatypes ) {
-        var datatype = datatypes[i];
+      for( i in config.datatypes ) {
+        var datatype = config.datatypes[i];
         $stateProvider
           // Overview
           .state('app.' + datatype.name, {
@@ -96,8 +89,30 @@
 
       }
 
+      // Sharing
+		  $stateProvider.state('app.share', {
+		    url: '/share/:service',
+        views: {
+          'mainContent': {
+            templateUrl: 'app/share/share.html',
+    		    controller: 'ShareController as sharing'
+          }
+        }
+		  });
+
+		  $stateProvider.state('app.connect', {
+		    url: '/share/connect/:service',
+        views: {
+          'mainContent': {
+            templateUrl: 'app/share/connect.html',
+    		    controller: 'ConnectController as connect'
+          }
+        }
+		  });
+
+
 	  // if none of the above states are matched, use this as the fallback
 	  $urlRouterProvider.otherwise('/app/intro');
 
-	});
+	}]);
 })();

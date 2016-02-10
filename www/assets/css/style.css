@@ -44,3 +44,7 @@ timeline-event {
 
 /* Popover with 'add' menu */
  .popover { height: 320px; }
+
+/* Sharing page */
+.buttons .col { text-align: center; }
+.buttons .button.icon-left:before { padding-right: 0.4em; margin-top: 0; }

@@ -11,7 +11,8 @@
 	    'healthcafe.bloodglucose',
 	    'healthcafe.cholesterol',
 	    'healthcafe.timeline',
-	    'healthcafe.remarks'
+	    'healthcafe.remarks',
+	    'healthcafe.sharing',
     ];
 
 	angular.module('healthcafe', ['ionic', 'ngMessages', 'angularUUID2', 'angular-timeline', 'indexedDB' ].concat(appModules) )
