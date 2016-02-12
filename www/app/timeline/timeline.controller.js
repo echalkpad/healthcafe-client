@@ -79,9 +79,12 @@
       }
 
       function load(models) {
+        vm.loading = true;
         vm.events = []
         $q.all( models.map(function(model) { return model.list() } ) ).then(function(data) {
           vm.events = combine(data);
+        }).then(function() {
+          vm.loading = false;
         });
       }
 

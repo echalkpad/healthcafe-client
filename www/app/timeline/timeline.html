@@ -5,6 +5,12 @@
     </a>
   </ion-nav-buttons>
   <ion-content class="padding">
+    <div ng-show="timeline.loading">
+      <ion-spinner></ion-spinner> Loading...
+    </div>
+    <p ng-show="!timeline.loading && timeline.events.length == 0">
+      Start adding measurements (top right <i class="ion ion-plus"></i> button) or <a href="#/app/share/healthcafe">import from healthcafe.</a>
+    </p>
     <timeline>
       <timeline-event id="event-{{event.id}}" ng-repeat="event in timeline.events" side="right" ng-class="{removed: event.removed}">
         <timeline-badge class="{{event.badgeClass}}">

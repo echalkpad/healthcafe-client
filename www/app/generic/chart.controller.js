@@ -15,10 +15,10 @@
         function getChart() {
           if( !vm.chart ) {
             // If no events are loaded, don't show a chart
-            if( !vm.events || vm.events.length == 0 ) {
+            if( !$scope.events || $scope.events.length == 0 ) {
               return
             }
-            createChart(vm.events);
+            createChart($scope.events);
           }
 
           return vm.chart;
@@ -42,17 +42,23 @@
         }
 
         function load() {
-          vm.events = [];
+          $scope.loading = true;
+          $scope.events = [];
           $scope.model.list().then(function(data) {
-            vm.events = data;
+            $scope.events = data;
+            $scope.loading = false;
+
             showChart(data);
           });
         }
 
         function refresh() {
-          vm.events = [];
+          $scope.loading = true;
+          $scope.events = [];
           $scope.model.load().then(function(data) {
-            vm.events = data;
+            $scope.events = data;
+            $scope.loading = false;
+
             showChart(data);
           });
         }
