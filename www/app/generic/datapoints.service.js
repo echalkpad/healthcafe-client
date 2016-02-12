@@ -118,8 +118,25 @@
 
     // Imports a datapoint or list of datapoints into the store
     // Existing data with the same ID will be overwritten
-    Datapoints.prototype.import = function( data) {
+    Datapoints.prototype.import = function(data) {
       var deferred = $q.defer();
+
+      // Handle dates, which are sent as string
+      function parseDate(date) {
+        if( date && typeof(date) == "string" ) {
+          console.log( date, new Date( date ) );
+          return new Date(date);
+        } else {
+          return date;
+        }
+      }
+
+      if(Array.isArray(data)) {
+        var that = this;
+        data = data.map(function(datapoint) { return that.convertDates(datapoint, parseDate); } );
+      } else if(typeof(data) == "object") {
+        data = this.convertDates(data, parseDate);
+      }
 
       // Store the datapoint
       $indexedDB.openStore( 'datapoints', function(datapointStore) {
@@ -131,6 +148,20 @@
       });
 
       return deferred.promise;
+    }
+
+    // Convert all known dates for a single datapoint
+    Datapoints.prototype.convertDates = function(datapoint, conversionMethod) {
+      if(datapoint.header && datapoint.header.creation_date_time)
+        datapoint.header.creation_date_time = conversionMethod(datapoint.header.creation_date_time);
+
+      if(datapoint.header && datapoint.header.acquisition_provenance && datapoint.header.acquisition_provenance.source_creation_date_time)
+        datapoint.header.acquisition_provenance.source_creation_date_time = conversionMethod(datapoint.header.acquisition_provenance.source_creation_date_time);
+
+      if( datapoint.body && datapoint.body.effective_time_frame && datapoint.body.effective_time_frame.date_time)
+        datapoint.body.effective_time_frame.date_time = conversionMethod(datapoint.body.effective_time_frame.date_time);
+
+      return datapoint;
     }
 
     // Default values for the datapoint when creating one
@@ -167,7 +198,7 @@
     return {
       getInstance: function( schema, converter ) {
         return new Datapoints(schema, converter)
-      }
+      },
     };
   }
 })();

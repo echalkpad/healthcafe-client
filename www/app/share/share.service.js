@@ -108,10 +108,24 @@
       return $q.all(
         models.map(function(model) {
           return model.list().then(function(datapoints) {
+
             var url = serviceConfig.urls.dataPoints;
 
             return $q.all(
               datapoints.map(function(datapoint) {
+                // Convert any date into an ISO8601 formatted string
+                function serializeDate(date) {
+                  if( typeof( date ) == "object" ) {
+                    return date.toJSON();
+                  } else {
+                    return date;
+                  }
+                }
+
+                datapoint = model.convertDates(datapoint, serializeDate);
+
+                console.log(datapoint.body.effective_time_frame.date_time)
+                // return $q.when("ab");
                 return $http.post(url, datapoint, { oauth: serviceKey } );
               })
             );
