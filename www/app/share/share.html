@@ -21,10 +21,16 @@
 
     <div class="row buttons">
       <div class="col">
-        <a class="button icon-left ion-ios-download-outline button-outline button-positive" ng-click="sharing.import()">Import</a>
+        <a class="button icon-left ion-ios-download-outline button-outline button-positive" ng-click="sharing.import()">
+          Import
+          <ion-spinner ng-show="sharing.importing"></ion-spinner>
+        </a>
       </div>
       <div class="col">
-        <a class="button icon-left ion-ios-upload-outline button-outline button-assertive" ng-click="sharing.export()">Share</a>
+        <a class="button icon-left ion-ios-upload-outline button-outline button-assertive" ng-click="sharing.export()">
+          Share
+          <ion-spinner ng-show="sharing.exporting"></ion-spinner>
+        </a>
       </div>
     </div>
   </ion-content>

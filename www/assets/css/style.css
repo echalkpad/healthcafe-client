@@ -47,4 +47,6 @@ timeline-event {
 
 /* Sharing page */
 .buttons .col { text-align: center; }
+.buttons .button { min-width: 150px; text-align: left; }
+.buttons .button spinner { float: right; }
 .buttons .button.icon-left:before { padding-right: 0.4em; margin-top: 0; }

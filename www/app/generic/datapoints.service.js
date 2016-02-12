@@ -124,7 +124,6 @@
       // Handle dates, which are sent as string
       function parseDate(date) {
         if( date && typeof(date) == "string" ) {
-          console.log( date, new Date( date ) );
           return new Date(date);
         } else {
           return date;

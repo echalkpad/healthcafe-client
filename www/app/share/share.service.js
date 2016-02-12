@@ -56,7 +56,7 @@
             case 'bodyweight':    return BodyWeight;
             case 'cholesterol':   return Cholesterol;
             case 'bmi':           return BMI;
-            default: console.log( "Invalid datatype selected", datatype.name ); return null;
+            default: console.error( "Invalid datatype selected", datatype.name ); return null;
           }
         });
     }
@@ -124,9 +124,23 @@
 
                 datapoint = model.convertDates(datapoint, serializeDate);
 
-                console.log(datapoint.body.effective_time_frame.date_time)
-                // return $q.when("ab");
-                return $http.post(url, datapoint, { oauth: serviceKey } );
+                // Create a separate promise to return, as we should
+                // resolve the promise if a 409 response is given (already exists)
+                // The HTTP object itself will fail in that case
+                var deferred = $q.defer();
+                $http.post( url, datapoint, { oauth: serviceKey } )
+                  .then(function(response) {
+                    deferred.resolve(response);
+                  })
+                  .catch(function(response) {
+                    if( response.status == 409 ) {
+                      deferred.resolve(response);
+                    } else {
+                      deferred.reject(response);
+                    }
+                  });
+
+                return deferred.promise;
               })
             );
           });
