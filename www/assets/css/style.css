@@ -35,6 +35,7 @@ timeline-event {
 /* Charts styling: fullscreen charts */
 .chart-container { height: 100%; }
 .chart-container > .scroll { height: 100%; }
+svg.chart { display: none; }
 
 /* Charts styling: tooltips on top */
 .d3-tip { z-index: 10; }

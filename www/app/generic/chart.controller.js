@@ -37,6 +37,7 @@
           var chart = getChart();
 
           if( chart ) {
+            targetElement.select('svg').style( 'display', 'block' );
             chart.renderTo(targetElement.select('svg').node());
           }
         }
