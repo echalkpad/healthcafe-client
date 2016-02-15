@@ -228,6 +228,7 @@
       // Sharing
 		  $stateProvider.state('app.share', {
 		    url: '/share/:service',
+        cache: false,
         views: {
           'mainContent': {
             templateUrl: 'app/share/share.html',
@@ -238,6 +239,7 @@
 
 		  $stateProvider.state('app.connect', {
 		    url: '/share/connect/:service',
+        cache: false,
         views: {
           'mainContent': {
             templateUrl: 'app/share/connect.html',
@@ -336,6 +338,75 @@
         { name: 'fasting' },
         { name: 'not fasting' }
       ];
+
+		  return vm;
+		}
+})();
+
+(function() {
+	angular.module('healthcafe.bloodpressure')
+		.controller('BloodPressureController', BloodPressureController );
+
+		BloodPressureController.$inject = [ '$scope', '$controller', 'BloodPressure' ];
+
+		function BloodPressureController( $scope, $controller, Model ) {
+		  var vm = this;
+
+      $scope.model = Model;
+      $scope.selector = ".bloodpressure-container"
+      $scope.chartableProperties = 'systolic_blood_pressure, diastolic_blood_pressure';
+      $scope.chartOptions = {
+        'userInterface': {
+          'tooltips': {
+            'contentFormatter': function(d) {
+              var systolic = d.omhDatum.body.systolic_blood_pressure.value.toFixed( 0 );
+              var diastolic = d.omhDatum.body.diastolic_blood_pressure.value.toFixed( 0 );
+              return systolic + '/' + diastolic;
+            }
+          }
+        }
+      }
+
+      // Initialize the super class and extend it.
+      angular.extend(vm, $controller('GenericChartController', {$scope: $scope}));
+
+		  return vm;
+		}
+})();
+
+(function() {
+	angular.module('healthcafe.bloodpressure')
+		.factory('BloodPressure', BloodPressure );
+
+  BloodPressure.$inject = [ 'Datapoints' ];
+
+  function BloodPressure(Datapoints) {
+    return Datapoints.getInstance(
+      { namespace: 'omh', name: 'blood-pressure', version: '1.0' },
+      function(data) {
+        return {
+          'systolic_blood_pressure': { value: data.systolic, unit: 'mmHg' },
+          'diastolic_blood_pressure': { value: data.diastolic, unit: 'mmHg' },
+        };
+      }
+    );
+  }
+
+})();
+
+(function() {
+	angular.module('healthcafe.bloodpressure')
+		.controller('BloodPressureCreateController', BloodPressureCreateController );
+
+		BloodPressureCreateController.$inject = [ '$scope', '$controller', 'BloodPressure' ];
+
+		function BloodPressureCreateController( $scope, $controller, Model ) {
+		  var vm = this;
+
+      $scope.model = Model;
+
+      // Initialize the super class and extend it.
+      angular.extend(vm, $controller('GenericCreateController', {$scope: $scope}));
 
 		  return vm;
 		}
@@ -592,75 +663,6 @@
 		CholesterolCreateController.$inject = [ '$scope', '$controller', 'Cholesterol' ];
 
 		function CholesterolCreateController( $scope, $controller, Model ) {
-		  var vm = this;
-
-      $scope.model = Model;
-
-      // Initialize the super class and extend it.
-      angular.extend(vm, $controller('GenericCreateController', {$scope: $scope}));
-
-		  return vm;
-		}
-})();
-
-(function() {
-	angular.module('healthcafe.bloodpressure')
-		.controller('BloodPressureController', BloodPressureController );
-
-		BloodPressureController.$inject = [ '$scope', '$controller', 'BloodPressure' ];
-
-		function BloodPressureController( $scope, $controller, Model ) {
-		  var vm = this;
-
-      $scope.model = Model;
-      $scope.selector = ".bloodpressure-container"
-      $scope.chartableProperties = 'systolic_blood_pressure, diastolic_blood_pressure';
-      $scope.chartOptions = {
-        'userInterface': {
-          'tooltips': {
-            'contentFormatter': function(d) {
-              var systolic = d.omhDatum.body.systolic_blood_pressure.value.toFixed( 0 );
-              var diastolic = d.omhDatum.body.diastolic_blood_pressure.value.toFixed( 0 );
-              return systolic + '/' + diastolic;
-            }
-          }
-        }
-      }
-
-      // Initialize the super class and extend it.
-      angular.extend(vm, $controller('GenericChartController', {$scope: $scope}));
-
-		  return vm;
-		}
-})();
-
-(function() {
-	angular.module('healthcafe.bloodpressure')
-		.factory('BloodPressure', BloodPressure );
-
-  BloodPressure.$inject = [ 'Datapoints' ];
-
-  function BloodPressure(Datapoints) {
-    return Datapoints.getInstance(
-      { namespace: 'omh', name: 'blood-pressure', version: '1.0' },
-      function(data) {
-        return {
-          'systolic_blood_pressure': { value: data.systolic, unit: 'mmHg' },
-          'diastolic_blood_pressure': { value: data.diastolic, unit: 'mmHg' },
-        };
-      }
-    );
-  }
-
-})();
-
-(function() {
-	angular.module('healthcafe.bloodpressure')
-		.controller('BloodPressureCreateController', BloodPressureCreateController );
-
-		BloodPressureCreateController.$inject = [ '$scope', '$controller', 'BloodPressure' ];
-
-		function BloodPressureCreateController( $scope, $controller, Model ) {
 		  var vm = this;
 
       $scope.model = Model;
@@ -1028,26 +1030,6 @@
 })();
 
 (function() {
-	angular.module('healthcafe.intro')
-		.controller('IntroController', IntroController );
-
-	IntroController.$inject = [ '$scope', '$ionicHistory' ];
-
-	function IntroController($scope, $ionicHistory) {
-	  var vm = this;
-
-    // Method to reset navigation and disable back on the next page
-    vm.resetNav = function() {
-      $ionicHistory.nextViewOptions({
-        disableBack: true,
-      });
-    }
-
-		return this;
-	}
-})();
-
-(function() {
 	angular.module('healthcafe.login')
 		.factory('OAuth2', OAuth2 );
 
@@ -1336,15 +1318,19 @@
 	angular.module('healthcafe.sharing')
 		.controller('ShareController', ShareController );
 
-		ShareController.$inject = [ '$state', '$ionicPopup', 'OAuth2', 'config', 'Share'];
+		ShareController.$inject = [ '$state', '$ionicHistory', '$ionicPopup', 'OAuth2', 'config', 'Share'];
 
-		function ShareController($state, $ionicPopup, OAuth2, config, Share) {
+		function ShareController($state, $ionicHistory, $ionicPopup, OAuth2, config, Share) {
       var vm = this;
 
       var serviceKey = $state.params.service;
 
       // Check whether this user is already connected
       if( !OAuth2.isAuthenticated(serviceKey) ) {
+        $ionicHistory.nextViewOptions({
+          disableBack: true
+        });
+
         $state.go("app.connect", { service: serviceKey });
         return;
       }
@@ -1378,7 +1364,7 @@
               // After popup, go to the timeline
               $state.go("app.timeline");
             });
-          }).catch(function(e) {
+          }).catch(function(response) {
             vm.importing = false;
 
             // If any of the request fails with a 401 error, the access token
@@ -1723,4 +1709,24 @@
 
       return vm;
 		}
+})();
+
+(function() {
+	angular.module('healthcafe.intro')
+		.controller('IntroController', IntroController );
+
+	IntroController.$inject = [ '$scope', '$ionicHistory' ];
+
+	function IntroController($scope, $ionicHistory) {
+	  var vm = this;
+
+    // Method to reset navigation and disable back on the next page
+    vm.resetNav = function() {
+      $ionicHistory.nextViewOptions({
+        disableBack: true,
+      });
+    }
+
+		return this;
+	}
 })();

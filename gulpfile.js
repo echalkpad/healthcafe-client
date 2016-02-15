@@ -31,10 +31,9 @@ gulp.task('js-app-minify', function(){
   // Minify app libraries
 	return gulp.src(['www/app/app.module.js', 'www/app/app.config.js', 'www/app/app.routes.js', 'www/app/app.controller.js', 'www/app/**/*.js'])
 	    .pipe(concat('app.js'))
-	    .pipe(gulp.dest('dist'))
+	    .pipe(gulp.dest('www/dist'))
       .pipe(rename({ extname: '.min.js' }))
 	    .pipe(uglify())
-	    .pipe(gulp.dest('dist'))
     	.pipe(gulp.dest('www/dist'));
 });
 
@@ -54,10 +53,9 @@ gulp.task('js-lib-minify', function(){
 	      'www/lib/omh-web-visualizations/dist/omh-web-visualizations-all.js',
       ])
 	    .pipe(concat('lib.js'))
-	    .pipe(gulp.dest('dist'))
+	    .pipe(gulp.dest('www/dist'))
       .pipe(rename({ extname: '.min.js' }))
 	    .pipe(uglify())
-	    .pipe(gulp.dest('dist'))
     	.pipe(gulp.dest('www/dist'));
 
 });
@@ -71,12 +69,11 @@ gulp.task('css-minify', function(done) {
       'www/assets/css/style.css',
      ])
     .pipe(concat('style.css'))
-    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest('www/dist'))
     .pipe(rename({ extname: '.min.css' }))
     .pipe(minifyCss({
       keepSpecialComments: 0
     }))
-    .pipe(gulp.dest('dist'))
     .pipe(gulp.dest('www/dist'))
     .on('end', done);
 });
