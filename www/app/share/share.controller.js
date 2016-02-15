@@ -44,7 +44,7 @@
               // After popup, go to the timeline
               $state.go("app.timeline");
             });
-          }).catch(function(e) {
+          }).catch(function(response) {
             vm.importing = false;
 
             // If any of the request fails with a 401 error, the access token
