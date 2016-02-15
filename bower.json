@@ -5,11 +5,12 @@
     "ionic": "driftyco/ionic-bower#1.2.4"
   },
   "resolutions": {
-    "angular": "1.4.3"
+    "angular": "1.5.0"
   },
   "dependencies": {
     "angular-timeline": "~1.6.2",
     "omh-web-visualizations": "roberthorlings/web-visualizations#21b283c",
-    "Angular.uuid2": "angular-uuid2#*"
+    "Angular.uuid2": "angular-uuid2#*",
+    "angular-indexedDB": "angular-indexed-db#~1.1.3"
   }
 }

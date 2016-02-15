@@ -15,12 +15,27 @@
         function getChart() {
           if( !vm.chart ) {
             // If no events are loaded, don't show a chart
-            if( !vm.events || vm.events.length == 0 ) {
+            if( !$scope.events || $scope.events.length == 0 ) {
               return
             }
-            createChart(vm.events);
-          }
 
+            function getDatapointDate(dataPoint) {
+              if( dataPoint.body.effective_time_frame && dataPoint.body.effective_time_frame.date_time ) {
+                return dataPoint.body.effective_time_frame.date_time;
+              } else {
+                return dataPoint.header.creation_date_time;
+              }
+            }
+
+            // Sort by date ascending
+            $scope.events.sort(function(a,b) {
+              return getDatapointDate(a) - getDatapointDate(b);
+            });
+
+            $scope.events = $scope.events.map( function(datapoint) { return $scope.model.convertDates(datapoint, function(d) { return d.toJSON(); }); });
+
+            createChart($scope.events.slice());
+          }
           return vm.chart;
         }
 
@@ -37,22 +52,29 @@
           var chart = getChart();
 
           if( chart ) {
+            targetElement.select('svg').style( 'display', 'block' );
             chart.renderTo(targetElement.select('svg').node());
           }
         }
 
         function load() {
-          vm.events = [];
+          $scope.loading = true;
+          $scope.events = [];
           $scope.model.list().then(function(data) {
-            vm.events = data;
+            $scope.events = data;
+            $scope.loading = false;
+
             showChart(data);
           });
         }
 
         function refresh() {
-          vm.events = [];
+          $scope.loading = true;
+          $scope.events = [];
           $scope.model.load().then(function(data) {
-            vm.events = data;
+            $scope.events = data;
+            $scope.loading = false;
+
             showChart(data);
           });
         }

@@ -10,7 +10,7 @@
       function(data) {
         return {
           'blood_glucose': { value: data.level, unit: 'mmHg' },
-          'temporal_relationship_to_meal': data.relationship_to_meal
+          'temporal_relationship_to_meal': data.relationship_to_meal ? data.relationship_to_meal.name : ""
         };
       }
     );
