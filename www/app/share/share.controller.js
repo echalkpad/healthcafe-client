@@ -2,15 +2,19 @@
 	angular.module('healthcafe.sharing')
 		.controller('ShareController', ShareController );
 
-		ShareController.$inject = [ '$state', '$ionicPopup', 'OAuth2', 'config', 'Share'];
+		ShareController.$inject = [ '$state', '$ionicHistory', '$ionicPopup', 'OAuth2', 'config', 'Share'];
 
-		function ShareController($state, $ionicPopup, OAuth2, config, Share) {
+		function ShareController($state, $ionicHistory, $ionicPopup, OAuth2, config, Share) {
       var vm = this;
 
       var serviceKey = $state.params.service;
 
       // Check whether this user is already connected
       if( !OAuth2.isAuthenticated(serviceKey) ) {
+        $ionicHistory.nextViewOptions({
+          disableBack: true
+        });
+
         $state.go("app.connect", { service: serviceKey });
         return;
       }

@@ -92,6 +92,7 @@
       // Sharing
 		  $stateProvider.state('app.share', {
 		    url: '/share/:service',
+        cache: false,
         views: {
           'mainContent': {
             templateUrl: 'app/share/share.html',
@@ -102,6 +103,7 @@
 
 		  $stateProvider.state('app.connect', {
 		    url: '/share/connect/:service',
+        cache: false,
         views: {
           'mainContent': {
             templateUrl: 'app/share/connect.html',
