@@ -18,9 +18,24 @@
             if( !$scope.events || $scope.events.length == 0 ) {
               return
             }
-            createChart($scope.events);
-          }
 
+            function getDatapointDate(dataPoint) {
+              if( dataPoint.body.effective_time_frame && dataPoint.body.effective_time_frame.date_time ) {
+                return dataPoint.body.effective_time_frame.date_time;
+              } else {
+                return dataPoint.header.creation_date_time;
+              }
+            }
+
+            // Sort by date ascending
+            $scope.events.sort(function(a,b) {
+              return getDatapointDate(a) - getDatapointDate(b);
+            });
+
+            $scope.events = $scope.events.map( function(datapoint) { return $scope.model.convertDates(datapoint, function(d) { return d.toJSON(); }); });
+
+            createChart($scope.events.slice());
+          }
           return vm.chart;
         }
 
