@@ -23,14 +23,21 @@ timeline-event {
   -webkit-transition: all ease 0.2s;
   -o-transition: all ease 0.2s;
 }
+
+timeline-event h4 { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-right: 30px; }
 .timeline timeline-event.removed { height: 0px; }
 .timeline .delete-icon { color: #999; cursor: pointer; }
 .timeline .delete-icon:hover { color: #333; }
 
 /* Specific styling for cholesterol measurements in timeline */
-.cholesterol-details { color: #999; font-size: smaller; }
+.datapoint-details { color: #999; font-size: smaller; white-space: no-wrap; }
 .cholesterol-detail:after { content: ' / ' }
 .cholesterol-detail:last-child:after { content: '' }
+
+/* Hide datapoint details on small screens */
+@media (max-width: 600px) {
+  .datapoint-details { display: none; }
+}
 
 /* Charts styling: fullscreen charts */
 .chart-container { height: 100%; }
