@@ -81,7 +81,7 @@
 
 	  .constant('config', configuration )
 
-    .config(function($httpProvider, $indexedDBProvider) {
+    .config( ['$httpProvider', '$indexedDBProvider', function($httpProvider, $indexedDBProvider) {
       $httpProvider.interceptors.push('OAuth2Interceptor');
 
       // Initialize indexed DB
@@ -92,5 +92,5 @@
           datapointsStore.createIndex('schema', [ 'header.schema_id.namespace', 'header.schema_id.name', 'header.schema_id.version'], { 'unique': false } );
           remarksStore = db.createObjectStore( "remarks", { keyPath: "id", autoIncrement: true } );
         })
-    })
+    }])
 })();
