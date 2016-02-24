@@ -18,8 +18,14 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
+        <ion-item menu-close href="#/app/intro">
+          Intro
+        </ion-item>
         <ion-item menu-close href="#/app/timeline">
-          All measurements
+          Timeline
+        </ion-item>
+        <ion-item class="item-divider">
+          Measurements
         </ion-item>
         <ion-item menu-close ng-href="#/app/{{datatype.name}}" ng-repeat="datatype in app.datatypes">
           {{datatype.label}}
