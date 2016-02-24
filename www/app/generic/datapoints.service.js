@@ -93,12 +93,18 @@
     }
 
     Datapoints.prototype.create = function( body ) {
-      var deferred = $q.defer();
-
       // Convert data if appropriate
       if( this.converter ) {
         body = this.converter(body);
       }
+
+      // If invalid data is specified, according to the converter,
+      // tell the user
+      if( !body ) {
+        return $q.reject("Invalid data specified");
+      }
+
+      var deferred = $q.defer();
 
       // Create the datapoint itself
       var datapoint = this.createDatapoint(body);

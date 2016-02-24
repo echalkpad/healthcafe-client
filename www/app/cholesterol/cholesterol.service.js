@@ -8,6 +8,10 @@
     return Datapoints.getInstance(
       { namespace: 'nrc', name: 'cholesterol', version: '0.1' },
       function(data) {
+        if( !data.total ) {
+          return null;
+        }
+
         var output = {
           'blood_total_cholesterol': { value: data.total, unit: 'mg/dL' },
         };

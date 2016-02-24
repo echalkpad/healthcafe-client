@@ -8,7 +8,9 @@
     return Datapoints.getInstance(
       { namespace: 'omh', name: 'body-mass-index', version: '1.0' },
       function(data) {
-        console.log( "Convert data point BMI" );
+        if( !data.weight || !data.length ) {
+          return null;
+        }
         return {
           'body_mass_index': { value: data.weight / ( data.length * data.length ), unit: 'kg/m2' },
         };
