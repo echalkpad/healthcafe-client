@@ -68,7 +68,7 @@
       var deferred = $q.defer();
 
       $indexedDB.openStore( 'datapoints', function(datapointStore) {
-        datapointStore.get(id).then(function(e) {
+        datapointStore.find(id).then(function(e) {
           deferred.resolve(e);
         }).catch(function(e) {
           deferred.reject(e);
