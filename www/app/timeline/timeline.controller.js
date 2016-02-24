@@ -8,11 +8,11 @@
       var vm = this;
 
       var definitions = {
-        'blood-pressure': { icon: 'ion-compass', model: BloodPressure },
+        'blood-pressure': { icon: 'ion-heart', model: BloodPressure },
         'body-weight': { icon: 'ion-speedometer', model: BodyWeight},
         'body-mass-index': { icon: 'ion-ios-flame', model: BMI},
         'blood-glucose': { icon: 'ion-fork', model: BloodGlucose},
-        'cholesterol': { icon: 'ion-medkit', model: Cholesterol},
+        'cholesterol': { icon: 'ion-waterdrop', model: Cholesterol},
       };
 
       /**
