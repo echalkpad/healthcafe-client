@@ -8,9 +8,13 @@
     return Datapoints.getInstance(
       { namespace: 'omh', name: 'blood-glucose', version: '1.0' },
       function(data) {
+        if( !data.level ) {
+          return null;
+        }
+
         return {
           'blood_glucose': { value: data.level, unit: 'mmHg' },
-          'temporal_relationship_to_meal': data.relationship_to_meal
+          'temporal_relationship_to_meal': data.relationship_to_meal ? data.relationship_to_meal.name : ""
         };
       }
     );

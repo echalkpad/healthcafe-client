@@ -18,29 +18,24 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item ng-if="!app.isAuthenticated" ng-click="app.login()">
-          Login
+        <ion-item menu-close href="#/app/intro">
+          Intro
         </ion-item>
-        <ion-item ng-if="app.isAuthenticated" menu-close ng-click="app.logoff()" href="#/app/intro">
-          Logoff
+        <ion-item menu-close href="#/app/timeline">
+          Timeline
         </ion-item>
-        <ion-item ng-if="app.isAuthenticated" menu-close href="#/app/timeline">
-          All measurements
+        <ion-item class="item-divider">
+          Measurements
         </ion-item>
-        <ion-item ng-if="app.isAuthenticated" menu-close href="#/app/bloodpressure">
-          Blood pressure
+        <ion-item menu-close ng-href="#/app/{{datatype.name}}" ng-repeat="datatype in app.datatypes">
+          {{datatype.label}}
         </ion-item>
-        <ion-item ng-if="app.isAuthenticated" menu-close href="#/app/bloodglucose">
-          Blood glucose
+
+        <ion-item class="item-divider">
+          Sharing
         </ion-item>
-        <ion-item ng-if="app.isAuthenticated" menu-close href="#/app/cholesterol">
-          Cholesterol
-        </ion-item>
-        <ion-item ng-if="app.isAuthenticated" menu-close href="#/app/bodyweight">
-          Body weight
-        </ion-item>
-        <ion-item ng-if="app.isAuthenticated" menu-close href="#/app/bmi">
-          BMI
+        <ion-item menu-close href="#/app/share/{{key}}" ng-repeat="(key, service) in app.sharing">
+          {{service.label}}
         </ion-item>
       </ion-list>
     </ion-content>

@@ -8,6 +8,9 @@
     return Datapoints.getInstance(
       { namespace: 'omh', name: 'body-weight', version: '1.0' },
       function(data) {
+        if( !data.weight ) {
+          return null;
+        }
         return { 'body_weight': { value: data.weight, unit: 'kg' } };
       }
     );

@@ -11,11 +11,12 @@
 	    'healthcafe.bloodglucose',
 	    'healthcafe.cholesterol',
 	    'healthcafe.timeline',
-	    'healthcafe.remarks'
+	    'healthcafe.remarks',
+	    'healthcafe.sharing',
     ];
 
-	angular.module('healthcafe', ['ionic', 'ngMessages', 'angularUUID2', 'angular-timeline' ].concat(appModules) )
-		.run(function($ionicPlatform) {
+	angular.module('healthcafe', ['ionic', 'ngMessages', 'angularUUID2', 'angular-timeline', 'indexedDB' ].concat(appModules) )
+		.run([ '$ionicPlatform', function($ionicPlatform) {
 		  $ionicPlatform.ready(function() {
 		    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 		    // for form inputs)
@@ -29,7 +30,7 @@
 		      StatusBar.styleDefault();
 		    }
 		  });
-		});
+		}]);
 
 	for( idx in appModules ) {
 		angular.module( appModules[idx], []);

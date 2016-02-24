@@ -1,0 +1,19 @@
+<ion-view view-title="Share: {{connect.service.label}}">
+  <ion-content class="padding">
+    <p>
+      {{connect.service.description}}
+    </p>
+
+    <h3>Connect</h3>
+    <p>
+      Before you can share data with this service, you will have to connect to the service
+      and allow this app to share data.
+    </p>
+
+    <div class="row buttons">
+      <div class="col">
+        <a class="button icon-left ion-person button-outline button-positive" ng-click="connect.login()">Connect</a>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

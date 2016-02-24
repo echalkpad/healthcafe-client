@@ -5,6 +5,12 @@
     </a>
   </ion-nav-buttons>
   <ion-content class="padding">
+    <div ng-show="timeline.loading">
+      <ion-spinner></ion-spinner> Loading...
+    </div>
+    <p ng-show="!timeline.loading && timeline.events.length == 0">
+      Start adding measurements (top right <i class="ion ion-plus"></i> button) or <a href="#/app/share/healthcafe">import from healthcafe.</a>
+    </p>
     <timeline>
       <timeline-event id="event-{{event.id}}" ng-repeat="event in timeline.events" side="right" ng-class="{removed: event.removed}">
         <timeline-badge class="{{event.badgeClass}}">
@@ -15,13 +21,15 @@
             <h4 ng-if="event.type == 'intervention'">{{event.message}}</h4>
             <h4 ng-if="event.measurementType == 'blood-pressure'">Blood pressure: {{event.datapoint.body.systolic_blood_pressure.value}} / {{event.datapoint.body.diastolic_blood_pressure.value}}</h4>
             <h4 ng-if="event.measurementType == 'body-weight'">Body weight: {{event.datapoint.body.body_weight.value}} {{event.datapoint.body.body_weight.unit}}</h4>
-            <h4 ng-if="event.measurementType == 'body-mass-index'">BMI: {{event.datapoint.body.body_mass_index.value}} {{event.datapoint.body.body_mass_index.unit}}</h4>
-            <h4 ng-if="event.measurementType == 'blood-glucose'">Glucose level ({{event.datapoint.body.temporal_relationship_to_meal}}): {{event.datapoint.body.blood_glucose.value}} {{event.datapoint.body.blood_glucose.unit}}</h4>
+            <h4 ng-if="event.measurementType == 'body-mass-index'">BMI: {{event.datapoint.body.body_mass_index.value | number}} {{event.datapoint.body.body_mass_index.unit}}</h4>
+            <h4 ng-if="event.measurementType == 'blood-glucose'">Blood glucose: {{event.datapoint.body.blood_glucose.value}} {{event.datapoint.body.blood_glucose.unit}}
+              <span class="datapoint-details" ng-show="event.datapoint.body.temporal_relationship_to_meal">{{event.datapoint.body.temporal_relationship_to_meal}}</span>
+            </h4>
             <h4 ng-if="event.measurementType == 'cholesterol'">Cholesterol: {{event.datapoint.body.blood_total_cholesterol.value}} {{event.datapoint.body.blood_total_cholesterol.unit}}
-              <span class="cholesterol-details">
+              <span class="datapoint-details cholesterol-details">
                 <span ng-if="event.datapoint.body.blood_ldl_cholesterol.value" class="cholesterol-detail">LDL: {{event.datapoint.body.blood_ldl_cholesterol.value}} {{event.datapoint.body.blood_ldl_cholesterol.unit}}</span>
-                <span ng-if="event.datapoint.body.blood_hdl_cholesterol.value" class="cholesterol-detail">LDL: {{event.datapoint.body.blood_hdl_cholesterol.value}} {{event.datapoint.body.blood_hdl_cholesterol.unit}}</span>
-                <span ng-if="event.datapoint.body.blood_triglycerides.value" class="cholesterol-detail">LDL: {{event.datapoint.body.blood_triglycerides.value}} {{event.datapoint.body.blood_triglycerides.unit}}</span>
+                <span ng-if="event.datapoint.body.blood_hdl_cholesterol.value" class="cholesterol-detail">HDL: {{event.datapoint.body.blood_hdl_cholesterol.value}} {{event.datapoint.body.blood_hdl_cholesterol.unit}}</span>
+                <span ng-if="event.datapoint.body.blood_triglycerides.value" class="cholesterol-detail">Triglycerides: {{event.datapoint.body.blood_triglycerides.value}} {{event.datapoint.body.blood_triglycerides.unit}}</span>
               </span>
             </h4>
             <p><small class="text-muted"><i class="ion ion-clock"></i>{{event.date | date}}</small></p>

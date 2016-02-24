@@ -2,9 +2,9 @@
 	angular.module('healthcafe.generic')
 		.factory('Datapoints', DatapointsFactory );
 
-  DatapointsFactory.$inject = [ '$http', '$q', 'uuid2', 'OAuth2', 'config' ];
+  DatapointsFactory.$inject = [ '$http', '$q', 'uuid2', 'OAuth2', 'config', '$indexedDB' ];
 
-	function DatapointsFactory($http, $q, uuid2, OAuth2, config) {
+	function DatapointsFactory($http, $q, uuid2, OAuth2, config, $indexedDB) {
 
     /**
      * Constructor for a generic datapoint service. Available methods (returning a promise to perform the work async):
@@ -35,17 +35,25 @@
     }
 
     Datapoints.prototype.load = function() {
-      var url = config.current().api.urls.dataPoints +
-                  '?schema_namespace=' + encodeURIComponent(this.schema.namespace) +
-                  '&schema_name=' + encodeURIComponent(this.schema.name) +
-                  '&schema_version=' + encodeURIComponent(this.schema.version);
+      var deferred = $q.defer();
+      var schema = this.schema
 
-      var datapoint = this;
+      $indexedDB.openStore( 'datapoints', function(datapointStore) {
+        var query = datapointStore.query()
+          .$index("schema")
+          .$eq([schema.namespace, schema.name, schema.version]);
 
-      return $http.get( url ).then(function(response) {
-        datapoint.cache = response.data;
-        return datapoint .cache;
+//        query = query.$eq([schema.namespace, schema.name, schema.version]);
+//        query = query.$index("schema");
+
+        datapointStore.findWhere(query).then(function(e) {
+          deferred.resolve(e);
+        }).catch(function(e) {
+          deferred.reject(e);
+        });
       });
+
+      return deferred.promise;
     }
 
     Datapoints.prototype.list = function() {
@@ -57,26 +65,108 @@
     }
 
     Datapoints.prototype.get = function( id ) {
-      var url = config.current().api.urls.dataPoints + '/' + id;
-      return $http.get( url )
+      var deferred = $q.defer();
+
+      $indexedDB.openStore( 'datapoints', function(datapointStore) {
+        datapointStore.get(id).then(function(e) {
+          deferred.resolve(e);
+        }).catch(function(e) {
+          deferred.reject(e);
+        });
+      });
+
+      return deferred.promise;
     }
 
     Datapoints.prototype.remove = function( id ) {
-      var url = config.current().api.urls.dataPoints + '/' + id;
-      return $http.delete( url )
+      var deferred = $q.defer();
+
+      $indexedDB.openStore( 'datapoints', function(datapointStore) {
+        datapointStore.delete(id).then(function(e) {
+          deferred.resolve(e);
+        }).catch(function(e) {
+          deferred.reject(e);
+        });
+      });
+
+      return deferred.promise;
     }
 
     Datapoints.prototype.create = function( body ) {
-      var url = config.current().api.urls.dataPoints;
-
       // Convert data if appropriate
       if( this.converter ) {
         body = this.converter(body);
       }
 
+      // If invalid data is specified, according to the converter,
+      // tell the user
+      if( !body ) {
+        return $q.reject("Invalid data specified");
+      }
+
+      var deferred = $q.defer();
+
+      // Create the datapoint itself
       var datapoint = this.createDatapoint(body);
 
-      return $http.post( url, datapoint);
+      // Store the datapoint
+      var schema = this.schema
+      $indexedDB.openStore( 'datapoints', function(datapointStore) {
+        datapointStore.insert(datapoint).then(function(e) {
+          deferred.resolve(e);
+        }).catch(function(e) {
+          deferred.reject(e);
+        });
+      });
+
+      return deferred.promise;
+    }
+
+    // Imports a datapoint or list of datapoints into the store
+    // Existing data with the same ID will be overwritten
+    Datapoints.prototype.import = function(data) {
+      var deferred = $q.defer();
+
+      // Handle dates, which are sent as string
+      function parseDate(date) {
+        if( date && typeof(date) == "string" ) {
+          return new Date(date);
+        } else {
+          return date;
+        }
+      }
+
+      if(Array.isArray(data)) {
+        var that = this;
+        data = data.map(function(datapoint) { return that.convertDates(datapoint, parseDate); } );
+      } else if(typeof(data) == "object") {
+        data = this.convertDates(data, parseDate);
+      }
+
+      // Store the datapoint
+      $indexedDB.openStore( 'datapoints', function(datapointStore) {
+        datapointStore.upsert(data).then(function(e) {
+          deferred.resolve(e);
+        }).catch(function(e) {
+          deferred.reject(e);
+        });
+      });
+
+      return deferred.promise;
+    }
+
+    // Convert all known dates for a single datapoint
+    Datapoints.prototype.convertDates = function(datapoint, conversionMethod) {
+      if(datapoint.header && datapoint.header.creation_date_time)
+        datapoint.header.creation_date_time = conversionMethod(datapoint.header.creation_date_time);
+
+      if(datapoint.header && datapoint.header.acquisition_provenance && datapoint.header.acquisition_provenance.source_creation_date_time)
+        datapoint.header.acquisition_provenance.source_creation_date_time = conversionMethod(datapoint.header.acquisition_provenance.source_creation_date_time);
+
+      if( datapoint.body && datapoint.body.effective_time_frame && datapoint.body.effective_time_frame.date_time)
+        datapoint.body.effective_time_frame.date_time = conversionMethod(datapoint.body.effective_time_frame.date_time);
+
+      return datapoint;
     }
 
     // Default values for the datapoint when creating one
@@ -92,6 +182,9 @@
     }
 
     Datapoints.prototype.createDatapoint = function( body ) {
+      // Store effective date_time
+      body.effective_time_frame = { date_time: new Date() };
+
       return {
         header: {
           id: uuid2.newuuid(),
@@ -110,7 +203,7 @@
     return {
       getInstance: function( schema, converter ) {
         return new Datapoints(schema, converter)
-      }
+      },
     };
   }
 })();

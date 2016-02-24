@@ -8,21 +8,27 @@
       var vm = this;
 
       var definitions = {
-        'blood-pressure': { icon: 'ion-compass', model: BloodPressure },
+        'blood-pressure': { icon: 'ion-heart', model: BloodPressure },
         'body-weight': { icon: 'ion-speedometer', model: BodyWeight},
         'body-mass-index': { icon: 'ion-ios-flame', model: BMI},
         'blood-glucose': { icon: 'ion-fork', model: BloodGlucose},
-        'cholesterol': { icon: 'ion-medkit', model: Cholesterol},
+        'cholesterol': { icon: 'ion-waterdrop', model: Cholesterol},
       };
 
       /**
        * Converts a blood pressure datapoint into an event on the timeline
        */
       function convertDatapoint(dataPoint) {
+        if( dataPoint.body.effective_time_frame && dataPoint.body.effective_time_frame.date_time ) {
+          date = dataPoint.body.effective_time_frame.date_time;
+        } else {
+          date = dataPoint.header.creation_date_time;
+        }
+
         return {
           id: dataPoint.header.id,
           datapoint: dataPoint,
-          date: dataPoint.body.effective_time_frame.date_time,
+          date: date,
           badgeIconClass: definitions[dataPoint.header.schema_id.name].icon,
           badgeClass: dataPoint.header.schema_id.name,
           type: 'measurement',
@@ -73,9 +79,12 @@
       }
 
       function load(models) {
+        vm.loading = true;
         vm.events = []
         $q.all( models.map(function(model) { return model.list() } ) ).then(function(data) {
           vm.events = combine(data);
+        }).then(function() {
+          vm.loading = false;
         });
       }
 
