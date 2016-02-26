@@ -174,18 +174,6 @@
         }
 		  })
 
-
-		  // Add remarks measurement. Remarks are only shown in the timeline for now.
-		  .state('app.remarks_add', {
-		    url: '/remarks/add',
-        views: {
-          'mainContent': {
-            templateUrl: 'app/remarks/create.html',
-    		    controller: 'RemarksCreateController as remarks'
-          }
-        }
-		  });
-
       for( i in config.datatypes ) {
         var datatype = config.datatypes[i];
         $stateProvider
@@ -223,7 +211,28 @@
             }
           })
 
+          // Details about a single measurement
+          .state('app.' + datatype.name + '_measurement', {
+            url: '/' + datatype.name + '/detail/:measurementId',
+            views: {
+              'mainContent': {
+                templateUrl: 'app/' + datatype.name + '/detail.html',
+                controller: 'GenericDetailController as detail'
+              }
+            }
+          });
       }
+
+		  // Add remarks measurement. Remarks are only shown in the timeline for now.
+		  $stateProvider.state('app.remarks_add', {
+		    url: '/remarks/add',
+        views: {
+          'mainContent': {
+            templateUrl: 'app/remarks/create.html',
+    		    controller: 'RemarksCreateController as remarks'
+          }
+        }
+		  });
 
       // Sharing
 		  $stateProvider.state('app.share', {
@@ -247,7 +256,6 @@
           }
         }
 		  });
-
 
 	  // if none of the above states are matched, use this as the fallback
 	  $urlRouterProvider.otherwise('/app/intro');
@@ -310,6 +318,10 @@
     return Datapoints.getInstance(
       { namespace: 'omh', name: 'blood-glucose', version: '1.0' },
       function(data) {
+        if( !data.level ) {
+          return null;
+        }
+
         return {
           'blood_glucose': { value: data.level, unit: 'mmHg' },
           'temporal_relationship_to_meal': data.relationship_to_meal ? data.relationship_to_meal.name : ""
@@ -344,28 +356,25 @@
 })();
 
 (function() {
-	angular.module('healthcafe.bloodpressure')
-		.controller('BloodPressureController', BloodPressureController );
+	angular.module('healthcafe.bodyweight')
+		.controller('BodyWeightController', BodyWeightController );
 
-		BloodPressureController.$inject = [ '$scope', '$controller', 'BloodPressure' ];
+		BodyWeightController.$inject = [ '$scope', '$controller', 'BodyWeight' ];
 
-		function BloodPressureController( $scope, $controller, Model ) {
+		function BodyWeightController( $scope, $controller, Model ) {
 		  var vm = this;
 
       $scope.model = Model;
-      $scope.selector = ".bloodpressure-container"
-      $scope.chartableProperties = 'systolic_blood_pressure, diastolic_blood_pressure';
-      $scope.chartOptions = {
-        'userInterface': {
-          'tooltips': {
-            'contentFormatter': function(d) {
-              var systolic = d.omhDatum.body.systolic_blood_pressure.value.toFixed( 0 );
-              var diastolic = d.omhDatum.body.diastolic_blood_pressure.value.toFixed( 0 );
-              return systolic + '/' + diastolic;
-            }
-          }
+      $scope.selector = '.bodyweight-container';
+      $scope.chartableProperties = 'body_weight';
+      $scope.chartOptions =   {
+        'measures': {
+          'body_weight': {
+            'range': undefined,
+            'thresholds': undefined,  // Disable default threshold
+          },
         }
-      }
+      };
 
       // Initialize the super class and extend it.
       angular.extend(vm, $controller('GenericChartController', {$scope: $scope}));
@@ -375,32 +384,33 @@
 })();
 
 (function() {
-	angular.module('healthcafe.bloodpressure')
-		.factory('BloodPressure', BloodPressure );
+	angular.module('healthcafe.bodyweight')
+		.factory('BodyWeight', BodyWeight );
 
-  BloodPressure.$inject = [ 'Datapoints' ];
+  BodyWeight.$inject = [ 'Datapoints' ];
 
-  function BloodPressure(Datapoints) {
+  function BodyWeight(Datapoints) {
     return Datapoints.getInstance(
-      { namespace: 'omh', name: 'blood-pressure', version: '1.0' },
+      { namespace: 'omh', name: 'body-weight', version: '1.0' },
       function(data) {
-        return {
-          'systolic_blood_pressure': { value: data.systolic, unit: 'mmHg' },
-          'diastolic_blood_pressure': { value: data.diastolic, unit: 'mmHg' },
-        };
+        if( !data.weight ) {
+          return null;
+        }
+        return { 'body_weight': { value: data.weight, unit: 'kg' } };
       }
     );
   }
 
 })();
 
+
 (function() {
-	angular.module('healthcafe.bloodpressure')
-		.controller('BloodPressureCreateController', BloodPressureCreateController );
+	angular.module('healthcafe.bodyweight')
+		.controller('BodyWeightCreateController', BodyWeightCreateController );
 
-		BloodPressureCreateController.$inject = [ '$scope', '$controller', 'BloodPressure' ];
+		BodyWeightCreateController.$inject = [ '$scope', '$controller', 'BodyWeight' ];
 
-		function BloodPressureCreateController( $scope, $controller, Model ) {
+		function BodyWeightCreateController( $scope, $controller, Model ) {
 		  var vm = this;
 
       $scope.model = Model;
@@ -452,7 +462,9 @@
     return Datapoints.getInstance(
       { namespace: 'omh', name: 'body-mass-index', version: '1.0' },
       function(data) {
-        console.log( "Convert data point BMI" );
+        if( !data.weight || !data.length ) {
+          return null;
+        }
         return {
           'body_mass_index': { value: data.weight / ( data.length * data.length ), unit: 'kg/m2' },
         };
@@ -469,70 +481,6 @@
 		BMICreateController.$inject = [ '$scope', '$controller', 'BMI' ];
 
 		function BMICreateController( $scope, $controller, Model ) {
-		  var vm = this;
-
-      $scope.model = Model;
-
-      // Initialize the super class and extend it.
-      angular.extend(vm, $controller('GenericCreateController', {$scope: $scope}));
-
-		  return vm;
-		}
-})();
-
-(function() {
-	angular.module('healthcafe.bodyweight')
-		.controller('BodyWeightController', BodyWeightController );
-
-		BodyWeightController.$inject = [ '$scope', '$controller', 'BodyWeight' ];
-
-		function BodyWeightController( $scope, $controller, Model ) {
-		  var vm = this;
-
-      $scope.model = Model;
-      $scope.selector = '.bodyweight-container';
-      $scope.chartableProperties = 'body_weight';
-      $scope.chartOptions =   {
-        'measures': {
-          'body_weight': {
-            'range': undefined,
-            'thresholds': undefined,  // Disable default threshold
-          },
-        }
-      };
-
-      // Initialize the super class and extend it.
-      angular.extend(vm, $controller('GenericChartController', {$scope: $scope}));
-
-		  return vm;
-		}
-})();
-
-(function() {
-	angular.module('healthcafe.bodyweight')
-		.factory('BodyWeight', BodyWeight );
-
-  BodyWeight.$inject = [ 'Datapoints' ];
-
-  function BodyWeight(Datapoints) {
-    return Datapoints.getInstance(
-      { namespace: 'omh', name: 'body-weight', version: '1.0' },
-      function(data) {
-        return { 'body_weight': { value: data.weight, unit: 'kg' } };
-      }
-    );
-  }
-
-})();
-
-
-(function() {
-	angular.module('healthcafe.bodyweight')
-		.controller('BodyWeightCreateController', BodyWeightCreateController );
-
-		BodyWeightCreateController.$inject = [ '$scope', '$controller', 'BodyWeight' ];
-
-		function BodyWeightCreateController( $scope, $controller, Model ) {
 		  var vm = this;
 
       $scope.model = Model;
@@ -633,6 +581,10 @@
     return Datapoints.getInstance(
       { namespace: 'nrc', name: 'cholesterol', version: '0.1' },
       function(data) {
+        if( !data.total ) {
+          return null;
+        }
+
         var output = {
           'blood_total_cholesterol': { value: data.total, unit: 'mg/dL' },
         };
@@ -675,6 +627,79 @@
 })();
 
 (function() {
+	angular.module('healthcafe.bloodpressure')
+		.controller('BloodPressureController', BloodPressureController );
+
+		BloodPressureController.$inject = [ '$scope', '$controller', 'BloodPressure' ];
+
+		function BloodPressureController( $scope, $controller, Model ) {
+		  var vm = this;
+
+      $scope.model = Model;
+      $scope.selector = ".bloodpressure-container"
+      $scope.chartableProperties = 'systolic_blood_pressure, diastolic_blood_pressure';
+      $scope.chartOptions = {
+        'userInterface': {
+          'tooltips': {
+            'contentFormatter': function(d) {
+              var systolic = d.omhDatum.body.systolic_blood_pressure.value.toFixed( 0 );
+              var diastolic = d.omhDatum.body.diastolic_blood_pressure.value.toFixed( 0 );
+              return systolic + '/' + diastolic;
+            }
+          }
+        }
+      }
+
+      // Initialize the super class and extend it.
+      angular.extend(vm, $controller('GenericChartController', {$scope: $scope}));
+
+		  return vm;
+		}
+})();
+
+(function() {
+	angular.module('healthcafe.bloodpressure')
+		.factory('BloodPressure', BloodPressure );
+
+  BloodPressure.$inject = [ 'Datapoints' ];
+
+  function BloodPressure(Datapoints) {
+    return Datapoints.getInstance(
+      { namespace: 'omh', name: 'blood-pressure', version: '1.0' },
+      function(data) {
+        if( !data.systolic || !data.diastolic ) {
+          return null;
+        }
+
+        return {
+          'systolic_blood_pressure': { value: data.systolic, unit: 'mmHg' },
+          'diastolic_blood_pressure': { value: data.diastolic, unit: 'mmHg' },
+        };
+      }
+    );
+  }
+
+})();
+
+(function() {
+	angular.module('healthcafe.bloodpressure')
+		.controller('BloodPressureCreateController', BloodPressureCreateController );
+
+		BloodPressureCreateController.$inject = [ '$scope', '$controller', 'BloodPressure' ];
+
+		function BloodPressureCreateController( $scope, $controller, Model ) {
+		  var vm = this;
+
+      $scope.model = Model;
+
+      // Initialize the super class and extend it.
+      angular.extend(vm, $controller('GenericCreateController', {$scope: $scope}));
+
+		  return vm;
+		}
+})();
+
+(function() {
 	angular.module('healthcafe.generic')
 		.controller('GenericChartController', GenericChartController );
 
@@ -688,6 +713,7 @@
 
         vm.chart = null;
 
+        // Returns an initialized chart object. The chart will be created if it doesn't exist yet.
         function getChart() {
           if( !vm.chart ) {
             // If no events are loaded, don't show a chart
@@ -715,6 +741,7 @@
           return vm.chart;
         }
 
+        // Create a new chart
         function createChart(omhDataPoints) {
           if( vm.chart )
             vm.chart.destroy();
@@ -723,13 +750,15 @@
           vm.chart = new OMHWebVisualizations.Chart( omhDataPoints, targetElement, $scope.chartableProperties, $scope.chartOptions );
         }
 
+        // Show the chart
         function showChart() {
           var targetElement = d3.select($scope.selector);
           var chart = getChart();
 
           if( chart ) {
-            targetElement.select('svg').style( 'display', 'block' );
-            chart.renderTo(targetElement.select('svg').node());
+            var svg = targetElement.select('svg');
+            svg.style( 'display', 'block' );
+            chart.renderTo(svg.node());
           }
         }
 
@@ -797,12 +826,15 @@
     vm.data = typeof $scope.model.defaults != 'undefined' ? $scope.model.defaults() : {};
 
     vm.save = function() {
-      console.log( "SAVING!" );
-      $scope.model.create(vm.data).then(function(data) {
-        $scope.model.load().then(function() {
-          $ionicHistory.goBack();
-         });
-      });
+      $scope.model.create(vm.data)
+        .then(function(data) {
+          $scope.model.load().then(function() {
+            $ionicHistory.goBack();
+           });
+        })
+        .catch(function(e) {
+          console.log( "Error saving data: ", e );
+        });
     };
 
     return vm;
@@ -880,7 +912,7 @@
       var deferred = $q.defer();
 
       $indexedDB.openStore( 'datapoints', function(datapointStore) {
-        datapointStore.get(id).then(function(e) {
+        datapointStore.find(id).then(function(e) {
           deferred.resolve(e);
         }).catch(function(e) {
           deferred.reject(e);
@@ -905,12 +937,18 @@
     }
 
     Datapoints.prototype.create = function( body ) {
-      var deferred = $q.defer();
-
       // Convert data if appropriate
       if( this.converter ) {
         body = this.converter(body);
       }
+
+      // If invalid data is specified, according to the converter,
+      // tell the user
+      if( !body ) {
+        return $q.reject("Invalid data specified");
+      }
+
+      var deferred = $q.defer();
 
       // Create the datapoint itself
       var datapoint = this.createDatapoint(body);
@@ -1017,6 +1055,46 @@
 
 (function() {
 	angular.module('healthcafe.generic')
+		.controller('GenericDetailController', GenericDetailController );
+
+		GenericDetailController.$inject = ['$scope', '$state', 'Datapoints']
+
+  /**
+   * Generic controller to show details about a datapoint
+   **/
+  function GenericDetailController($scope, $state, DatapointsFactory) {
+    var vm = this;
+
+    vm.measurementId = $state.params.measurementId;
+    vm.measurement = null;
+
+    // Get anonymous instance, since we don't care about the specific schema
+    var model = DatapointsFactory.getInstance();
+
+    // Load the datapoint
+    model.get(vm.measurementId)
+      .then(function(dataPoint) {
+        vm.measurement = dataPoint;
+
+        if( dataPoint.body.effective_time_frame && dataPoint.body.effective_time_frame.date_time ) {
+          date = dataPoint.body.effective_time_frame.date_time;
+        } else {
+          date = dataPoint.header.creation_date_time;
+        }
+
+        vm.date = date;
+      })
+      .catch(function(e) {
+        console.log( "Error loading data: ", e );
+      });
+
+    return vm;
+  }
+
+})();
+
+(function() {
+	angular.module('healthcafe.generic')
 		.controller('GenericInfoController', GenericInfoController );
 
   /**
@@ -1027,6 +1105,26 @@
     return vm;
   }
 
+})();
+
+(function() {
+	angular.module('healthcafe.intro')
+		.controller('IntroController', IntroController );
+
+	IntroController.$inject = [ '$scope', '$ionicHistory' ];
+
+	function IntroController($scope, $ionicHistory) {
+	  var vm = this;
+
+    // Method to reset navigation and disable back on the next page
+    vm.resetNav = function() {
+      $ionicHistory.nextViewOptions({
+        disableBack: true,
+      });
+    }
+
+		return this;
+	}
 })();
 
 (function() {
@@ -1592,17 +1690,17 @@
 	angular.module('healthcafe.timeline')
 		.controller('TimelineController', TimelineController );
 
-		TimelineController.$inject = [ 'BloodPressure', 'BodyWeight', 'BMI', 'BloodGlucose', 'Cholesterol', 'Remarks', '$q', '$ionicPopover', '$timeout'];
+		TimelineController.$inject = [ 'BloodPressure', 'BodyWeight', 'BMI', 'BloodGlucose', 'Cholesterol', 'Remarks', '$q', '$ionicPopover', '$timeout', '$state'];
 
-		function TimelineController(BloodPressure, BodyWeight, BMI, BloodGlucose, Cholesterol, Remarks, $q, $ionicPopover, $timeout) {
+		function TimelineController(BloodPressure, BodyWeight, BMI, BloodGlucose, Cholesterol, Remarks, $q, $ionicPopover, $timeout, $state) {
       var vm = this;
 
       var definitions = {
-        'blood-pressure': { icon: 'ion-compass', model: BloodPressure },
+        'blood-pressure': { icon: 'ion-heart', model: BloodPressure },
         'body-weight': { icon: 'ion-speedometer', model: BodyWeight},
         'body-mass-index': { icon: 'ion-ios-flame', model: BMI},
         'blood-glucose': { icon: 'ion-fork', model: BloodGlucose},
-        'cholesterol': { icon: 'ion-medkit', model: Cholesterol},
+        'cholesterol': { icon: 'ion-waterdrop', model: Cholesterol},
       };
 
       /**
@@ -1615,15 +1713,25 @@
           date = dataPoint.header.creation_date_time;
         }
 
+        var schemaName = dataPoint.header.schema_id.name;
+
         return {
           id: dataPoint.header.id,
           datapoint: dataPoint,
           date: date,
-          badgeIconClass: definitions[dataPoint.header.schema_id.name].icon,
+          badgeIconClass: definitions[schemaName].icon,
           badgeClass: dataPoint.header.schema_id.name,
           type: 'measurement',
-          measurementType: dataPoint.header.schema_id.name,
-          model: definitions[dataPoint.header.schema_id.name].model
+          measurementType: schemaName,
+          model: definitions[schemaName].model,
+          showDetail: function() {
+            var typeName;
+            switch(schemaName) {
+              case 'body-mass-index':   typeName = 'bmi'; break;
+              default:                  typeName = schemaName.replace( /-/g, '' ); break;
+            }
+            $state.go( 'app.' +  typeName + '_measurement', { measurementId: dataPoint.header.id } );
+          }
         };
       }
 
@@ -1635,7 +1743,8 @@
           badgeIconClass: 'ion-flash',
           badgeClass: 'remark',
           type: 'intervention',
-          model: Remarks
+          model: Remarks,
+          showDetail: function() { return false; }
         });
       }
 
@@ -1700,6 +1809,8 @@
             .then(function() { return event.model.load(); })
             .then(function() { return vm.load(); })
         }
+
+        return false;
       }
 
       // Enable the popover when clicking the add button
@@ -1709,24 +1820,4 @@
 
       return vm;
 		}
-})();
-
-(function() {
-	angular.module('healthcafe.intro')
-		.controller('IntroController', IntroController );
-
-	IntroController.$inject = [ '$scope', '$ionicHistory' ];
-
-	function IntroController($scope, $ionicHistory) {
-	  var vm = this;
-
-    // Method to reset navigation and disable back on the next page
-    vm.resetNav = function() {
-      $ionicHistory.nextViewOptions({
-        disableBack: true,
-      });
-    }
-
-		return this;
-	}
 })();
