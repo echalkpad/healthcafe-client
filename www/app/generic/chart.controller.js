@@ -12,6 +12,7 @@
 
         vm.chart = null;
 
+        // Returns an initialized chart object. The chart will be created if it doesn't exist yet.
         function getChart() {
           if( !vm.chart ) {
             // If no events are loaded, don't show a chart
@@ -39,6 +40,7 @@
           return vm.chart;
         }
 
+        // Create a new chart
         function createChart(omhDataPoints) {
           if( vm.chart )
             vm.chart.destroy();
@@ -47,13 +49,15 @@
           vm.chart = new OMHWebVisualizations.Chart( omhDataPoints, targetElement, $scope.chartableProperties, $scope.chartOptions );
         }
 
+        // Show the chart
         function showChart() {
           var targetElement = d3.select($scope.selector);
           var chart = getChart();
 
           if( chart ) {
-            targetElement.select('svg').style( 'display', 'block' );
-            chart.renderTo(targetElement.select('svg').node());
+            var svg = targetElement.select('svg');
+            svg.style( 'display', 'block' );
+            chart.renderTo(svg.node());
           }
         }
 
