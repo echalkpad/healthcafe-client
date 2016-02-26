@@ -2,9 +2,9 @@
 	angular.module('healthcafe.timeline')
 		.controller('TimelineController', TimelineController );
 
-		TimelineController.$inject = [ 'BloodPressure', 'BodyWeight', 'BMI', 'BloodGlucose', 'Cholesterol', 'Remarks', '$q', '$ionicPopover', '$timeout'];
+		TimelineController.$inject = [ 'BloodPressure', 'BodyWeight', 'BMI', 'BloodGlucose', 'Cholesterol', 'Remarks', '$q', '$ionicPopover', '$timeout', '$state'];
 
-		function TimelineController(BloodPressure, BodyWeight, BMI, BloodGlucose, Cholesterol, Remarks, $q, $ionicPopover, $timeout) {
+		function TimelineController(BloodPressure, BodyWeight, BMI, BloodGlucose, Cholesterol, Remarks, $q, $ionicPopover, $timeout, $state) {
       var vm = this;
 
       var definitions = {
@@ -25,15 +25,25 @@
           date = dataPoint.header.creation_date_time;
         }
 
+        var schemaName = dataPoint.header.schema_id.name;
+
         return {
           id: dataPoint.header.id,
           datapoint: dataPoint,
           date: date,
-          badgeIconClass: definitions[dataPoint.header.schema_id.name].icon,
+          badgeIconClass: definitions[schemaName].icon,
           badgeClass: dataPoint.header.schema_id.name,
           type: 'measurement',
-          measurementType: dataPoint.header.schema_id.name,
-          model: definitions[dataPoint.header.schema_id.name].model
+          measurementType: schemaName,
+          model: definitions[schemaName].model,
+          showDetail: function() {
+            var typeName;
+            switch(schemaName) {
+              case 'body-mass-index':   typeName = 'bmi'; break;
+              default:                  typeName = schemaName.replace( /-/g, '' ); break;
+            }
+            $state.go( 'app.' +  typeName + '_measurement', { measurementId: dataPoint.header.id } );
+          }
         };
       }
 
@@ -45,7 +55,8 @@
           badgeIconClass: 'ion-flash',
           badgeClass: 'remark',
           type: 'intervention',
-          model: Remarks
+          model: Remarks,
+          showDetail: function() { return false; }
         });
       }
 
@@ -110,6 +121,8 @@
             .then(function() { return event.model.load(); })
             .then(function() { return vm.load(); })
         }
+
+        return false;
       }
 
       // Enable the popover when clicking the add button

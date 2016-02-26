@@ -16,7 +16,7 @@
         <timeline-badge class="{{event.badgeClass}}">
           <i class="ion {{event.badgeIconClass}}"></i>
         </timeline-badge>
-        <timeline-panel class="{{event.badgeClass}} item-icon-right">
+        <timeline-panel class="{{event.badgeClass}} item-icon-right" ng-click="event.showDetail();">
           <timeline-heading>
             <h4 ng-if="event.type == 'intervention'">{{event.message}}</h4>
             <h4 ng-if="event.measurementType == 'blood-pressure'">Blood pressure: {{event.datapoint.body.systolic_blood_pressure.value}} / {{event.datapoint.body.diastolic_blood_pressure.value}}</h4>
@@ -33,7 +33,7 @@
               </span>
             </h4>
             <p><small class="text-muted"><i class="ion ion-clock"></i>{{event.date | date}}</small></p>
-            <a class="icon delete-icon" ng-if="event.model" ng-click="timeline.remove(event);">
+            <a class="icon delete-icon" ng-if="event.model" ng-click="timeline.remove(event); $event.stopPropagation();">
               <i class="ion ion-trash-b"></i>
             </a>
           </timeline-heading>

@@ -38,18 +38,6 @@
         }
 		  })
 
-
-		  // Add remarks measurement. Remarks are only shown in the timeline for now.
-		  .state('app.remarks_add', {
-		    url: '/remarks/add',
-        views: {
-          'mainContent': {
-            templateUrl: 'app/remarks/create.html',
-    		    controller: 'RemarksCreateController as remarks'
-          }
-        }
-		  });
-
       for( i in config.datatypes ) {
         var datatype = config.datatypes[i];
         $stateProvider
@@ -87,7 +75,28 @@
             }
           })
 
+          // Details about a single measurement
+          .state('app.' + datatype.name + '_measurement', {
+            url: '/' + datatype.name + '/detail/:measurementId',
+            views: {
+              'mainContent': {
+                templateUrl: 'app/' + datatype.name + '/detail.html',
+                controller: 'GenericDetailController as detail'
+              }
+            }
+          });
       }
+
+		  // Add remarks measurement. Remarks are only shown in the timeline for now.
+		  $stateProvider.state('app.remarks_add', {
+		    url: '/remarks/add',
+        views: {
+          'mainContent': {
+            templateUrl: 'app/remarks/create.html',
+    		    controller: 'RemarksCreateController as remarks'
+          }
+        }
+		  });
 
       // Sharing
 		  $stateProvider.state('app.share', {
@@ -111,7 +120,6 @@
           }
         }
 		  });
-
 
 	  // if none of the above states are matched, use this as the fallback
 	  $urlRouterProvider.otherwise('/app/intro');
