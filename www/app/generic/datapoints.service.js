@@ -68,7 +68,7 @@
       var deferred = $q.defer();
 
       $indexedDB.openStore( 'datapoints', function(datapointStore) {
-        datapointStore.get(id).then(function(e) {
+        datapointStore.find(id).then(function(e) {
           deferred.resolve(e);
         }).catch(function(e) {
           deferred.reject(e);
@@ -93,12 +93,18 @@
     }
 
     Datapoints.prototype.create = function( body ) {
-      var deferred = $q.defer();
-
       // Convert data if appropriate
       if( this.converter ) {
         body = this.converter(body);
       }
+
+      // If invalid data is specified, according to the converter,
+      // tell the user
+      if( !body ) {
+        return $q.reject("Invalid data specified");
+      }
+
+      var deferred = $q.defer();
 
       // Create the datapoint itself
       var datapoint = this.createDatapoint(body);

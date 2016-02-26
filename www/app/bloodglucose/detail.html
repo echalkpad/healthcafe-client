@@ -1,0 +1,18 @@
+<ion-view view-title="Blood glucose details">
+  <ion-content class="padding">
+    <ion-list>
+      <ion-item>
+        <h2>Date</h2>
+        <p>{{detail.date | date}}</p>
+      </ion-item>
+      <ion-item>
+        <h2>Blood glucose</h2>
+        <p>{{detail.measurement.body.blood_glucose.value}} {{detail.measurement.body.blood_glucose.unit}}</p>
+      </ion-item>
+      <ion-item class="item-icon-left">
+        <i class="icon ion-thumbsup"></i>
+        <p>Your blood glucose is perfect. Keep up the good work</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

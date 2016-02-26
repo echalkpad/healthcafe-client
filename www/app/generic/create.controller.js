@@ -13,12 +13,15 @@
     vm.data = typeof $scope.model.defaults != 'undefined' ? $scope.model.defaults() : {};
 
     vm.save = function() {
-      console.log( "SAVING!" );
-      $scope.model.create(vm.data).then(function(data) {
-        $scope.model.load().then(function() {
-          $ionicHistory.goBack();
-         });
-      });
+      $scope.model.create(vm.data)
+        .then(function(data) {
+          $scope.model.load().then(function() {
+            $ionicHistory.goBack();
+           });
+        })
+        .catch(function(e) {
+          console.log( "Error saving data: ", e );
+        });
     };
 
     return vm;

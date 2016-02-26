@@ -1,0 +1,18 @@
+<ion-view view-title="Blood pressure details">
+  <ion-content class="padding">
+    <ion-list>
+      <ion-item>
+        <h2>Date</h2>
+        <p>{{detail.date | date}}</p>
+      </ion-item>
+      <ion-item>
+        <h2>Blood pressure</h2>
+        <p>{{detail.measurement.body.systolic_blood_pressure.value}} / {{detail.measurement.body.diastolic_blood_pressure.value}}</p>
+      </ion-item>
+      <ion-item class="item-icon-left">
+        <i class="icon ion-thumbsup"></i>
+        <p>Your blood pressure is perfect. Keep up the good work</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

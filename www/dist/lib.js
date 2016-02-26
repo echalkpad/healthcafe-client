@@ -93455,7 +93455,7 @@ return Plottable;
 
       //initialize the tooltip
       var tip = d3.tip().attr('class', 'd3-tip').html(function(d) {
-        return '<div class="omh-tooltip">' + getTipContent( d, measureList ) + '</div>';
+        return '<div class="omh-tooltip" data-datapoint-id="' + d.omhDatum.header.id + '">' + getTipContent( d, measureList ) + '</div>';
       });
 
     }

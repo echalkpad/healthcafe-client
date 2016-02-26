@@ -1,0 +1,18 @@
+<ion-view view-title="Body weight details">
+  <ion-content class="padding">
+    <ion-list>
+      <ion-item>
+        <h2>Date</h2>
+        <p>{{detail.date | date}}</p>
+      </ion-item>
+      <ion-item>
+        <h2>Body weight</h2>
+        <p>{{detail.measurement.body.body_weight.value}} {{detail.measurement.body.body_weight.unit}}</p>
+      </ion-item>
+      <ion-item class="item-icon-left">
+        <i class="icon ion-thumbsup"></i>
+        <p>Your weight is perfect. Keep up the good work</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

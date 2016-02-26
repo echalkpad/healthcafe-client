@@ -1,0 +1,30 @@
+<ion-view view-title="Cholesterol details">
+  <ion-content class="padding">
+    <ion-list>
+      <ion-item>
+        <h2>Date</h2>
+        <p>{{detail.date | date}}</p>
+      </ion-item>
+      <ion-item>
+        <h2>Total cholesterol</h2>
+        <p>{{detail.measurement.body.blood_total_cholesterol.value}} {{detail.measurement.body.blood_total_cholesterol.unit}}</p>
+      </ion-item>
+      <ion-item ng-show="detail.measurement.body.blood_ldl_cholesterol">
+        <h2>LDL cholesterol</h2>
+        <p>{{detail.measurement.body.blood_ldl_cholesterol.value}} {{detail.measurement.body.blood_ldl_cholesterol.unit}}</p>
+      </ion-item>
+      <ion-item ng-show="detail.measurement.body.blood_hdl_cholesterol">
+        <h2>HDL cholesterol</h2>
+        <p>{{detail.measurement.body.blood_hdl_cholesterol.value}} {{detail.measurement.body.blood_hdl_cholesterol.unit}}</p>
+      </ion-item>
+      <ion-item ng-show="detail.measurement.body.blood_triglycerides">
+        <h2>Triglycerides</h2>
+        <p>{{detail.measurement.body.blood_triglycerides.value}} {{detail.measurement.body.blood_triglycerides.unit}}</p>
+      </ion-item>
+      <ion-item class="item-icon-left">
+        <i class="icon ion-thumbsup"></i>
+        <p>Your cholesterol levels are perfect. Keep up the good work</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
