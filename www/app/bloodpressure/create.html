@@ -4,15 +4,21 @@
       <ion-list>
         <ion-item class="item-input">
           <div class="input-label">
+            Date
+          </div>
+          <input type="date" ng-model="bloodpressure.data.date" placeholder="Date of measurement" />
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
             Systolic
           </div>
-          <input type="number" ng-model="bloodpressure.data.systolic" placeholder="systolic blood pressure" />
+          <input type="number" ng-model="bloodpressure.data.body.systolic" placeholder="systolic blood pressure" />
         </ion-item>
         <ion-item class="item-input">
           <div class="input-label">
             Diastolic
           </div>
-          <input type="number" ng-model="bloodpressure.data.diastolic" placeholder="diastolic blood pressure" />
+          <input type="number" ng-model="bloodpressure.data.body.diastolic" placeholder="diastolic blood pressure" />
         </ion-item>
       </ion-list>
       <p class="padding">

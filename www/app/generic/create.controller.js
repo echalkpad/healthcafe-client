@@ -10,10 +10,13 @@
   function GenericCreateController($scope, $ionicHistory) {
     var vm = this;
 
-    vm.data = typeof $scope.model.defaults != 'undefined' ? $scope.model.defaults() : {};
+    vm.data = {
+      body: (typeof $scope.model.defaults != 'undefined') ? $scope.model.defaults() : {},
+      date: new Date()
+    };
 
     vm.save = function() {
-      $scope.model.create(vm.data)
+      $scope.model.create(vm.data.body, vm.data.date)
         .then(function(data) {
           $scope.model.load().then(function() {
             $ionicHistory.goBack();
