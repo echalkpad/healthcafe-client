@@ -4,9 +4,15 @@
       <ion-list>
         <ion-item class="item-input">
           <div class="input-label">
+            Date
+          </div>
+          <input type="date" ng-model="bodyweight.data.date" placeholder="Date of measurement" />
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
             Body weight
           </div>
-          <input type="number" ng-model="bodyweight.data.weight" step="any" placeholder="body weight in kg" />
+          <input type="number" ng-model="bodyweight.data.body.weight" step="any" placeholder="body weight in kg" />
         </ion-item>
       </ion-list>
       <p class="padding">

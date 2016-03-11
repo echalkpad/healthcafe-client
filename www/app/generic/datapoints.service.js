@@ -92,7 +92,7 @@
       return deferred.promise;
     }
 
-    Datapoints.prototype.create = function( body ) {
+    Datapoints.prototype.create = function(body, date) {
       // Convert data if appropriate
       if( this.converter ) {
         body = this.converter(body);
@@ -107,7 +107,7 @@
       var deferred = $q.defer();
 
       // Create the datapoint itself
-      var datapoint = this.createDatapoint(body);
+      var datapoint = this.createDatapoint(body, date);
 
       // Store the datapoint
       var schema = this.schema
@@ -181,9 +181,12 @@
       return this.propertyNames;
     }
 
-    Datapoints.prototype.createDatapoint = function( body ) {
+    Datapoints.prototype.createDatapoint = function( body, date ) {
+      if( typeof(date) == 'undefined' )
+        date = new Date();
+
       // Store effective date_time
-      body.effective_time_frame = { date_time: new Date() };
+      body.effective_time_frame = { date_time: date };
 
       return {
         header: {

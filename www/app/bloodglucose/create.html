@@ -4,16 +4,22 @@
       <ion-list>
         <ion-item class="item-input">
           <div class="input-label">
+            Date
+          </div>
+          <input type="date" ng-model="bloodglucose.data.date" placeholder="Date of measurement" />
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
             Blood Glucose level
           </div>
-          <input type="number" step="any" ng-model="bloodglucose.data.level" placeholder="Blood glucose level in mg/dL" />
+          <input type="number" step="any" ng-model="bloodglucose.data.body.level" placeholder="Blood glucose level in mg/dL" />
         </ion-item>
 
         <label class="item-input item-select">
           <div class="input-label">
             Relationship to meal
           </div>
-          <select ng-model="bloodglucose.data.relationship_to_meal" ng-options="relationship.name for relationship in bloodglucose.relationships_to_meal">
+          <select ng-model="bloodglucose.data.body.relationship_to_meal" ng-options="relationship.name for relationship in bloodglucose.relationships_to_meal">
 
           </select>
         </label>
