@@ -25,5 +25,3 @@ Before deployment, the large list of javascripts and stylesheets in `www/index.h
 <script src="dist/lib.min.js"></script>
 <script src="dist/app.min.js"></script>
 ```
-
-automatic build test
