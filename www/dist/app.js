@@ -296,7 +296,7 @@
                 'blood-glucose' : {
                   'valueKeyPath': 'body.blood_glucose.value',
                   'range': undefined,
-                  'units': 'mg/dL',
+                  'units': 'mmol/L',
                 },
               }
             };
@@ -323,7 +323,7 @@
         }
 
         return {
-          'blood_glucose': { value: data.level, unit: 'mmHg' },
+          'blood_glucose': { value: data.level, unit: 'mmol/L' },
           'temporal_relationship_to_meal': data.relationship_to_meal ? data.relationship_to_meal.name : ""
         };
       }
@@ -520,22 +520,22 @@
                   'valueKeyPath': 'body.blood_total_cholesterol.value',
                   'range':undefined,
                   'seriesName': 'Total Cholesterol',
-                  'units': 'mg/dL',
+                  'units': 'mmol/L',
                   'chart': {
                     'pointFillColor' : '#4a90e2',
                     'pointStrokeColor' : '#0066d6',
                    },
                    'thresholds': [
-                      { name: 'Desirable', max: 200 },
-                      { name: 'Borderline high', min: 200, max: 240 },
-                      { name: 'High', min: 240 },
+                      { name: 'Desirable', max: 5 },
+                      { name: 'Borderline high', min: 5, max: 6.5 },
+                      { name: 'High', min: 6.5 },
                     ]
                 },
                 'ldl-cholesterol' : {
                   'valueKeyPath': 'body.blood_ldl_cholesterol.value',
                   'range': { min: 0, max: 20 },
                   'seriesName': 'LDL Cholesterol',
-                  'units': 'mg/dL',
+                  'units': 'mmol/L',
                   'chart': {
                     'pointFillColor' : '#E24A4A',
                     'pointStrokeColor' : '#D60000',
@@ -544,7 +544,7 @@
                 'hdl-cholesterol' : {
                   'valueKeyPath': 'body.blood_hdl_cholesterol.value',
                   'range': { min: 0, max: 20 },
-                  'units': 'mg/dL',
+                  'units': 'mmol/L',
                   'seriesName': 'HDL Cholesterol',
                   'chart': {
                     'pointFillColor' : '#4AE250',
@@ -554,7 +554,7 @@
                 'triglycerides' : {
                   'valueKeyPath': 'body.blood_triglycerides.value',
                   'range': undefined,
-                  'units': 'mg/dL',
+                  'units': 'mmol/L',
                   'seriesName': 'Triglycerides',
                   'chart': {
                     'pointFillColor' : '#DA4AE2',

@@ -15,7 +15,7 @@
                 'blood-glucose' : {
                   'valueKeyPath': 'body.blood_glucose.value',
                   'range': undefined,
-                  'units': 'mg/dL',
+                  'units': 'mmol/L',
                 },
               }
             };
