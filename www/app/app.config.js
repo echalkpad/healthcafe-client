@@ -49,7 +49,7 @@
               // redirect: "http://localhost:8100/app/login/oauth_callback.html?healthcafe",
               // dataPoints: "http://localhost:8080/nrc/api/openmhealth/v1/dataPoints"
               authorization: "https://humanstudies.tno.nl/healthcafe/oauth/authorize",
-              redirect: "http://msb2.hex.tno.nl/app-test/login/oauth_callback.html?healthcafe",
+              redirect: "http://msb2.hex.tno.nl/app-test/app/login/oauth_callback.html?healthcafe",
               dataPoints: "https://humanstudies.tno.nl/healthcafe/api/openmhealth/v1/dataPoints"
             },
 
