@@ -30,7 +30,12 @@
         <ion-item menu-close ng-href="#/app/{{datatype.name}}" ng-repeat="datatype in app.datatypes">
           {{datatype.label}}
         </ion-item>
-
+        <ion-item class="item-divider">
+          Questionnaires
+        </ion-item>
+        <ion-item menu-close ng-href="#/app/{{questionnaire.name}}" ng-repeat="questionnaire in app.questionnaires">
+          {{questionnaire.label}}
+        </ion-item>
         <ion-item class="item-divider">
           Delen
         </ion-item>

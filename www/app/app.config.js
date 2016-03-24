@@ -15,7 +15,7 @@
       healthcafe: {
         label: "NRC healthcafe",
         description: "Healthcafe is een concept, een werk-in-uitvoering, waar u binnnen de werkomgeving zelf bepaalde aspecten van uw gezondheid kan meten en daarop zelf kan acteren.",
-        type: "openmhealth",
+        type: "openmhealth"
       }
     },
 
@@ -26,11 +26,25 @@
     // As the dependencies are injected there, we have to specify the dependencies
     // specifically there.
     datatypes: [
+<<<<<<< HEAD
       { name: 'bloodpressure', controllerPrefix: 'BloodPressure', label: 'Bloeddruk' },
       { name: 'bodyweight', controllerPrefix: 'BodyWeight', label: 'Gewicht' },
       { name: 'bmi', controllerPrefix: 'BMI', label: 'BMI' },
       { name: 'bloodglucose', controllerPrefix: 'BloodGlucose', label: 'Bloedglucose' },
       { name: 'cholesterol', controllerPrefix: 'Cholesterol', label: 'Cholesterol' },
+=======
+      { name: 'bloodpressure', controllerPrefix: 'BloodPressure', label: 'Blood pressure' },
+      { name: 'bodyweight', controllerPrefix: 'BodyWeight', label: 'Body weight' },
+      { name: 'bmi', controllerPrefix: 'BMI', label: 'Body Mass Index' },
+      { name: 'bloodglucose', controllerPrefix: 'BloodGlucose', label: 'Blood Glucose' },
+      { name: 'cholesterol', controllerPrefix: 'Cholesterol', label: 'Cholesterol' }
+    ],
+
+    //
+    // Questionnaires determine the menu items.
+    questionnaires: [
+      { name: 'vita16', controllerPrefix: 'Vita16', label: 'Vitaliteitsvragenlijst' }
+>>>>>>> cfbdd9f02900b6bee517c4a9e624c42258fffc0f
     ],
 
     // Development configuration
@@ -68,7 +82,6 @@
         }
       },
     },
-
   };
 
 	// Convenience method to use environments in configuration

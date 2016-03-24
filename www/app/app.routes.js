@@ -87,6 +87,33 @@
           });
       }
 
+      for( i in config.questionnaires ) {
+        var questionnaire = config.questionnaires[i];
+        $stateProvider
+          // Retrieve feedback
+          .state('app.' + questionnaire.name, {
+            url: '/' + questionnaire.name,
+            cache: false,
+            views: {
+              'mainContent': {
+                templateUrl: 'app/' + questionnaire.name + '/feedback.html',
+                controller: questionnaire.controllerPrefix + 'Controller as ' + questionnaire.name
+              }
+            }
+          })
+
+          // Answer a questionnaire
+          .state('app.' + questionnaire.name + '_answer', {
+            url: '/' + questionnaire.name + '/answer',
+            views: {
+              'mainContent': {
+                templateUrl: 'app/' + questionnaire.name + '/answer.html',
+                controller: questionnaire.controllerPrefix + 'AnswerController as ' + questionnaire.name
+              }
+            }
+          })
+      }
+
 		  // Add remarks measurement. Remarks are only shown in the timeline for now.
 		  $stateProvider.state('app.remarks_add', {
 		    url: '/remarks/add',

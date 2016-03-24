@@ -10,6 +10,7 @@
 	    'healthcafe.bmi',
 	    'healthcafe.bloodglucose',
 	    'healthcafe.cholesterol',
+      'healthcafe.vita16',
 	    'healthcafe.timeline',
 	    'healthcafe.remarks',
 	    'healthcafe.sharing',
