@@ -22,17 +22,17 @@
           Intro
         </ion-item>
         <ion-item menu-close href="#/app/timeline">
-          Timeline
+          Tijdlijn
         </ion-item>
         <ion-item class="item-divider">
-          Measurements
+          Metingen
         </ion-item>
         <ion-item menu-close ng-href="#/app/{{datatype.name}}" ng-repeat="datatype in app.datatypes">
           {{datatype.label}}
         </ion-item>
 
         <ion-item class="item-divider">
-          Sharing
+          Delen
         </ion-item>
         <ion-item menu-close href="#/app/share/{{key}}" ng-repeat="(key, service) in app.sharing">
           {{service.label}}
