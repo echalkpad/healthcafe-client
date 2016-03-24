@@ -5,11 +5,10 @@ ul.timeline li timeline-panel { padding: 4px 12px }
 .text-muted i { margin-right: 5px; }
 
 /* Colors for icons in the timeline */
+.timeline li timeline-badge.remark {         background-color: #d9534f !important; }
 .timeline li timeline-badge.blood-glucose {   background-color: #2e6da4 !important; }
 .timeline li timeline-badge.blood-pressure {  background-color: #4EF0D2 !important; }
 .timeline li timeline-badge.cholesterol {    background-color: #3f903f !important; }
-.timeline li timeline-badge.remark {         background-color: #d9534f !important; }
-
 .timeline li timeline-badge.body-weight {     background-color: #f0ad4e !important; }
 .timeline li timeline-badge.body-mass-index { background-color: #5bc0de !important; }
 
@@ -58,3 +57,29 @@ svg.chart { display: none; }
 .sharing .buttons .button { min-width: 150px; text-align: left; }
 .buttons .button spinner { float: right; }
 .buttons .button.icon-left:before { padding-right: 0.4em; margin-top: 0; }
+
+.value-desirable {
+  background-color: #aaffa8;
+}
+
+.value-borderlinehigh {
+  background-color: #ffdca5;
+}
+
+.value-high {
+  background-color: #ff98a4;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  position: relative;
+  top: -1px;
+  z-index: 1;
+  width: 11px;
+  height: 11px;
+
+  -webkit-border-radius: 40px;
+  -moz-border-radius: 40px;
+  border-radius: 40px;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ebf1f6), color-stop(50%,#abd3ee), color-stop(51%,#89c3eb), color-stop(100%,#d5ebfb));
+}

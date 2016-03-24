@@ -15,7 +15,7 @@
       healthcafe: {
         label: "NRC healthcafe",
         description: "Healthcafe is een concept, een werk-in-uitvoering, waar u binnnen de werkomgeving zelf bepaalde aspecten van uw gezondheid kan meten en daarop zelf kan acteren.",
-        type: "openmhealth",
+        type: "openmhealth"
       }
     },
 
@@ -30,7 +30,13 @@
       { name: 'bodyweight', controllerPrefix: 'BodyWeight', label: 'Body weight' },
       { name: 'bmi', controllerPrefix: 'BMI', label: 'Body Mass Index' },
       { name: 'bloodglucose', controllerPrefix: 'BloodGlucose', label: 'Blood Glucose' },
-      { name: 'cholesterol', controllerPrefix: 'Cholesterol', label: 'Cholesterol' },
+      { name: 'cholesterol', controllerPrefix: 'Cholesterol', label: 'Cholesterol' }
+    ],
+
+    //
+    // Questionnaires determine the menu items.
+    questionnaires: [
+      { name: 'vita16', controllerPrefix: 'Vita16', label: 'Vitaliteitsvragenlijst' }
     ],
 
     // Development configuration
@@ -68,7 +74,6 @@
         }
       },
     },
-
   };
 
 	// Convenience method to use environments in configuration

@@ -8,7 +8,7 @@
 		  var vm = this;
 
       $scope.model = Model;
-      $scope.selector = ".bmi-container"
+      $scope.selector = ".bmi-container";
       $scope.chartableProperties = 'body-mass-index';
       $scope.chartOptions = {
               'measures': {
