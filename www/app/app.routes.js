@@ -48,6 +48,18 @@
             controller: 'PersonalController as personal'
           }
         }
+		  })
+
+		  // Body measurements
+		  .state('app.body_measurements', {
+		    url: '/body_measurements',
+        cache: false,
+        views: {
+          'mainContent': {
+            templateUrl: 'app/bodymeasurements/data.html',
+            controller: 'BodyMeasurementsController as measurements'
+          }
+        }
 		  });
 
       for( i in config.datatypes ) {

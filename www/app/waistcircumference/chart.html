@@ -1,0 +1,19 @@
+<ion-view view-title="Waist circumference">
+  <ion-nav-buttons side="secondary">
+    <a href="#/app/waistcircumference/info" class="button">
+      <i class="ion ion-information-circled"></i>
+    </a>
+    <a href="#/app/waistcircumference/add" class="button">
+      <i class="ion ion-plus"></i>
+    </a>
+  </ion-nav-buttons>
+  <ion-content class="padding chart-container waist-container">
+    <svg class="chart"></svg>
+    <div ng-show="loading">
+      <ion-spinner></ion-spinner> Loading...
+    </div>
+    <p ng-show="!loading && events.length == 0">
+      Start <a href="#/app/waistcircumference/add">adding</a> measurements or <a href="#/app/share/healthcafe">import from healthcafe.</a>
+    </p>
+  </ion-content>
+</ion-view>

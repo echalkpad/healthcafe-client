@@ -1,0 +1,43 @@
+<ion-view view-title="Lichaamsmetingen">
+  <ion-content>
+    <form ng-submit="measurements.save()">
+      <ion-list>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Date
+          </div>
+          <input type="date" ng-model="measurements.data.date" placeholder="Date of measurement" />
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Body weight
+          </div>
+          <input type="number" ng-model="measurements.data.body.weight" step="any" placeholder="body weight in kg" />
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Body height
+          </div>
+          <input type="number" ng-model="measurements.data.body.height" step="any" placeholder="body height in m" />
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Waist circumference
+          </div>
+          <input type="number" ng-model="measurements.data.body.waist" step="any" placeholder="waist circumference in m" />
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Body fat percentage
+          </div>
+          <input type="number" ng-model="measurements.data.body.bodyfat" step="any" placeholder="body fat percentage" />
+        </ion-item>
+      </ion-list>
+      <p class="padding">
+        <button type="submit" class="button button-block">
+          Save
+        </button>
+      </p>
+    </form>
+  </ion-content>
+</ion-view>
