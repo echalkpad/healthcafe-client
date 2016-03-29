@@ -1,0 +1,18 @@
+<ion-view view-title="Body weight details">
+  <ion-content class="padding">
+    <ion-list>
+      <ion-item>
+        <h2>Date</h2>
+        <p>{{detail.date | date}}</p>
+      </ion-item>
+      <ion-item>
+        <h2>Body fat percentage</h2>
+        <p>{{detail.measurement.body.body_fat_percentage.value}} {{detail.measurement.body.body_fat_percentage.unit}}</p>
+      </ion-item>
+      <ion-item class="item-icon-left">
+        <i class="icon ion-thumbsup"></i>
+        <p>Your body fat percentage is perfect. Keep up the good work</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

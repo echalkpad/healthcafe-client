@@ -8,6 +8,7 @@
 	    'healthcafe.personal',
 	    'healthcafe.bloodpressure',
 	    'healthcafe.bodyweight',
+	    'healthcafe.bodyfat',
 	    'healthcafe.bmi',
 	    'healthcafe.bloodglucose',
 	    'healthcafe.cholesterol',

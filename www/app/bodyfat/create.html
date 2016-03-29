@@ -1,0 +1,25 @@
+<ion-view view-title="New body fat measurement">
+  <ion-content>
+    <form ng-submit="bodyfat.save()">
+      <ion-list>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Date
+          </div>
+          <input type="date" ng-model="bodyfat.data.date" placeholder="Date of measurement" />
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Body fat percentage
+          </div>
+          <input type="number" ng-model="bodyfat.data.body.bodyfat" step="any" placeholder="body fat percentage" />
+        </ion-item>
+      </ion-list>
+      <p class="padding">
+        <button type="submit" class="button button-block button-ssh">
+          Save
+        </button>
+      </p>
+    </form>
+  </ion-content>
+</ion-view>
