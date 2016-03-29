@@ -2,12 +2,12 @@
 	angular.module('healthcafe.personal')
 		.controller('PersonalController', PersonalController );
 
-		PersonalController.$inject = ['$q', '$ionicHistory', 'DateOfBirth', 'Gender', 'BodyHeight']
+		PersonalController.$inject = ['$q', '$state', '$ionicHistory', 'DateOfBirth', 'Gender', 'BodyHeight']
 
   /**
    * Controller to add/view static personal data (DOB, gender, height)
    **/
-  function PersonalController($q, $ionicHistory, DateOfBirth, Gender, BodyHeight) {
+  function PersonalController($q, $state, $ionicHistory, DateOfBirth, Gender, BodyHeight) {
     var vm = this;
 
     vm.data = {
@@ -37,13 +37,19 @@
         Gender.load();
         BodyHeight.load();
       }
+      function go() {
+        $ionicHistory.nextViewOptions({
+          disableBack: true,
+        });
+        $state.go('app.timeline');
+      }
 
       $q.all(saves).then(function() {
         reload();
-        $ionicHistory.goBack();
+        go();
       }).catch(function(e) {
         reload();
-        $ionicHistory.goBack();
+        go();
       });
     };
 
