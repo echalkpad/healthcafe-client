@@ -2,7 +2,294 @@
   <ion-content>
     <form ng-submit="vita16.save()">
       <ion-list>
-        <ion-item class="item-input">
+        <ion-item class="item-divider">
+          Ik heb genoeg energie om al mijn dagelijkse activiteiten te kunnen volbrengen
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="vita16.data.body.answers.q01" min="1" max="7" step="1">
+            <ul>
+              <li>zelden</li>
+              <li>soms</li>
+              <li>af en toe</li>
+              <li>regelmatig</li>
+              <li>meestal</li>
+              <li>bijna altijd</li>
+              <li>altijd</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Ik bruis van de energie
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="vita16.data.body.answers.q02" min="1" max="7" value="1">
+            <ul>
+              <li>zelden</li>
+              <li>soms</li>
+              <li>af en toe</li>
+              <li>regelmatig</li>
+              <li>meestal</li>
+              <li>bijna altijd</li>
+              <li>altijd</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Mijn batterij is 100% opgeladen aan het begin van de dag
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="vita16.data.body.answers.q03" min="1" max="7" value="1">
+            <ul>
+              <li>zelden</li>
+              <li>soms</li>
+              <li>af en toe</li>
+              <li>regelmatig</li>
+              <li>meestal</li>
+              <li>bijna altijd</li>
+              <li>altijd</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Na het avondeten zit ik nog vol energie
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="vita16.data.body.answers.q04" min="1" max="7" value="1">
+            <ul>
+              <li>zelden</li>
+              <li>soms</li>
+              <li>af en toe</li>
+              <li>regelmatig</li>
+              <li>meestal</li>
+              <li>bijna altijd</li>
+              <li>altijd</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Ik verheug mij op elke nieuwe dag
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="vita16.data.body.answers.q05" min="1" max="7" value="1">
+            <ul>
+              <li>zelden</li>
+              <li>soms</li>
+              <li>af en toe</li>
+              <li>regelmatig</li>
+              <li>meestal</li>
+              <li>bijna altijd</li>
+              <li>altijd</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Ik maak plannen voor de toekomst
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="vita16.data.body.answers.q06" min="1" max="7" value="1">
+            <ul>
+              <li>zelden</li>
+              <li>soms</li>
+              <li>af en toe</li>
+              <li>regelmatig</li>
+              <li>meestal</li>
+              <li>bijna altijd</li>
+              <li>altijd</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Ik verheug mij op elke nieuwe dag
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="vita16.data.body.answers.q07" min="1" max="7" value="1">
+            <ul>
+              <li>zelden</li>
+              <li>soms</li>
+              <li>af en toe</li>
+              <li>regelmatig</li>
+              <li>meestal</li>
+              <li>bijna altijd</li>
+              <li>altijd</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Als ik een doel heb, maak ik direct plannen om dit doel te bereiken
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="vita16.data.body.answers.q08" min="1" max="7" value="1">
+            <ul>
+              <li>zelden</li>
+              <li>soms</li>
+              <li>af en toe</li>
+              <li>regelmatig</li>
+              <li>meestal</li>
+              <li>bijna altijd</li>
+              <li>altijd</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Het behalen van mijn doelen maat mij gelukkig
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="vita16.data.body.answers.q09" min="1" max="7" value="1">
+            <ul>
+              <li>zelden</li>
+              <li>soms</li>
+              <li>af en toe</li>
+              <li>regelmatig</li>
+              <li>meestal</li>
+              <li>bijna altijd</li>
+              <li>altijd</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Ik krijg energie van het maken van toekomstplannen
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="vita16.data.body.answers.q10" min="1" max="7" value="1">
+            <ul>
+              <li>zelden</li>
+              <li>soms</li>
+              <li>af en toe</li>
+              <li>regelmatig</li>
+              <li>meestal</li>
+              <li>bijna altijd</li>
+              <li>altijd</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Ik vind het heel erg belangrijk om mijn doelen werkelijkheid te laten worden
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="vita16.data.body.answers.q11" min="1" max="7" value="1">
+            <ul>
+              <li>zelden</li>
+              <li>soms</li>
+              <li>af en toe</li>
+              <li>regelmatig</li>
+              <li>meestal</li>
+              <li>bijna altijd</li>
+              <li>altijd</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Ik kan heel goed omgaan met tegenslagen
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="vita16.data.body.answers.q12" min="1" max="7" value="1">
+            <ul>
+              <li>zelden</li>
+              <li>soms</li>
+              <li>af en toe</li>
+              <li>regelmatig</li>
+              <li>meestal</li>
+              <li>bijna altijd</li>
+              <li>altijd</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Ik kan heel goed oplossingen vinden in moeilijke situaties
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="vita16.data.body.answers.q13" min="1" max="7" value="1">
+            <ul>
+              <li>zelden</li>
+              <li>soms</li>
+              <li>af en toe</li>
+              <li>regelmatig</li>
+              <li>meestal</li>
+              <li>bijna altijd</li>
+              <li>altijd</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Na een moeilijke periode ben ik snel weer de oude
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="vita16.data.body.answers.q14" min="1" max="7" value="1">
+            <ul>
+              <li>zelden</li>
+              <li>soms</li>
+              <li>af en toe</li>
+              <li>regelmatig</li>
+              <li>meestal</li>
+              <li>bijna altijd</li>
+              <li>altijd</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Ik ga meteen aan de slag met nieuwe uitdagingen
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="vita16.data.body.answers.q15" min="1" max="7" value="1">
+            <ul>
+              <li>zelden</li>
+              <li>soms</li>
+              <li>af en toe</li>
+              <li>regelmatig</li>
+              <li>meestal</li>
+              <li>bijna altijd</li>
+              <li>altijd</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Door mijn ervaring voel ik mij sterker in moeilijke tijden
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="vita16.data.body.answers.q16" min="1" max="7" value="1">
+            <ul>
+              <li>zelden</li>
+              <li>soms</li>
+              <li>af en toe</li>
+              <li>regelmatig</li>
+              <li>meestal</li>
+              <li>bijna altijd</li>
+              <li>altijd</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Elke ervaring in het leven maakt mij sterker
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="vita16.data.body.answers.q17" min="1" max="7" value="1">
+            <ul>
+              <li>zelden</li>
+              <li>soms</li>
+              <li>af en toe</li>
+              <li>regelmatig</li>
+              <li>meestal</li>
+              <li>bijna altijd</li>
+              <li>altijd</li>
+            </ul>
+          </div>
         </ion-item>
       </ion-list>
       <p class="padding">

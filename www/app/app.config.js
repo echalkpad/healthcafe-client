@@ -103,5 +103,9 @@
           datapointsStore.createIndex('schema', [ 'header.schema_id.namespace', 'header.schema_id.name', 'header.schema_id.version'], { 'unique': false } );
           remarksStore = db.createObjectStore( "remarks", { keyPath: "id", autoIncrement: true } );
         })
+        .upgradeDatabase(2, function(event, db, tx) {
+          answerStore = db.createObjectStore( "answers", { keyPath: "id", autoIncrement: true } );
+          answerStore.createIndex( "questionnaire", "questionnaire", { unique: false } );
+        })
     }])
 })();

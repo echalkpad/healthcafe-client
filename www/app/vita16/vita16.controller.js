@@ -2,16 +2,22 @@
 	angular.module('healthcafe.vita16')
     .controller('Vita16Controller', Vita16Controller );
 
-		Vita16Controller.$inject = [ '$scope', '$controller', 'Vita16' ];
+		Vita16Controller.$inject = [ '$scope', '$controller', 'Answers' ];
 
-		function Vita16Controller( $scope, $controller, Model ) {
+		function Vita16Controller( $scope, $controller, Answers ) {
 		  var vm = this;
 
-      $scope.model = Model;
-      $scope.selector = ".vita16-container";
+      vm.data = []
+      Answers.list().then(function(data) {
+        vm.all = data;
+      });
 
-      // Initialize the super class and extend it.
-      //angular.extend(vm, $controller('GenericChartController', {$scope: $scope}));
+      vm.test = []
+      Answers.listByQuestionnaire('vita16').then(function(data) {
+        vm.vita16 = data;
+      });
+
+      $scope.selector = ".vita16-container";
 
 		  return vm;
 		}
