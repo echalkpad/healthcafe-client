@@ -356,6 +356,76 @@
 })();
 
 (function() {
+	angular.module('healthcafe.bmi')
+		.controller('BMIController', BMIController );
+
+		BMIController.$inject = [ '$scope', '$controller', 'BMI' ];
+
+		function BMIController( $scope, $controller, Model ) {
+		  var vm = this;
+
+      $scope.model = Model;
+      $scope.selector = ".bmi-container"
+      $scope.chartableProperties = 'body-mass-index';
+      $scope.chartOptions = {
+              'measures': {
+                'body-mass-index' : {
+                  'valueKeyPath': 'body.body_mass_index.value',
+                  'range': undefined,
+                  'units': 'kg/m2',
+                  'thresholds': { 'min': 18, 'max': 25  },
+                },
+              }
+            };
+
+      // Initialize the super class and extend it.
+      angular.extend(vm, $controller('GenericChartController', {$scope: $scope}));
+
+		  return vm;
+		}
+})();
+
+(function() {
+	angular.module('healthcafe.bmi')
+		.factory('BMI', BMI );
+
+  BMI.$inject = [ 'Datapoints' ];
+
+  function BMI(Datapoints) {
+    return Datapoints.getInstance(
+      { namespace: 'omh', name: 'body-mass-index', version: '1.0' },
+      function(data) {
+        if( !data.weight || !data.length ) {
+          return null;
+        }
+        return {
+          'body_mass_index': { value: data.weight / ( data.length * data.length ), unit: 'kg/m2' },
+        };
+      }
+    );
+  }
+
+})();
+
+(function() {
+	angular.module('healthcafe.bmi')
+		.controller('BMICreateController', BMICreateController );
+
+		BMICreateController.$inject = [ '$scope', '$controller', 'BMI' ];
+
+		function BMICreateController( $scope, $controller, Model ) {
+		  var vm = this;
+
+      $scope.model = Model;
+
+      // Initialize the super class and extend it.
+      angular.extend(vm, $controller('GenericCreateController', {$scope: $scope}));
+
+		  return vm;
+		}
+})();
+
+(function() {
 	angular.module('healthcafe.bloodpressure')
 		.controller('BloodPressureController', BloodPressureController );
 
@@ -417,76 +487,6 @@
 		BloodPressureCreateController.$inject = [ '$scope', '$controller', 'BloodPressure' ];
 
 		function BloodPressureCreateController( $scope, $controller, Model ) {
-		  var vm = this;
-
-      $scope.model = Model;
-
-      // Initialize the super class and extend it.
-      angular.extend(vm, $controller('GenericCreateController', {$scope: $scope}));
-
-		  return vm;
-		}
-})();
-
-(function() {
-	angular.module('healthcafe.bmi')
-		.controller('BMIController', BMIController );
-
-		BMIController.$inject = [ '$scope', '$controller', 'BMI' ];
-
-		function BMIController( $scope, $controller, Model ) {
-		  var vm = this;
-
-      $scope.model = Model;
-      $scope.selector = ".bmi-container"
-      $scope.chartableProperties = 'body-mass-index';
-      $scope.chartOptions = {
-              'measures': {
-                'body-mass-index' : {
-                  'valueKeyPath': 'body.body_mass_index.value',
-                  'range': undefined,
-                  'units': 'kg/m2',
-                  'thresholds': { 'min': 18, 'max': 25  },
-                },
-              }
-            };
-
-      // Initialize the super class and extend it.
-      angular.extend(vm, $controller('GenericChartController', {$scope: $scope}));
-
-		  return vm;
-		}
-})();
-
-(function() {
-	angular.module('healthcafe.bmi')
-		.factory('BMI', BMI );
-
-  BMI.$inject = [ 'Datapoints' ];
-
-  function BMI(Datapoints) {
-    return Datapoints.getInstance(
-      { namespace: 'omh', name: 'body-mass-index', version: '1.0' },
-      function(data) {
-        if( !data.weight || !data.length ) {
-          return null;
-        }
-        return {
-          'body_mass_index': { value: data.weight / ( data.length * data.length ), unit: 'kg/m2' },
-        };
-      }
-    );
-  }
-
-})();
-
-(function() {
-	angular.module('healthcafe.bmi')
-		.controller('BMICreateController', BMICreateController );
-
-		BMICreateController.$inject = [ '$scope', '$controller', 'BMI' ];
-
-		function BMICreateController( $scope, $controller, Model ) {
 		  var vm = this;
 
       $scope.model = Model;
@@ -823,10 +823,13 @@
   function GenericCreateController($scope, $ionicHistory) {
     var vm = this;
 
-    vm.data = typeof $scope.model.defaults != 'undefined' ? $scope.model.defaults() : {};
+    vm.data = {
+      body: (typeof $scope.model.defaults != 'undefined') ? $scope.model.defaults() : {},
+      date: new Date()
+    };
 
     vm.save = function() {
-      $scope.model.create(vm.data)
+      $scope.model.create(vm.data.body, vm.data.date)
         .then(function(data) {
           $scope.model.load().then(function() {
             $ionicHistory.goBack();
@@ -936,7 +939,7 @@
       return deferred.promise;
     }
 
-    Datapoints.prototype.create = function( body ) {
+    Datapoints.prototype.create = function(body, date) {
       // Convert data if appropriate
       if( this.converter ) {
         body = this.converter(body);
@@ -951,7 +954,7 @@
       var deferred = $q.defer();
 
       // Create the datapoint itself
-      var datapoint = this.createDatapoint(body);
+      var datapoint = this.createDatapoint(body, date);
 
       // Store the datapoint
       var schema = this.schema
@@ -1025,9 +1028,12 @@
       return this.propertyNames;
     }
 
-    Datapoints.prototype.createDatapoint = function( body ) {
+    Datapoints.prototype.createDatapoint = function( body, date ) {
+      if( typeof(date) == 'undefined' )
+        date = new Date();
+
       // Store effective date_time
-      body.effective_time_frame = { date_time: new Date() };
+      body.effective_time_frame = { date_time: date };
 
       return {
         header: {
