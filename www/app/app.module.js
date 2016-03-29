@@ -5,6 +5,7 @@
 	    'healthcafe.generic',
 	    'healthcafe.intro',
 	    'healthcafe.login',
+	    'healthcafe.personal',
 	    'healthcafe.bloodpressure',
 	    'healthcafe.bodyweight',
 	    'healthcafe.bmi',

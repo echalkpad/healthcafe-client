@@ -38,6 +38,18 @@
         }
 		  })
 
+		  // Personal data
+		  .state('app.personal_data', {
+		    url: '/personal_data',
+        cache: false,
+        views: {
+          'mainContent': {
+            templateUrl: 'app/personal/data.html',
+            controller: 'PersonalController as personal'
+          }
+        }
+		  });
+
       for( i in config.datatypes ) {
         var datatype = config.datatypes[i];
         $stateProvider
