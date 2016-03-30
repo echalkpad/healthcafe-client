@@ -13,7 +13,7 @@
   </ion-side-menu-content>
 
   <ion-side-menu side="left">
-    <ion-header-bar class="bar-stable">
+    <ion-header-bar class="bar-stable bar-energized">
       <h1 class="title">Healthcafe</h1>
     </ion-header-bar>
     <ion-content>
@@ -25,7 +25,7 @@
           Tijdlijn
         </ion-item>
         <ion-item
-          class="item-divider"
+          class="item-divider item-energized"
           ng-click="app.toggleGroup('measurements')"
           ng-class="{active: app.isGroupShown('measurements')}" >
           Metingen
@@ -57,7 +57,7 @@
           {{questionnaire.label}}
         </ion-item>
         <ion-item
-            class="item-divider"
+            class="item-divider item-energized"
             ng-click="app.toggleGroup('charts')"
             ng-class="{active: app.isGroupShown('charts')}" >
           Grafieken
@@ -70,7 +70,7 @@
           {{datatype.label}}
         </ion-item>
         <ion-item
-          class="item-divider"
+          class="item-divider item-energized"
           ng-click="app.toggleGroup('sharing')"
           ng-class="{active: app.isGroupShown('sharing')}" >
           Delen
