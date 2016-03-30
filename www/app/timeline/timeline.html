@@ -19,12 +19,14 @@
         <timeline-panel class="{{event.badgeClass}} item-icon-right" ng-click="event.showDetail();">
           <timeline-heading>
             <h4 ng-if="event.type == 'intervention'">{{event.message}}</h4>
-            <h4 ng-if="event.measurementType == 'blood-pressure'">Bloeddruk: {{event.datapoint.body.systolic_blood_pressure.value}} / {{event.datapoint.body.diastolic_blood_pressure.value}}</h4>
-            <h4 ng-if="event.measurementType == 'body-weight'">Lichaamsgewicht: {{event.datapoint.body.body_weight.value}} {{event.datapoint.body.body_weight.unit}}</h4>
-            <h4 ng-if="event.measurementType == 'body-mass-index'">BMI: {{event.datapoint.body.body_mass_index.value | number}} {{event.datapoint.body.body_mass_index.unit}}</h4>
             <h4 ng-if="event.measurementType == 'blood-glucose'">Bloedglucose: {{event.datapoint.body.blood_glucose.value}} {{event.datapoint.body.blood_glucose.unit}}
               <span class="datapoint-details" ng-show="event.datapoint.body.temporal_relationship_to_meal">{{event.datapoint.body.temporal_relationship_to_meal}}</span>
             </h4>
+            <h4 ng-if="event.measurementType == 'blood-pressure'">Bloeddruk: {{event.datapoint.body.systolic_blood_pressure.value}} / {{event.datapoint.body.diastolic_blood_pressure.value}}</h4>
+            <h4 ng-if="event.measurementType == 'body-fat-percentage'">Lichaamsvet: {{event.datapoint.body.body_fat_percentage.value}} {{event.datapoint.body.body_fat_percentage.unit}}</h4>
+            <h4 ng-if="event.measurementType == 'body-mass-index'">BMI: {{event.datapoint.body.body_mass_index.value | number}} {{event.datapoint.body.body_mass_index.unit}}</h4>
+            <h4 ng-if="event.measurementType == 'body-weight'">Lichaamsgewicht: {{event.datapoint.body.body_weight.value}} {{event.datapoint.body.body_weight.unit}}</h4>
+            <h4 ng-if="event.measurementType == 'waist-circumference'">Taille omtrek: {{event.datapoint.body.waist_circumference.value}} {{event.datapoint.body.waist_circumference.unit}}</h4>
             <h4 ng-if="event.measurementType == 'cholesterol'">Cholesterol: {{event.datapoint.body.blood_total_cholesterol.value}} {{event.datapoint.body.blood_total_cholesterol.unit}}
               <span class="datapoint-details cholesterol-details">
                 <span ng-if="event.datapoint.body.blood_ldl_cholesterol.value" class="cholesterol-detail">LDL: {{event.datapoint.body.blood_ldl_cholesterol.value}} {{event.datapoint.body.blood_ldl_cholesterol.unit}}</span>

@@ -2,17 +2,19 @@
 	angular.module('healthcafe.timeline')
 		.controller('TimelineController', TimelineController );
 
-		TimelineController.$inject = [ 'BloodPressure', 'BodyWeight', 'BMI', 'BloodGlucose', 'Cholesterol', 'Remarks', '$q', '$ionicPopover', '$timeout', '$state'];
+		TimelineController.$inject = [ 'BloodGlucose', 'BloodPressure', 'BMI', 'BodyFat', 'BodyWeight', 'Cholesterol', 'WaistCircumference', 'Remarks', '$q', '$ionicPopover', '$timeout', '$state'];
 
-		function TimelineController(BloodPressure, BodyWeight, BMI, BloodGlucose, Cholesterol, Remarks, $q, $ionicPopover, $timeout, $state) {
+		function TimelineController(BloodGlucose, BloodPressure, BMI, BodyFat, BodyWeight, Cholesterol, WaistCircumference, Remarks, $q, $ionicPopover, $timeout, $state) {
       var vm = this;
 
       var definitions = {
-        'blood-pressure': { icon: 'ion-heart', model: BloodPressure },
-        'body-weight': { icon: 'ion-speedometer', model: BodyWeight},
-        'body-mass-index': { icon: 'ion-ios-flame', model: BMI},
         'blood-glucose': { icon: 'ion-fork', model: BloodGlucose},
+        'blood-pressure': { icon: 'ion-heart', model: BloodPressure },
+        'body-mass-index': { icon: 'ion-ios-flame', model: BMI},
+        'body-fat-percentage': { icon: 'ion-pie-graph', model: BodyFat},
+        'body-weight': { icon: 'ion-speedometer', model: BodyWeight},
         'cholesterol': { icon: 'ion-waterdrop', model: Cholesterol},
+        'waist-circumference': { icon: 'ion-ios-circle-outline', model: WaistCircumference},
       };
 
       /**
@@ -39,8 +41,9 @@
           showDetail: function() {
             var typeName;
             switch(schemaName) {
-              case 'body-mass-index':   typeName = 'bmi'; break;
-              default:                  typeName = schemaName.replace( /-/g, '' ); break;
+              case 'body-mass-index':     typeName = 'bmi'; break;
+              case 'body-fat-percentage': typeName = 'bodyfat'; break;
+              default:                    typeName = schemaName.replace( /-/g, '' ); break;
             }
             $state.go( 'app.' +  typeName + '_measurement', { measurementId: dataPoint.header.id } );
           }
@@ -101,7 +104,7 @@
 
       // Allow the client to reload
       vm.load = function() {
-        var models = [BloodPressure, BodyWeight, BloodGlucose, BMI, Cholesterol, Remarks];
+        var models = [BloodGlucose, BloodPressure, BMI, BodyFat, BodyWeight, Cholesterol, WaistCircumference, Remarks];
         load(models);
       }
 
