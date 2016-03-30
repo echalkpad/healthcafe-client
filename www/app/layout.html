@@ -21,32 +21,65 @@
         <ion-item menu-close href="#/app/intro">
           Intro
         </ion-item>
-         <ion-item menu-close href="#/app/timeline">
+        <ion-item menu-close href="#/app/timeline">
           Tijdlijn
         </ion-item>
-        <ion-item menu-close href="#/app/personal_data">
-          Algemene metingen
-        </ion-item>
-        <ion-item menu-close href="#/app/body_measurements">
-          Lichaamsmetingen
-        </ion-item>
-       
-        <ion-item class="item-divider">
+        <ion-item
+          class="item-divider"
+          ng-click="app.toggleGroup('measurements')"
+          ng-class="{active: app.isGroupShown('measurements')}" >
           Metingen
         </ion-item>
-        <ion-item menu-close ng-href="#/app/{{datatype.name}}" ng-repeat="datatype in app.datatypes">
+        <ion-item
+            menu-close href="#/app/personal_data"
+            class="item-accordion"
+            ng-show="app.isGroupShown('measurements')">
+          Algemene metingen
+        </ion-item>
+        <ion-item
+            menu-close href="#/app/body_measurements"
+            class="item-accordion"
+            ng-show="app.isGroupShown('measurements')">
+          Lichaamsmetingen
+        </ion-item>
+        <ion-item
+          menu-close ng-href="#/app/{{datatype.name}}/add"
+          class="item-accordion"
+          ng-repeat="datatype in app.datatypes"
+          ng-show="datatype.creationInMenu && app.isGroupShown('measurements')">
           {{datatype.label}}
         </ion-item>
-        <ion-item class="item-divider">
-          Questionnaires
-        </ion-item>
-        <ion-item menu-close ng-href="#/app/{{questionnaire.name}}" ng-repeat="questionnaire in app.questionnaires">
+        <ion-item
+            menu-close ng-href="#/app/{{questionnaire.name}}"
+            ng-repeat="questionnaire in app.questionnaires"
+            class="item-accordion"
+            ng-show="app.isGroupShown('measurements')">
           {{questionnaire.label}}
         </ion-item>
-        <ion-item class="item-divider">
+        <ion-item
+            class="item-divider"
+            ng-click="app.toggleGroup('charts')"
+            ng-class="{active: app.isGroupShown('charts')}" >
+          Grafieken
+        </ion-item>
+        <ion-item
+              menu-close ng-href="#/app/{{datatype.name}}"
+              class="item-accordion"
+              ng-repeat="datatype in app.datatypes"
+              ng-show="app.isGroupShown('charts')">
+          {{datatype.label}}
+        </ion-item>
+        <ion-item
+          class="item-divider"
+          ng-click="app.toggleGroup('sharing')"
+          ng-class="{active: app.isGroupShown('sharing')}" >
           Delen
         </ion-item>
-        <ion-item menu-close href="#/app/share/{{key}}" ng-repeat="(key, service) in app.sharing">
+        <ion-item
+            menu-close href="#/app/share/{{key}}"
+            class="item-accordion"
+            ng-repeat="(key, service) in app.sharing"
+            ng-show="app.isGroupShown('sharing')">
           {{service.label}}
         </ion-item>
       </ion-list>
