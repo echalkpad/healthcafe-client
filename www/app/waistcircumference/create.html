@@ -1,0 +1,25 @@
+<ion-view view-title="New waist circumference measurement">
+  <ion-content>
+    <form ng-submit="waistcircumference.save()">
+      <ion-list>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Date
+          </div>
+          <input type="date" ng-model="waistcircumference.data.date" placeholder="Date of measurement" />
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Waist circumference
+          </div>
+          <input type="number" ng-model="waistcircumference.data.body.waist" step="any" placeholder="Waist circumference in m" />
+        </ion-item>
+      </ion-list>
+      <p class="padding">
+        <button type="submit" class="button button-block button-ssh">
+          Save
+        </button>
+      </p>
+    </form>
+  </ion-content>
+</ion-view>

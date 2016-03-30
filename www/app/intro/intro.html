@@ -1,20 +1,31 @@
 <ion-view view-title="Healthcafe">
   <ion-content class="padding initial">
-    <div class="app-logo"><img src="assets/img/logo.png" /></div>
+    <div class="app-logo"><img src="assets/img/foto_health_cafe_app" /></div>
 
     <p>
-      Welkom bij TNO Healthcafe.
+<b>Welkom bij de TNO HealthCafé App.   </b> </p>
+    <p>
+Deze App kunt u gebruiken om een aantal aspecten van uw gezondheid te registreren. Deze App wordt aangeboden als service, het is dus aan u of en hoe lang u de App wilt gebruiken.
+De App kunt u gebruiken om uw persoonlijke gezondheidsdata te bewaren, trends en grafieken van uw data te bekijken, en om tips en adviezen te krijgen.
+
+Alle data die u invoert worden op uw eigen telefoon bewaard en worden niet met derden gedeeld. De data wordt verwijderd zodra u uw cache van uw telefoon leegmaakt. In de toekomst wordt het wellicht mogelijk om uw data met andere services te delen, of vrienden te delen. Ook wordt er mogelijk een optie toegevoegd waarmee u uw data op een beveiligde server, anoniem kunt opslaan, zodat u deze niet kwijt bent als u uw cache per ongeluk leeg maakt, of als u overstapt naar een nieuwe telefoon.
+ </p>
+  <p>
+<b>Hoe werkt het? </b></p>
+    <p>
+Op dit moment kunt u gezondheidsdata toevoegen over uw bloeddruk, cholesterol, glucose, gewicht, en BMI.
+Ook kunt u opmerkingen toevoegen, bijvoorbeeld als u bent gestart met een interventie om uw gezondheid te verbeteren kunt u dat vastleggen in de App. Deze opmerkingen ziet u dan ook terug in uw tijdlijn. Op die manier kunt u eenvoudig terugzien of uw interventie succesvol is geweest.
+
+Via het menu kunt u er ook voor kiezen om alleen de data van één specifieke meting te zien, bijvoorbeeld bloeddruk. Wanneer u daarop klikt, ziet u alle door u ingevoerde bloeddrukwaarden terug in een grafiek. Rechtsboven in het scherm kunt u klikken op de ‘+’ om meer data toe te voegen, of op de ‘i’ om meer informatie te lezen over bloeddruk.
     </p>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id hendrerit felis. Sed elementum diam id tincidunt vehicula. Nunc sollicitudin tincidunt accumsan. Mauris imperdiet eleifend lacus, eu blandit purus faucibus eu. Nunc tincidunt lobortis ante, et viverra lacus faucibus vitae. Curabitur ut pulvinar odio, sed condimentum velit. Etiam eget maximus dolor, eget sodales ex. Donec rhoncus dapibus nisl, at hendrerit ex eleifend vel. Vivamus non facilisis eros. Suspendisse risus massa, ullamcorper nec bibendum a, feugiat eget libero. Proin eleifend finibus massa ac congue.
-    </p>
-    <p>
-      Sed vehicula viverra eros, nec aliquam nulla hendrerit quis. Quisque facilisis ligula nec lacus gravida, in aliquam urna efficitur. Etiam tristique placerat dui, nec eleifend libero imperdiet at. Etiam eget porta est. Aenean justo metus, pretium vel ultrices ut, ornare hendrerit orci. Mauris in nulla ipsum. Nam dui tortor, euismod quis mattis ut, ultrices et felis. Proin volutpat consectetur velit et congue. Vivamus sed pharetra dui. Maecenas blandit ac ante eu volutpat. Mauris ac tortor eu ante dictum sodales sed eu lorem.
-    </p>
+Wilt u starten met het toevoegen van uw gezondheidsdata? Klik dan op ‘naar de data’ hieronder.
+</p>
 
     <div class="row">
       <div class="col">
-        <a ng-click="intro.resetNav()" href="#/app/timeline" nav-clear class="button button-block">Naar de data</a>
+        <a ng-click="intro.resetNav()" href="#/app/timeline" nav-clear class="button button-block" ng-if="!intro.personal_data_required">Naar de data</a>
+        <a ng-click="intro.resetNav()" href="#/app/personal_data" nav-clear class="button button-block" ng-if="intro.personal_data_required">Vul algemene gegevens in</a>
       </div>
     </div>
 </ion-view>

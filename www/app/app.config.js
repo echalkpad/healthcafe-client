@@ -15,7 +15,7 @@
       healthcafe: {
         label: "NRC healthcafe",
         description: "Healthcafe is een concept, een werk-in-uitvoering, waar u binnnen de werkomgeving zelf bepaalde aspecten van uw gezondheid kan meten en daarop zelf kan acteren.",
-        type: "openmhealth",
+        type: "openmhealth"
       }
     },
 
@@ -26,11 +26,19 @@
     // As the dependencies are injected there, we have to specify the dependencies
     // specifically there.
     datatypes: [
-      { name: 'bloodpressure', controllerPrefix: 'BloodPressure', label: 'Blood pressure' },
-      { name: 'bodyweight', controllerPrefix: 'BodyWeight', label: 'Body weight' },
-      { name: 'bmi', controllerPrefix: 'BMI', label: 'Body Mass Index' },
-      { name: 'bloodglucose', controllerPrefix: 'BloodGlucose', label: 'Blood Glucose' },
-      { name: 'cholesterol', controllerPrefix: 'Cholesterol', label: 'Cholesterol' },
+      { name: 'bloodpressure', controllerPrefix: 'BloodPressure', label: 'Bloeddruk', creationInMenu: true },
+      { name: 'bodyweight', controllerPrefix: 'BodyWeight', label: 'Gewicht' },
+      { name: 'bodyfat', controllerPrefix: 'BodyFat', label: 'Lichaamsvet' },
+      { name: 'waistcircumference', controllerPrefix: 'WaistCircumference', label: 'Taille omtrek' },
+      { name: 'bmi', controllerPrefix: 'BMI', label: 'BMI' },
+      { name: 'bloodglucose', controllerPrefix: 'BloodGlucose', label: 'Bloedglucose', creationInMenu: true },
+      { name: 'cholesterol', controllerPrefix: 'Cholesterol', label: 'Cholesterol', creationInMenu: true },
+    ],
+
+    //
+    // Questionnaires determine the menu items.
+    questionnaires: [
+      { name: 'vita16', controllerPrefix: 'Vita16', label: 'Vitaliteitsvragenlijst' }
     ],
 
     // Development configuration
@@ -39,13 +47,17 @@
         oauth: {
           healthcafe: {
             urls: {
-              authorization: "http://localhost:8080/nrc/oauth/authorize",
-              redirect: "http://localhost:8100/app/login/oauth_callback.html?healthcafe",
-              dataPoints: "http://localhost:8080/nrc/api/openmhealth/v1/dataPoints"
+              // authorization: "http://localhost:8080/nrc/oauth/authorize",
+              // redirect: "http://localhost:8100/app/login/oauth_callback.html?healthcafe",
+              // dataPoints: "http://localhost:8080/nrc/api/openmhealth/v1/dataPoints"
+              authorization: "https://humanstudies.tno.nl/healthcafe/oauth/authorize",
+              redirect: "http://msb2.hex.tno.nl/app-test/app/login/oauth_callback.html?healthcafe",
+              dataPoints: "https://humanstudies.tno.nl/healthcafe/api/openmhealth/v1/dataPoints"
             },
 
             // NRC OAuth application key
-            key: "mbm85kztfalztd2fft5fl5w7hmmdar5nnlktkgkk",
+            // key: "mbm85kztfalztd2fft5fl5w7hmmdar5nnlktkgkk",
+            key: "hm2lkbxyssh9vvsn4tjpknavhqifmkzmucrl500o",
           }
         }
       },
@@ -68,7 +80,6 @@
         }
       },
     },
-
   };
 
 	// Convenience method to use environments in configuration
@@ -91,6 +102,10 @@
           datapointsStore = db.createObjectStore( "datapoints", { keyPath: "header.id" } );
           datapointsStore.createIndex('schema', [ 'header.schema_id.namespace', 'header.schema_id.name', 'header.schema_id.version'], { 'unique': false } );
           remarksStore = db.createObjectStore( "remarks", { keyPath: "id", autoIncrement: true } );
+        })
+        .upgradeDatabase(2, function(event, db, tx) {
+          answerStore = db.createObjectStore( "answers", { keyPath: "id", autoIncrement: true } );
+          answerStore.createIndex( "questionnaire", "questionnaire", { unique: false } );
         })
     }])
 })();

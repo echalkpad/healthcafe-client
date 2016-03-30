@@ -13,7 +13,7 @@
         }
 
         return {
-          'blood_glucose': { value: data.level, unit: 'mmHg' },
+          'blood_glucose': { value: data.level, unit: 'mmol/L' },
           'temporal_relationship_to_meal': data.relationship_to_meal ? data.relationship_to_meal.name : ""
         };
       }

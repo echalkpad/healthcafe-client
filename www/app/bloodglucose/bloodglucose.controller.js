@@ -15,8 +15,17 @@
                 'blood-glucose' : {
                   'valueKeyPath': 'body.blood_glucose.value',
                   'range': undefined,
-                  'units': 'mg/dL',
-                },
+                  'units': 'mmol/L',
+                  'chart': {
+                    'pointFillColor' : '#4a90e2',
+                    'pointStrokeColor' : '#0066d6',
+                }, 
+                'thresholds': [
+                      { name: 'Desirable', max: 5.8 },
+                      { name: 'Borderline high', min: 5.8, max: 7.8 },
+                      { name: 'High', min: 7.8 },
+                    ]
+              },
               }
             };
 
@@ -26,3 +35,6 @@
 		  return vm;
 		}
 })();
+
+
+ 

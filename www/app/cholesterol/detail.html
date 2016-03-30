@@ -5,25 +5,25 @@
         <h2>Date</h2>
         <p>{{detail.date | date}}</p>
       </ion-item>
-      <ion-item>
+      <ion-item ng-class="{'value-desirable': detail.measurement.body.blood_total_cholesterol.value <= 5, 'value-borderlinehigh': (detail.measurement.body.blood_total_cholesterol.value > 5 && detail.measurement.body.blood_total_cholesterol.value <= 6.5), 'value-high': detail.measurement.body.blood_total_cholesterol.value > 6.5}">
         <h2>Total cholesterol</h2>
-        <p>{{detail.measurement.body.blood_total_cholesterol.value}} {{detail.measurement.body.blood_total_cholesterol.unit}}</p>
+        <p>{{detail.measurement.body.blood_total_cholesterol.value}} {{detail.measurement.body.blood_total_cholesterol.unit}} </p>
       </ion-item>
-      <ion-item ng-show="detail.measurement.body.blood_ldl_cholesterol">
+      <ion-item ng-show="detail.measurement.body.blood_ldl_cholesterol" ng-class="{'value-desirable': detail.measurement.body.blood_ldl_cholesterol.value <= 2.5, 'value-borderlinehigh': (detail.measurement.body.blood_ldl_cholesterol.value > 2.5 && detail.measurement.body.blood_ldl_cholesterol.value <= 3.5), 'value-high': detail.measurement.body.blood_ldl_cholesterol.value > 3.5}">
         <h2>LDL cholesterol</h2>
         <p>{{detail.measurement.body.blood_ldl_cholesterol.value}} {{detail.measurement.body.blood_ldl_cholesterol.unit}}</p>
       </ion-item>
-      <ion-item ng-show="detail.measurement.body.blood_hdl_cholesterol">
+      <ion-item ng-show="detail.measurement.body.blood_hdl_cholesterol" ng-class="{'value-desirable': detail.measurement.body.blood_hdl_cholesterol.value >= 1.5, 'value-borderlinehigh': (detail.measurement.body.blood_hdl_cholesterol.value < 1.5 && detail.measurement.body.blood_hdl_cholesterol.value >= 1.3), 'value-high': detail.measurement.body.blood_hdl_cholesterol.value < 1.3}">
         <h2>HDL cholesterol</h2>
         <p>{{detail.measurement.body.blood_hdl_cholesterol.value}} {{detail.measurement.body.blood_hdl_cholesterol.unit}}</p>
       </ion-item>
-      <ion-item ng-show="detail.measurement.body.blood_triglycerides">
+      <ion-item ng-show="detail.measurement.body.blood_triglycerides" ng-class="{'value-desirable': detail.measurement.body.blood_triglycerides.value <= 1.7, 'value-borderlinehigh': (detail.measurement.body.blood_triglycerides.value > 1.7 && detail.measurement.body.blood_triglycerides.value <= 6.0), 'value-high': detail.measurement.body.blood_triglycerides.value > 6.0}">
         <h2>Triglycerides</h2>
         <p>{{detail.measurement.body.blood_triglycerides.value}} {{detail.measurement.body.blood_triglycerides.unit}}</p>
       </ion-item>
       <ion-item class="item-icon-left">
-        <i class="icon ion-thumbsup"></i>
-        <p>Your cholesterol levels are perfect. Keep up the good work</p>
+        <!--<i class="icon ion-thumbsup"></i>-->
+        <!--<p>Your cholesterol levels are perfect. Keep up the good work</p>-->
       </ion-item>
     </ion-list>
   </ion-content>
