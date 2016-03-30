@@ -26,13 +26,13 @@
     // As the dependencies are injected there, we have to specify the dependencies
     // specifically there.
     datatypes: [
-      { name: 'bloodpressure', controllerPrefix: 'BloodPressure', label: 'Bloeddruk' },
+      { name: 'bloodpressure', controllerPrefix: 'BloodPressure', label: 'Bloeddruk', creationInMenu: true },
       { name: 'bodyweight', controllerPrefix: 'BodyWeight', label: 'Gewicht' },
       { name: 'bodyfat', controllerPrefix: 'BodyFat', label: 'Lichaamsvet' },
       { name: 'waistcircumference', controllerPrefix: 'WaistCircumference', label: 'Taille omtrek' },
       { name: 'bmi', controllerPrefix: 'BMI', label: 'BMI' },
-      { name: 'bloodglucose', controllerPrefix: 'BloodGlucose', label: 'Bloedglucose' },
-      { name: 'cholesterol', controllerPrefix: 'Cholesterol', label: 'Cholesterol' },
+      { name: 'bloodglucose', controllerPrefix: 'BloodGlucose', label: 'Bloedglucose', creationInMenu: true },
+      { name: 'cholesterol', controllerPrefix: 'Cholesterol', label: 'Cholesterol', creationInMenu: true },
     ],
 
     //

@@ -28,7 +28,7 @@
         }
 
         var schemaName = dataPoint.header.schema_id.name;
-        
+
         return {
           id: dataPoint.header.id,
           datapoint: dataPoint,

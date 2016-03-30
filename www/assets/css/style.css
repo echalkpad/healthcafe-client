@@ -4,6 +4,23 @@
   white-space: normal ;
 }
 
+/*
+ * Drop down menus
+ * see http://docs.angularjs.org/api/ng/directive/ngShow#usage_animations
+ */
+.list .item.item-accordion {
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: 0.09s all linear;
+}
+.list .item.item-accordion.ng-hide {
+  line-height: 0px;
+}
+.list .item.item-accordion.ng-hide-add,
+.list .item.item-accordion.ng-hide-remove {
+  display: block !important;
+}
+
 /* Additional styling for timeline */
 ul.timeline li { margin-bottom: 12px; }
 ul.timeline li timeline-panel { padding: 4px 12px }
