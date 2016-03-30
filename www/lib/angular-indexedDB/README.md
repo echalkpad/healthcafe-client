@@ -29,7 +29,7 @@ bower install --save angular-indexed-db
 And add the following line to your html file, for example `index.html`:
 
 ```html
-<script src="components/angular-indexed-db/angular-indexed-db.js"></script>
+<script src="bower_components/angular-indexedDB/angular-indexed-db.js"></script>
 ```
 
 
@@ -93,7 +93,7 @@ angular.module('myModuleName')
     
     $scope.objects = [];
         
-    $indexedDB.openStore('people', (store) ->
+    $indexedDB.openStore('people', function(store){
     
       store.insert({"ssn": "444-444-222-111","name": "John Doe", "age": 57}).then(function(e){...});
     
@@ -101,7 +101,7 @@ angular.module('myModuleName')
         // Update scope
         $scope.objects = people;
       });
-
+    });
   });
 ```
 
@@ -117,17 +117,137 @@ has been fully persisted.
 The following operations are allowed on a store..
 
 * getAllKeys - Returns all the primary keys on the store
+```javascript
+    $indexedDB.openStore('people', function(store){
+      store.getAllKeys().then(function(e){
+        $scope.primaryKeys = e;
+      });
+    });
+```
 * clear - Deletes all items from the store
+```javascript
+    $indexedDB.openStore('people', function(store){
+      store.clear().then(function(){
+        // do something
+      });
+    });
+```
 * delete - Deletes a single item from the store
+```javascript
+    $indexedDB.openStore('people', function(store){
+      store.delete($scope.personID).then(function(){
+        // do something
+      });
+    });
+```
 * upsert - Upserts an item or list of items in the store
+```javascript
+    // build photo array to upsert
+    var addToPhotos = [];
+    for(var j=0; j < file.length; j++){
+        var photo = {"topicID": $scope.topicID, "filetype": file[j].filetype, "content": file[j].base64}
+        addToPhotos.push(photo);
+    }
+    
+    $indexedDB.openStore('people', function(store){
+      
+      // multiple items
+      store.upsert(addToPhotos).then(function(e){
+        // do something
+      });
+      
+      // single item
+      store.upsert({"id": $scope.topicID, "name": $scope.topicName}).then(function (e) {
+        // do something
+      });
+    });
+```
 * insert - Inserts an item or list of items in the store
+```javascript
+    // build photo array to upsert
+    var addToPhotos = [];
+    for(var j=0; j < file.length; j++){
+        var photo = {"topicID": $scope.topicID, "filetype": file[j].filetype, "content": file[j].base64}
+        addToPhotos.push(photo);
+    }
+    
+    $indexedDB.openStore('people', function(store){
+      
+      // multiple items
+      store.insert(addToPhotos).then(function(e){
+        // do something
+      });
+      
+      // single item
+      store.insert({"id": $scope.topicID, "name": $scope.topicName}).then(function (e) {
+        // do something
+      });
+    });
+```
 * getAll - Returns all items in the store
+```javascript
+    $indexedDB.openStore('people', function(store){
+      store.getAll().then(function(topics) {  
+        // Update scope
+        $scope.topics = topics;
+      });
+    });
+```
 * each - iterates over all items in the store
 * eachBy - iterates over all items in the store using a named index.
 * eachWhere - uses the query() to execute a find against the store
+```javascript
+$indexedDB.openStore('photos', function(photos){
+  // build query
+  var find = photos.query();
+  find = find.$eq($scope.topicID);
+  find = find.$index("topicID_idx");
+  
+  // update scope
+  photos.eachWhere(find).then(function(e){
+      $scope.photos = e;
+  });
+});
+```
 * findWhere - an alias for eachWhere
 * count - returns a count of all the items
+```javascript
+    $indexedDB.openStore('people', function(store){
+      store.count().then(function(e){
+        $scope.count = e;
+      });
+    });
+```
 * find - returns a single item from the store
+```javascript
+$indexedDB.openStore('photos', function(photos){
+  photos.find($scope.key).then(function(e){
+      $scope.photo = e;
+  });
+});
+```
 * findBy - searches a particular index for an item
+```javascript
+$indexedDB.openStore('photos', function(photos){
+  photos.findBy($scope.indexName, $scope.key).then(function(e){
+      $scope.photo = e;
+  });
+});
+```
 * query - builds a new query obect for use against eachWhere
+```javascript
+var find = photos.query();
+find = find.$eq($scope.topicID);
+find = find.$index("topicID_idx");
 
+// available query functions
+  $lt(value) - less than
+  $gt(value) - greater than
+  $lte(value) - less than or equal
+  $gte(value) - greater than or equal
+  $eq(value) - equal
+  $between(lower, upper, doNotIncludeLowerBound? true/false, doNotIncludeUpperBound true/false) - between two bounds
+  $desc(unique) - descending order
+  $asc(unique) - ascending order
+  $index(value) - name of index
+```

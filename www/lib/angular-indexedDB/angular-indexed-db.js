@@ -12,7 +12,7 @@
 
   angular.module('indexedDB', []).provider('$indexedDB', function() {
     var IDBKeyRange, allTransactions, apiDirection, appendResultsToPromise, applyNeededUpgrades, cursorDirection, db, dbMode, dbName, dbPromise, dbVersion, defaultQueryOptions, errorMessageFor, indexedDB, readyState, upgradesByVersion;
-    indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+    indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
     IDBKeyRange = window.IDBKeyRange || window.mozIDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
     dbMode = {
       readonly: "readonly",
@@ -115,7 +115,7 @@
         createDatabaseConnection = function() {
           var dbReq, deferred;
           deferred = $q.defer();
-          dbReq = indexedDB.open(dbName, dbVersion || 1);
+          dbReq = indexedDB.open(dbName, parseInt(dbVersion) || 1);
           dbReq.onsuccess = function() {
             db = dbReq.result;
             $rootScope.$apply(function() {
