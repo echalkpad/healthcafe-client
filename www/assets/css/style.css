@@ -17,6 +17,8 @@ ul.timeline li timeline-panel { padding: 4px 12px }
 .timeline li timeline-badge.cholesterol {    background-color: #3f903f !important; }
 .timeline li timeline-badge.body-weight {     background-color: #f0ad4e !important; }
 .timeline li timeline-badge.body-mass-index { background-color: #5bc0de !important; }
+.timeline li timeline-badge.body-fat-percentage { background-color: #5BDEA3 !important; }
+.timeline li timeline-badge.waist-circumference { background-color: #D15BDE !important; }
 
 /* Timeline removal */
 timeline-event {
