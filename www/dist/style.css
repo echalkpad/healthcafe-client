@@ -10311,6 +10311,29 @@ svg.plottable {
   float: right;
 }
 
+.item{
+  overflow: inherit ;
+  text-overflow: inherit ;
+  white-space: normal ;
+}
+
+/*
+ * Drop down menus
+ * see http://docs.angularjs.org/api/ng/directive/ngShow#usage_animations
+ */
+.list .item.item-accordion {
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: 0.09s all linear;
+}
+.list .item.item-accordion.ng-hide {
+  line-height: 0px;
+}
+.list .item.item-accordion.ng-hide-add,
+.list .item.item-accordion.ng-hide-remove {
+  display: block !important;
+}
+
 /* Additional styling for timeline */
 ul.timeline li { margin-bottom: 12px; }
 ul.timeline li timeline-panel { padding: 4px 12px }
@@ -10318,13 +10341,14 @@ ul.timeline li timeline-panel { padding: 4px 12px }
 .text-muted i { margin-right: 5px; }
 
 /* Colors for icons in the timeline */
+.timeline li timeline-badge.remark {         background-color: #d9534f !important; }
 .timeline li timeline-badge.blood-glucose {   background-color: #2e6da4 !important; }
 .timeline li timeline-badge.blood-pressure {  background-color: #4EF0D2 !important; }
 .timeline li timeline-badge.cholesterol {    background-color: #3f903f !important; }
-.timeline li timeline-badge.remark {         background-color: #d9534f !important; }
-
 .timeline li timeline-badge.body-weight {     background-color: #f0ad4e !important; }
 .timeline li timeline-badge.body-mass-index { background-color: #5bc0de !important; }
+.timeline li timeline-badge.body-fat-percentage { background-color: #5BDEA3 !important; }
+.timeline li timeline-badge.waist-circumference { background-color: #D15BDE !important; }
 
 /* Timeline removal */
 timeline-event {
@@ -10371,3 +10395,75 @@ svg.chart { display: none; }
 .sharing .buttons .button { min-width: 150px; text-align: left; }
 .buttons .button spinner { float: right; }
 .buttons .button.icon-left:before { padding-right: 0.4em; margin-top: 0; }
+
+/* Measurement detail color indications */
+.value-desirable {
+  background-color: #aaffa8;
+}
+
+.value-borderlinehigh {
+  background-color: #ffdca5;
+}
+
+.value-high {
+  background-color: #ff98a4;
+}
+
+input[type=range] {
+  height: 40px;
+  -webkit-appearance: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100px;
+  height: 5px;
+  background: #ddd;
+  border: none;
+  border-radius: 3px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #387ef5;
+  margin-top: -8px;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #ccc;
+}
+
+.questionnaire-input-range {
+  list-style: none;
+  text-align:center;
+  margin:0px auto 0px auto;
+}
+
+.questionnaire-input-range input[type=range] {
+  width: 85%;
+}
+
+.questionnaire-input-range ul {
+  width: 100%;
+  display: table;
+  list-style: none;
+}
+
+.questionnaire-input-range li {
+  width: 14%;
+  display: table-cell;
+  text-align: center;
+  font-size: small;
+}
+
+.questionnaire-input-range .option {
+  width: 40px;
+}
+
