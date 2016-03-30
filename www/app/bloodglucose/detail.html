@@ -7,17 +7,20 @@
   <ion-content class="padding">
     <ion-list>
       <ion-item>
-        <h2>Date</h2>
+        <h2>Datum</h2>
         <p>{{detail.date | date}}</p>
       </ion-item>
-      <ion-item>
-        <h2>Blood glucose</h2>
+      <ion-item ng-class="{'value-desirable': detail.measurement.body.blood_glucose.value < 6.1, 'value-high': detail.measurement.body.blood_glucose.value >= 7.8,
+      'value-borderlinehigh': detail.measurement.body.blood_glucose.value >= 6.1 && detail.measurement.body.blood_glucose.value < 7.8  }">
+         <h2>Bloedglucose</h2>
         <p>{{detail.measurement.body.blood_glucose.value}} {{detail.measurement.body.blood_glucose.unit}}</p>
       </ion-item>
-      <ion-item class="item-icon-left">
+  <!--    <ion-item class="item-icon-left">
         <i class="icon ion-thumbsup"></i>
         <p>Uw bloedglucose is goed, ga zo door</p>
-      </ion-item>
+      </ion-item> -->
     </ion-list>
   </ion-content>
 </ion-view>
+
+

@@ -44,6 +44,7 @@ gulp.task('js-lib-minify', function(){
 	      'www/lib/angular-messages/angular-messages.js',
 	      'www/lib/Angular.uuid2/dist/angular-uuid2.js',
 	      'www/lib/angular-timeline/dist/angular-timeline.js',
+	      'www/lib/indexeddbshim.min.js',
 	      'www/lib/angular-indexedDB/angular-indexed-db.js',
 
 	      'www/lib/d3/d3.js',

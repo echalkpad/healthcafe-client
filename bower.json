@@ -11,6 +11,6 @@
     "angular-timeline": "~1.6.2",
     "omh-web-visualizations": "roberthorlings/web-visualizations#8ca84fa",
     "Angular.uuid2": "angular-uuid2#*",
-    "angular-indexedDB": "angular-indexed-db#~1.1.3"
+    "angular-indexedDB": "angular-indexed-db#96ed26b70d90e8f177b573fb8082e40260653909"
   }
 }

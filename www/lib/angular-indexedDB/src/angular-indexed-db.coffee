@@ -8,7 +8,7 @@
 'use strict'
 
 angular.module('indexedDB', []).provider '$indexedDB', ->
-  indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB
+  indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB
   IDBKeyRange = window.IDBKeyRange || window.mozIDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange
 
   dbMode =
@@ -102,7 +102,7 @@ angular.module('indexedDB', []).provider '$indexedDB', ->
 
     createDatabaseConnection = ->
       deferred = $q.defer()
-      dbReq = indexedDB.open(dbName, dbVersion or 1)
+      dbReq = indexedDB.open(dbName, parseInt(dbVersion) || 1)
       dbReq.onsuccess = ->
         db = dbReq.result
         $rootScope.$apply ->
